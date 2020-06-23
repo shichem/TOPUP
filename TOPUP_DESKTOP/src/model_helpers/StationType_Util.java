@@ -2,6 +2,7 @@ package model_helpers;
 
 import java.util.List;
 import model_db.StationType;
+import model_util.HibernateUtil;
 import model_util.hqlQueriesHelper;
 import org.hibernate.Session;
 
@@ -15,7 +16,11 @@ public class StationType_Util {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM StationType where flag=0", suffix);
 
     }
+   public List getAllStationType( String suffix) {
+        Session session  =  HibernateUtil.getSessionFactory().openSession();
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM StationType where flag=0", suffix);
 
+    }
     public StationType getStationType_by_id(Session session, int id, String suffix) {
         List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM StationType where flag=0 and idstationType = " + id, suffix);
         if (list.isEmpty()) {

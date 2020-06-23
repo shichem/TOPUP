@@ -1,4 +1,6 @@
 
+<%@page import="model_db.StationType"%>
+<%@page import="model_helpers.StationType_Util"%>
 <%@page import="model_helpers.ProviderClient_Util"%>
 <%@page import="model_db.ProviderClient"%>
 <%@page import="model_db.TraderCategory"%>
@@ -130,14 +132,35 @@
                                                 <label>Sim number</label>
                                                 <input id="simNumber" name="simNumber" value="<%=trader.getSimnumber() %>" class="form-control" placeholder="Ente sim number ">
                                             </div>
-                                           <!-- <div class="col-lg-6" id="sndiv" hidden="" class="form-group">
+                                              <%                                                List listType = new StationType_Util().getAllStationType("");
+                                            %>
+                                             <div id="typeStation"  hidden="" class="col-lg-6" class="form-group">
+                                                <label>Type Station</label>
+
+                                                <select  id="fourn" name="fourn" class="form-control">
+                                                    <option value="">Select un type  </option>
+
+                                                    <%                                for (int i = 0; i < listType.size(); i++) {
+                                                            StationType get = (StationType) listType.get(i);
+                                                    %>
+                                                    <option value="<%=get.getIdstationType()%>"><%=get.getStationTypeDesc()%></option>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6" id="simNB" hidden="" class="form-group">
+                                                <label>Sim number</label>
+                                                <input  id="simNumber" name="simNumber" class="form-control" placeholder="Ente sim number ">
+                                            </div>
+                                            <div class="col-lg-6" id="sndiv" hidden="" class="form-group">
                                                 <label>seriel number</label>
                                                 <input id="sn1" name="sn1" class="form-control" placeholder="Ente seriel number ">
                                             </div>
                                             <div class="col-lg-6" id="sndiv1" hidden="" class="form-group">
                                                 <label>seriel number2</label>
                                                 <input id="sn2" name="sn2" class="form-control" placeholder="Ente seriel number ">
-                                            </div>-->
+                                            </div>
                                             <%                                                List listcategory = new TraderCategory_Util().getAllTraderCategory("");
                                             %>
                                             <div  class="col-lg-6" class="form-group">

@@ -1,10 +1,12 @@
 
+<%@page import="model_helpers.StationType_Util"%>
 <%@page import="model_helpers.TraderType_Util"%>
 <%@page import="model_db.TraderCategory"%>
 <%@page import="model_helpers.TraderCategory_Util"%>
 <%@page import="custom_package.typesStatusUI"%>
 <%@page import="model_db.TraderType"%>
 <%@page import="model_db.Trader"%>
+<%@page import="model_db.StationType"%>
 <%@page import="model_helpers.Trader_Util"%>
 <%@page import="java.util.List"%>
 <%@page import="custom_vars.staticVars"%>
@@ -31,7 +33,7 @@
             <%@include file="template/navigation.jsp" %>
 
             <div id="page-wrapper">
-               
+
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">Ajouter client</h1>
@@ -39,7 +41,7 @@
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
-                 <% if(request.getParameter("erreur")!= null) { %>
+                <% if (request.getParameter("erreur") != null) { %>
                 <div class="alert alert-danger" role="alert">
                     Erreur dans raison social du client
                 </div>
@@ -113,18 +115,38 @@
                                                     %>
                                                 </select>
                                             </div>
+
+
+                                            <%                                                List listType = new StationType_Util().getAllStationType("");
+                                            %>
+                                            <div id="typeStation"  hidden="" class="col-lg-6" class="form-group">
+                                                <label>Type Station</label>
+
+                                                <select  id="fourn" name="fourn" class="form-control">
+                                                    <option value="">Select un type  </option>
+
+                                                    <%                                for (int i = 0; i < listType.size(); i++) {
+                                                            StationType get = (StationType) listType.get(i);
+                                                    %>
+                                                    <option value="<%=get.getIdstationType()%>"><%=get.getStationTypeDesc()%></option>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </select>
+                                            </div>
                                             <div class="col-lg-6" id="simNB" hidden="" class="form-group">
                                                 <label>Sim number</label>
                                                 <input  id="simNumber" name="simNumber" class="form-control" placeholder="Ente sim number ">
                                             </div>
-                                            <!--<div class="col-lg-6" id="sndiv" hidden="" class="form-group">
+                                            <div class="col-lg-6" id="sndiv" hidden="" class="form-group">
                                                 <label>seriel number</label>
                                                 <input id="sn1" name="sn1" class="form-control" placeholder="Ente seriel number ">
                                             </div>
                                             <div class="col-lg-6" id="sndiv1" hidden="" class="form-group">
                                                 <label>seriel number2</label>
                                                 <input id="sn2" name="sn2" class="form-control" placeholder="Ente seriel number ">
-                                            </div>-->
+                                            </div>
+
 
                                             <%                                                List listcategory = new TraderCategory_Util().getAllTraderCategory("");
                                             %>
@@ -188,17 +210,25 @@
         <!-- data -->
         <script src="./data/data_graph.js"></script>
         <script>
-              $(document).ready(function(){
-            $("#type").change(function () {
-                if (this.value == 2) {
-                    $("#simNB").show();                  
-                } else {
-                    $('#simNB').hide();
-                }
-              
-               
-            });
-             $("#company").change(function () {
+            $(document).ready(function () {
+                $("#type").change(function () {
+                    if (this.value == 2) {
+                        $("#simNB").show();
+                        $('#sndiv').hide();
+                        $('#sndiv1').hide();
+                        $('#typeStation').hide();
+
+
+                    } else {
+                        $('#simNB').hide();
+                        $('#sndiv').show();
+                        $('#sndiv1').show();
+                        $('#typeStation').show();
+                    }
+
+
+                });
+                $("#company").change(function () {
                     alert("The text has been changed.");
                 });
             });
