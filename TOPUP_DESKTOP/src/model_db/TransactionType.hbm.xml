@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30 d?c. 2019 08:57:18 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model_db.TransactionType" table="transaction_type" catalog="topup_distributor" optimistic-lock="version">
+        <id name="idtransactionType" type="java.lang.Integer">
+            <column name="idtransaction_type" />
+            <generator class="identity" />
+        </id>
+        <property name="transactionTypeDesc" type="string">
+            <column name="transaction_type_desc" length="45" not-null="true" />
+        </property>
+        <property name="flag" type="java.lang.Integer">
+            <column name="flag" />
+        </property>
+        <set name="transactionTopups" table="transaction_topup" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idtransaction_type" not-null="true" />
+            </key>
+            <one-to-many class="model_db.TransactionTopup" />
+        </set>
+    </class>
+</hibernate-mapping>

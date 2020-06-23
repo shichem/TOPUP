@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30 d?c. 2019 08:57:18 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model_db.Station" table="station" catalog="topup_distributor" optimistic-lock="version">
+        <id name="idstation" type="java.lang.Integer">
+            <column name="idstation" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="stationType" class="model_db.StationType" fetch="select">
+            <column name="idstation_type" not-null="true" />
+        </many-to-one>
+        <many-to-one name="statusInfo" class="model_db.StatusInfo" fetch="select">
+            <column name="idstatus_info" not-null="true" />
+        </many-to-one>
+        <many-to-one name="trader" class="model_db.Trader" fetch="select">
+            <column name="id_trader" not-null="true" />
+        </many-to-one>
+        <many-to-one name="userInfo" class="model_db.UserInfo" fetch="select">
+            <column name="iduser_info" not-null="true" />
+        </many-to-one>
+        <property name="stationBrand" type="string">
+            <column name="station_brand" length="50" not-null="true" />
+        </property>
+        <property name="stationReference" type="string">
+            <column name="station_reference" length="50" not-null="true" />
+        </property>
+        <property name="stationSn1" type="string">
+            <column name="station_sn1" length="50" not-null="true" />
+        </property>
+        <property name="stationSn2" type="string">
+            <column name="station_sn2" length="50" not-null="true" />
+        </property>
+        <property name="appversion" type="string">
+            <column name="appversion" length="50" not-null="true" />
+        </property>
+        <property name="flag" type="java.lang.Integer">
+            <column name="flag" />
+        </property>
+    </class>
+</hibernate-mapping>

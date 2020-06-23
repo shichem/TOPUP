@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30 d?c. 2019 08:57:18 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model_db.ProviderClient" table="provider_client" catalog="topup_distributor" optimistic-lock="version">
+        <id name="idproviderClient" type="java.lang.Integer">
+            <column name="idprovider_client" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="operator" class="model_db.Operator" fetch="select">
+            <column name="id_operator" not-null="true" />
+        </many-to-one>
+        <many-to-one name="traderByIdclient" class="model_db.Trader" fetch="select">
+            <column name="idclient" not-null="true" />
+        </many-to-one>
+        <many-to-one name="traderByIdprovider" class="model_db.Trader" fetch="select">
+            <column name="idprovider" />
+        </many-to-one>
+        <many-to-one name="userInfo" class="model_db.UserInfo" fetch="select">
+            <column name="iduser_info" not-null="true" />
+        </many-to-one>
+        <property name="solde" type="java.lang.Double">
+            <column name="solde" precision="22" scale="0" />
+        </property>
+        <property name="dateAffect" type="timestamp">
+            <column name="date_affect" length="19" not-null="true" />
+        </property>
+        <property name="deactivationAffect" type="timestamp">
+            <column name="deactivation_affect" length="19" />
+        </property>
+        <property name="limitTransact" type="java.lang.Double">
+            <column name="limit_transact" precision="22" scale="0" />
+        </property>
+        <property name="flag" type="java.lang.Integer">
+            <column name="flag" />
+        </property>
+        <set name="transactionTopups" table="transaction_topup" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_provider_client" />
+            </key>
+            <one-to-many class="model_db.TransactionTopup" />
+        </set>
+        <set name="transactionSoldes" table="transaction_solde" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_provider_client" not-null="true" />
+            </key>
+            <one-to-many class="model_db.TransactionSolde" />
+        </set>
+    </class>
+</hibernate-mapping>

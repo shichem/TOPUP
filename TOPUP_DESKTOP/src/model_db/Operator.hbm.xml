@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30 d?c. 2019 08:57:18 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model_db.Operator" table="operator" catalog="topup_distributor" optimistic-lock="version">
+        <id name="idoperator" type="java.lang.Integer">
+            <column name="idoperator" />
+            <generator class="identity" />
+        </id>
+        <property name="operatorDesc" type="string">
+            <column name="operator_desc" length="45" not-null="true" />
+        </property>
+        <property name="transactLimit" type="java.lang.Double">
+            <column name="transact_limit" precision="22" scale="0" />
+        </property>
+        <property name="flag" type="java.lang.Integer">
+            <column name="flag" />
+        </property>
+        <set name="simInfos" table="sim_info" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idoperator" not-null="true" />
+            </key>
+            <one-to-many class="model_db.SimInfo" />
+        </set>
+        <set name="offerInfos" table="offer_info" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idoperator" not-null="true" />
+            </key>
+            <one-to-many class="model_db.OfferInfo" />
+        </set>
+        <set name="providerClients" table="provider_client" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_operator" not-null="true" />
+            </key>
+            <one-to-many class="model_db.ProviderClient" />
+        </set>
+    </class>
+</hibernate-mapping>
