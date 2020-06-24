@@ -59,6 +59,7 @@ public class AddClient extends HttpServlet {
                 String ttel2 = request.getParameter("telephone2");
                 String tsn1 = request.getParameter("sn1");
                 String tsn2 = request.getParameter("sn2");
+                String ttypeStation = request.getParameter("typeStationId");
                 dbhelper helper = new dbhelper();
                 Vector<Integer> operarorVect = new Vector<Integer>();
                 Vector<operatorUI> listoperateur = helper.loadOperatorsData();
@@ -77,7 +78,7 @@ public class AddClient extends HttpServlet {
                 System.out.println(tcompany);
             int userID = Integer.parseInt(session.getAttribute("Id").toString());
                 int respeonse = helper.addTrader_forActualUser_AndLink(userID,providerTrader,
-                        tcategory, ttype, tfname, tlname, tcompany, tnumber,tadress, tcommune, twilaya, temail1, temail2, ttel1, ttel2, operarorVect, limitSoldes);
+                        tcategory, ttype, tfname, tlname, tcompany, tnumber,tadress, tcommune, twilaya, temail1, temail2, ttel1, ttel2, operarorVect, limitSoldes,tsn1,tsn2,ttypeStation);
                if(respeonse == staticVars.onGoingProcessOK){
               response.sendRedirect("view/listClient.jsp");
          }else{

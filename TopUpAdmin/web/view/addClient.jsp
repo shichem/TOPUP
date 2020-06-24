@@ -117,12 +117,17 @@
                                             </div>
 
 
-                                            <%                                                List listType = new StationType_Util().getAllStationType("");
-                                            %>
-                                            <div id="typeStation"  hidden="" class="col-lg-6" class="form-group">
+                                          
+                                            <div class="col-lg-6" id="simNB" hidden="" class="form-group">
+                                                <label>Sim number</label>
+                                                <input  id="simNumber" name="simNumber" class="form-control" placeholder="Ente sim number ">
+                                            </div>
+                                                    <%                                                List listType = new StationType_Util().getAllStationType("");
+                                            %>             
+                                           <div id="typeStation"  hidden="" class="col-lg-6" class="form-group">
                                                 <label>Type Station</label>
 
-                                                <select  id="fourn" name="fourn" class="form-control">
+                                                <select  id="typeStationId" name="typeStationId" class="form-control">
                                                     <option value="">Select un type  </option>
 
                                                     <%                                for (int i = 0; i < listType.size(); i++) {
@@ -134,10 +139,7 @@
                                                     %>
                                                 </select>
                                             </div>
-                                            <div class="col-lg-6" id="simNB" hidden="" class="form-group">
-                                                <label>Sim number</label>
-                                                <input  id="simNumber" name="simNumber" class="form-control" placeholder="Ente sim number ">
-                                            </div>
+                                           
                                             <div class="col-lg-6" id="sndiv" hidden="" class="form-group">
                                                 <label>seriel number</label>
                                                 <input id="sn1" name="sn1" class="form-control" placeholder="Ente seriel number ">
@@ -214,9 +216,13 @@
                 $("#type").change(function () {
                     if (this.value == 2) {
                         $("#simNB").show();
+                        $("#simNumber").prop('required',true);
                         $('#sndiv').hide();
                         $('#sndiv1').hide();
                         $('#typeStation').hide();
+                        $("#typeStationId").prop('required',false);
+                        $("#sn2").prop('required',false);
+                        $("#sn1").prop('required',false);
 
 
                     } else {
@@ -224,6 +230,10 @@
                         $('#sndiv').show();
                         $('#sndiv1').show();
                         $('#typeStation').show();
+                        $("#simNumber").prop('required',false);
+                         $("#typeStationId").prop('required',true);
+                        $("#sn2").prop('required',true);
+                        $("#sn1").prop('required',true);
                     }
 
 

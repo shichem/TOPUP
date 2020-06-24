@@ -74,10 +74,10 @@ public class dbhelper {
     }
 
     public userUI checkAUthentification(String username, String password) {
-           
-            Session globalSession  =  HibernateUtil.getSessionFactory().openSession();
 
-            globalSession.getTransaction().begin();
+        Session globalSession = HibernateUtil.getSessionFactory().openSession();
+
+        globalSession.getTransaction().begin();
 
         userUI user_ui = null;
         List<UserInfo> userInfoList = new UserInfo_Util().getUserInfo_by_username_password(staticVars.globalSession, username, password, "");
@@ -98,7 +98,7 @@ public class dbhelper {
             user_ui = new userUI((UserInfo) userInfoList.get(0), this.loadOperatorsData(), this.loadTypesStatusData());
             user_ui.setSimUIVestor(this.loadSimsPortsData(session, proc_fct.getAvailableSimUI_FromSimBox()));
         }
-        
+
         return user_ui;
     }
 
@@ -118,15 +118,18 @@ public class dbhelper {
         staticVars.globalSoldeOoredoo = 0.0;
         for (int i = 0; i < simUIVector.size(); i++) {
             simUI elementAt = simUIVector.elementAt(i);
-            String operatorName =elementAt.getOperatorName();
+            String operatorName = elementAt.getOperatorName();
             System.out.println();
             actualOperator = (Operator) operatorUtil.getOperator_by_operatorDesc(session, elementAt.getOperatorName(), "").get(0);
-            switch(operatorName){
-                case "Djezzy": staticVars.globalSoldeDjezzy +=  elementAt.getActualSolde();
+            switch (operatorName) {
+                case "Djezzy":
+                    staticVars.globalSoldeDjezzy += elementAt.getActualSolde();
                     break;
-                case "Mobilis": staticVars.globalSoldeMobilis +=  elementAt.getActualSolde();
+                case "Mobilis":
+                    staticVars.globalSoldeMobilis += elementAt.getActualSolde();
                     break;
-                case "Ooredoo": staticVars.globalSoldeOoredoo += elementAt.getActualSolde();
+                case "Ooredoo":
+                    staticVars.globalSoldeOoredoo += elementAt.getActualSolde();
                     break;
             }
             staticVars.globalSolde += elementAt.getActualSolde();
@@ -144,7 +147,7 @@ public class dbhelper {
         actualSimUI.setPinCode(actualSim.getSimPinCode());
         actualSim.setStatusInfo(new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_ENT_Actif, ""));
 
-        if (actualSim.getLastEstimatedSolde() < actualSimUI.getActualSolde() && actualSimUI.getActualSolde()!= -1) {
+        if (actualSim.getLastEstimatedSolde() < actualSimUI.getActualSolde() && actualSimUI.getActualSolde() != -1) {
 
             TransactionTopup tctTopUp = new TransactionTopup(new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_TCT_Reussie, ""),
                     new TransactionType_Util().getTransacType_by_transactionTypeDesc(session, staticVars.transactType_AlimentSolde, ""),
@@ -155,7 +158,7 @@ public class dbhelper {
             actualSim.setLastEstimatedSolde(actualSimUI.getActualSolde());
             actualSim.setLastSolde(actualSimUI.getActualSolde());
         } else {
-            if (actualSim.getLastEstimatedSolde() > actualSimUI.getActualSolde() && actualSimUI.getActualSolde()!= -1) {
+            if (actualSim.getLastEstimatedSolde() > actualSimUI.getActualSolde() && actualSimUI.getActualSolde() != -1) {
                 TransactionTopup tctTopUp = new TransactionTopup(new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_TCT_Reussie, ""),
                         new TransactionType_Util().getTransacType_by_transactionTypeDesc(session, staticVars.transactType_DebitSolde, ""),
                         actualSim.getSimnumber(), actualSimUI.getActualSolde(), (actualSimUI.getActualSolde() - actualSim.getLastEstimatedSolde()),
@@ -186,7 +189,7 @@ public class dbhelper {
             actualSimUI.setPinCode(actualSim.getSimPinCode());
             actualSim.setStatusInfo(new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_ENT_Actif, ""));
 
-            if (actualSim.getLastEstimatedSolde() < actualSimUI.getActualSolde()&& actualSimUI.getActualSolde()!= -1) {
+            if (actualSim.getLastEstimatedSolde() < actualSimUI.getActualSolde() && actualSimUI.getActualSolde() != -1) {
 
                 TransactionTopup tctTopUp = new TransactionTopup(new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_TCT_Reussie, ""),
                         new TransactionType_Util().getTransacType_by_transactionTypeDesc(session, staticVars.transactType_AlimentSolde, ""),
@@ -197,7 +200,7 @@ public class dbhelper {
                 actualSim.setLastEstimatedSolde(actualSimUI.getActualSolde());
                 actualSim.setLastSolde(actualSimUI.getActualSolde());
             } else {
-                if (actualSim.getLastEstimatedSolde() > actualSimUI.getActualSolde()&& actualSimUI.getActualSolde()!= -1) {
+                if (actualSim.getLastEstimatedSolde() > actualSimUI.getActualSolde() && actualSimUI.getActualSolde() != -1) {
                     TransactionTopup tctTopUp = new TransactionTopup(new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_TCT_Reussie, ""),
                             new TransactionType_Util().getTransacType_by_transactionTypeDesc(session, staticVars.transactType_DebitSolde, ""),
                             actualSim.getSimnumber(), actualSimUI.getActualSolde(), (actualSimUI.getActualSolde() - actualSim.getLastEstimatedSolde()),
@@ -230,26 +233,26 @@ public class dbhelper {
             return staticVars.unknownError;
         }
     }
-    
+
     public int addSim(simUI actualSimUI) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
-            SimInfo actualSim ;
+            SimInfo actualSim;
             PortInfo portInfo = null;
             List portList = new PortInfo_Util().getPortInfo_by_portDesc(session, actualSimUI.getPortName(), "");
             if (portList.isEmpty()) {
                 portInfo = new PortInfo(staticVars.actualUser.getTsUI().getStatusInfoByDesc(staticVars.status_ENT_Actif), actualSimUI.getPortName());
                 new PortInfo_Util().addPortInfo(portInfo, session);
                 session.refresh(portInfo);
-                
+
             } else {
                 portInfo = (PortInfo) portList.get(0);
             }
             actualSim = new SimInfo(staticVars.actualUser.getOperatorUIbyName(actualSimUI.getOperatorName()).getOperaror(),
-                        portInfo, 
-                        staticVars.actualUser.getTsUI().getStatusInfoByDesc(staticVars.status_ENT_Actif), 
-                        actualSimUI.getSimNumber(), actualSimUI.getPinCode());
+                    portInfo,
+                    staticVars.actualUser.getTsUI().getStatusInfoByDesc(staticVars.status_ENT_Actif),
+                    actualSimUI.getSimNumber(), actualSimUI.getPinCode());
             actualSim.setDateConsul(new Date());
             actualSim.setFlag(0);
             actualSim.setAverageResponseTime(-1.0);
@@ -259,7 +262,7 @@ public class dbhelper {
             actualSim.setSuccededTransactions(0);
             actualSim.setLastEstimatedSolde(actualSimUI.getActualSolde());
             actualSim.setLastSolde(actualSimUI.getActualSolde());
-            
+
             new SimInfo_Util().addSimInfo(actualSim, session);
 
             session.getTransaction().commit();
@@ -657,7 +660,7 @@ public class dbhelper {
 
             if (provider != null) {
                 if (prClientUtil.getActiveProviderClient_by_provider_client_operator1(session, provider, client, operator, "") != null) {
-                    System.out.println("general_helpers.dbhelper.addProviderClientLink()"+"in first if  ");
+                    System.out.println("general_helpers.dbhelper.addProviderClientLink()" + "in first if  ");
                     ProviderClient prClient = new ProviderClient(operator, client, user, new Date());
                     prClient.setTraderByIdprovider(provider);
                     prClient.setLimitTransact(soldeLimit);
@@ -668,7 +671,7 @@ public class dbhelper {
                 }
             } else {
                 if (prClientUtil.getProviderClient_by_operatror_client(session, client, operator, "").isEmpty()) {
-                    System.out.println("general_helpers.dbhelper.addProviderClientLink()"+"in secend if  ");
+                    System.out.println("general_helpers.dbhelper.addProviderClientLink()" + "in secend if  ");
 
                     ProviderClient prClient = new ProviderClient(operator, client, user, new Date());
                     prClient.setLimitTransact(soldeLimit);
@@ -857,7 +860,7 @@ public class dbhelper {
 
             Trader trader2add = new Trader(new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_ENT_Actif, ""),
                     new TraderCategory_Util().getTraderCategory_by_id(session, Integer.parseInt(traderCategory), ""),
-                    new TraderType_Util().geTraderType_by_id(session,  Integer.parseInt(traderType), ""),
+                    new TraderType_Util().geTraderType_by_id(session, Integer.parseInt(traderType), ""),
                     user, user, traderFname, traderLname, traderCompany, simnumber, adresse, commune, wilaya, email1, email2, tel1, tel2);
 
             trader2add.setFlag(0);
@@ -878,7 +881,8 @@ public class dbhelper {
             return staticVars.unknownError;
         }
     }
-  public int addTrader_forActualUser_AndLink(int userID,String providerTrader, String traderCategory, String traderType, String traderFname, String traderLname, String traderCompany, String simnumber, String adresse, String commune, String wilaya, String email1, String email2, String tel1, String tel2, Vector<Integer> operators, Vector<Double> limitSolde) {
+
+    public int addTrader_forActualUser_AndLink(int userID, String providerTrader, String traderCategory, String traderType, String traderFname, String traderLname, String traderCompany, String simnumber, String adresse, String commune, String wilaya, String email1, String email2, String tel1, String tel2, Vector<Integer> operators, Vector<Double> limitSolde, String sn1, String sn2, String typeStation) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
@@ -895,17 +899,26 @@ public class dbhelper {
 
             Trader trader2add = new Trader(new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_ENT_Actif, ""),
                     new TraderCategory_Util().getTraderCategory_by_id(session, Integer.parseInt(traderCategory), ""),
-                    new TraderType_Util().geTraderType_by_id(session,  Integer.parseInt(traderType), ""),
+                    new TraderType_Util().geTraderType_by_id(session, Integer.parseInt(traderType), ""),
                     user, user, traderFname, traderLname, traderCompany, simnumber, adresse, commune, wilaya, email1, email2, tel1, tel2);
 
             trader2add.setFlag(0);
             traderutil.addTrader(trader2add, session);
-            System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink()"+parent.getTraderCompany());
+            System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink()" + parent.getTraderCompany());
             for (int i = 0; i < operators.size(); i++) {
                 System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink()");
                 this.addProviderClientLink(session, user, parent, trader2add, new Operator_Util().getOperator_by_id(session, operators.get(i), ""), limitSolde.get(i));
             }
-
+            System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink()traderType =>" + traderType);
+             int rep =1 ;
+            if (traderType.equals("1")) {
+                StationType stationType = (StationType) new StationType_Util().getStationType_by_id(session, Integer.parseInt(typeStation), "");
+                 rep = this.addStation(session, user, parent, stationType, "", "", sn1, sn2, "");
+                
+            }
+                if (rep <>staticVars.onGoingProcessOK ) {                                   
+                    throw  new Exception();
+                }
             session.getTransaction().commit();
             session.close();
             return staticVars.onGoingProcessOK;
@@ -1037,6 +1050,21 @@ public class dbhelper {
             session.getTransaction().begin();
             station_Util stationUtil = new station_Util();
             Station station = new Station(new StationType_Util().getStationType_by_StationTypeDesc(session, stationType, ""),
+                    new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_ENT_Actif, ""),
+                    trader, userInfo, stationBrand, stationReference, stationSn1, stationSn2, appversion);
+            stationUtil.addStation(station, session);
+            return staticVars.onGoingProcessOK;
+        } catch (Exception e) {
+            System.out.println("helpers.dbhelper.addStation() : UNKNOWN ERROR");
+            return staticVars.unknownError;
+        }
+    }
+
+    public int addStation(Session session, UserInfo userInfo, Trader trader, StationType stationType, String stationBrand, String stationReference, String stationSn1, String stationSn2, String appversion) {
+        try {
+            session.getTransaction().begin();
+            station_Util stationUtil = new station_Util();
+            Station station = new Station(stationType,
                     new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_ENT_Actif, ""),
                     trader, userInfo, stationBrand, stationReference, stationSn1, stationSn2, appversion);
             stationUtil.addStation(station, session);
