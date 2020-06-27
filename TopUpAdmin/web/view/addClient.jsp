@@ -1,4 +1,6 @@
 
+<%@page import="model_helpers.ServerProfile_Util"%>
+<%@page import="model_db.ServerProfile"%>
 <%@page import="model_helpers.StationType_Util"%>
 <%@page import="model_helpers.TraderType_Util"%>
 <%@page import="model_db.TraderCategory"%>
@@ -117,14 +119,14 @@
                                             </div>
 
 
-                                          
+
                                             <div class="col-lg-6" id="simNB" hidden="" class="form-group">
                                                 <label>Sim number</label>
                                                 <input  id="simNumber" name="simNumber" class="form-control" placeholder="Ente sim number ">
                                             </div>
-                                                    <%                                                List listType = new StationType_Util().getAllStationType("");
+                                            <%                                                List listType = new StationType_Util().getAllStationType("");
                                             %>             
-                                           <div id="typeStation"  hidden="" class="col-lg-6" class="form-group">
+                                            <div id="typeStation"  hidden="" class="col-lg-6" class="form-group">
                                                 <label>Type Station</label>
 
                                                 <select  id="typeStationId" name="typeStationId" class="form-control">
@@ -139,7 +141,25 @@
                                                     %>
                                                 </select>
                                             </div>
-                                           
+                                            <%
+                                                List listServer = new ServerProfile_Util().getAllServerProfile("");
+                                            %> 
+                                            <div id="serverProfile"   hidden="" class="col-lg-6" class="form-group">
+                                                <label>Server Profile </label>
+
+                                                <select  id="serverProfileId" name="serverProfileId" class="form-control">
+                                                    <option value="">Selection un server profile  </option>
+
+                                                    <%                                for (int i = 0; i < listServer.size(); i++) {
+                                                            ServerProfile get = (ServerProfile) listServer.get(i);
+                                                    %>
+                                                    <option value="<%=get.getIdProfile()%>"><%=get.getServerAdress1()%></option>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </select>
+                                            </div>
+
                                             <div class="col-lg-6" id="sndiv" hidden="" class="form-group">
                                                 <label>seriel number</label>
                                                 <input id="sn1" name="sn1" class="form-control" placeholder="Ente seriel number ">
@@ -216,13 +236,15 @@
                 $("#type").change(function () {
                     if (this.value == 2) {
                         $("#simNB").show();
-                        $("#simNumber").prop('required',true);
+                        $("#simNumber").prop('required', true);
                         $('#sndiv').hide();
                         $('#sndiv1').hide();
                         $('#typeStation').hide();
-                        $("#typeStationId").prop('required',false);
-                        $("#sn2").prop('required',false);
-                        $("#sn1").prop('required',false);
+                        $('#serverProfile').hide();
+                        $("#serverProfileId").prop('required', false);
+                        $("#typeStationId").prop('required', false);
+                        $("#sn2").prop('required', false);
+                        $("#sn1").prop('required', false);
 
 
                     } else {
@@ -230,10 +252,13 @@
                         $('#sndiv').show();
                         $('#sndiv1').show();
                         $('#typeStation').show();
-                        $("#simNumber").prop('required',false);
-                         $("#typeStationId").prop('required',true);
-                        $("#sn2").prop('required',true);
-                        $("#sn1").prop('required',true);
+                        $('#serverProfile').show();
+                        $("#simNumber").prop('required', false);
+                        $("#typeStationId").prop('required', true);
+                        $("#serverProfileId").prop('required', true);
+
+                        $("#sn2").prop('required', true);
+                        $("#sn1").prop('required', true);
                     }
 
 

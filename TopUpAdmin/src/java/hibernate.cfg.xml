@@ -44,27 +44,30 @@ Contributor(s):
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/topup_distributor?zeroDateTimeBehavior=convertToNull</property>
-    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.username">Transat</property>
     <property name="hibernate.connection.autocommit">false</property>
-    <mapping resource="model_db/Trader.hbm.xml"/>
-    <mapping resource="model_db/TraderCategory.hbm.xml"/>
-    <mapping resource="model_db/UserInfo.hbm.xml"/>
-    <mapping resource="model_db/TraderType.hbm.xml"/>
-    <mapping resource="model_db/SimType.hbm.xml"/>
-    <mapping resource="model_db/UserCategory.hbm.xml"/>
-    <mapping resource="model_db/SimOffer.hbm.xml"/>
-    <mapping resource="model_db/OfferInfoDetails.hbm.xml"/>
-    <mapping resource="model_db/PortInfo.hbm.xml"/>
-    <mapping resource="model_db/OfferInfo.hbm.xml"/>
+    <property name="hibernate.connection.password">chane15</property>
     <mapping resource="model_db/Station.hbm.xml"/>
+    <mapping resource="model_db/UserInfo.hbm.xml"/>
     <mapping resource="model_db/ProviderClient.hbm.xml"/>
-    <mapping resource="model_db/StatusInfo.hbm.xml"/>
-    <mapping resource="model_db/TransactionTopup.hbm.xml"/>
     <mapping resource="model_db/StationType.hbm.xml"/>
-    <mapping resource="model_db/Operator.hbm.xml"/>
-    <mapping resource="model_db/TransactionSolde.hbm.xml"/>
-    <mapping resource="model_db/OfferType.hbm.xml"/>
-    <mapping resource="model_db/TransactionType.hbm.xml"/>
+    <mapping resource="model_db/OfferInfoDetails.hbm.xml"/>
     <mapping resource="model_db/SimInfo.hbm.xml"/>
+    <mapping resource="model_db/SimOffer.hbm.xml"/>
+    <mapping resource="model_db/UserCategory.hbm.xml"/>
+    <mapping resource="model_db/StatusInfo.hbm.xml"/>
+    <mapping resource="model_db/TransactionSolde.hbm.xml"/>
+    <mapping resource="model_db/TraderType.hbm.xml"/>
+    <mapping resource="model_db/OfferType.hbm.xml"/>
+    <mapping resource="model_db/Trader.hbm.xml"/>
+    <mapping resource="model_db/PortInfo.hbm.xml"/>
+    <mapping resource="model_db/StationLoginSession.hbm.xml"/>
+    <mapping resource="model_db/OfferInfo.hbm.xml"/>
+    <mapping resource="model_db/ServerProfile.hbm.xml"/>
+    <mapping resource="model_db/TransactionTopup.hbm.xml"/>
+    <mapping resource="model_db/SimType.hbm.xml"/>
+    <mapping resource="model_db/Operator.hbm.xml"/>
+    <mapping resource="model_db/TraderCategory.hbm.xml"/>
+    <mapping resource="model_db/TransactionType.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

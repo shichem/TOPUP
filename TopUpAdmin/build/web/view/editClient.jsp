@@ -1,4 +1,6 @@
 
+<%@page import="model_db.ServerProfile"%>
+<%@page import="model_helpers.ServerProfile_Util"%>
 <%@page import="model_db.StationType"%>
 <%@page import="model_helpers.StationType_Util"%>
 <%@page import="model_helpers.ProviderClient_Util"%>
@@ -132,7 +134,24 @@
                                                     %>
                                                 </select>
                                             </div>
-                                           
+                                           <%
+                                                List listServer = new ServerProfile_Util().getAllServerProfile("");
+                                            %> 
+                                            <div id="serverProfile"   hidden="" class="col-lg-6" class="form-group">
+                                                <label>Server Profile </label>
+
+                                                <select  id="serverProfileId" name="serverProfileId" class="form-control">
+                                                    <option value="">Selection un server profile  </option>
+
+                                                    <%                                for (int i = 0; i < listServer.size(); i++) {
+                                                            ServerProfile get = (ServerProfile) listServer.get(i);
+                                                    %>
+                                                    <option value="<%=get.getIdProfile()%>"><%=get.getServerAdress1()%></option>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </select>
+                                            </div>
                                             <div ${1 ==  trader.getTraderType().getIdtraderType() ? 'hidden' : ''}  class="col-lg-6" id="sndiv"  class="form-group">
                                                 <label>seriel number</label>
                                                 <input id="sn1" name="sn1" class="form-control" placeholder="Ente seriel number ">
@@ -225,6 +244,8 @@
                         $('#sndiv1').hide();
                         $('#typeStation').hide();
                         $("#typeStationId").prop('required',false);
+                        $('#serverProfile').hide();
+                        $("#serverProfileId").prop('required', false);
                         $("#sn2").prop('required',false);
                         $("#sn1").prop('required',false);
 
@@ -236,6 +257,8 @@
                         $('#typeStation').show();
                         $("simNumber").prop('required',false);
                          $("#typeStationId").prop('required',true);
+                         $('#serverProfile').show();
+                        $("#serverProfileId").prop('required', true);
                         $("#sn2").prop('required',true);
                         $("#sn1").prop('required',true);
                     }

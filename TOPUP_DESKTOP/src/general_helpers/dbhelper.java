@@ -41,6 +41,7 @@ import java.util.Vector;
 import model_db.OfferInfoDetails;
 import model_db.OfferType;
 import model_db.PortInfo;
+import model_db.ServerProfile;
 import model_db.SimInfo;
 import model_db.SimType;
 import model_db.Station;
@@ -51,6 +52,7 @@ import model_db.UserCategory;
 import model_helpers.OfferInfoDetails_Util;
 import model_helpers.OfferType_Util;
 import model_helpers.PortInfo_Util;
+import model_helpers.ServerProfile_Util;
 import model_helpers.SimType_Util;
 import model_helpers.StationType_Util;
 import model_helpers.TraderCategory_Util;
@@ -882,7 +884,10 @@ public class dbhelper {
         }
     }
 
-    public int addTrader_forActualUser_AndLink(int userID, String providerTrader, String traderCategory, String traderType, String traderFname, String traderLname, String traderCompany, String simnumber, String adresse, String commune, String wilaya, String email1, String email2, String tel1, String tel2, Vector<Integer> operators, Vector<Double> limitSolde, String sn1, String sn2, String typeStation) {
+    public int addTrader_forActualUser_AndLink(int userID, String providerTrader, String traderCategory, String traderType, 
+            String traderFname, String traderLname, String traderCompany, String simnumber, String adresse, String commune, String wilaya, String email1, 
+            String email2, String tel1, String tel2, Vector<Integer> operators, Vector<Double> limitSolde, String sn1, String sn2,
+            String typeStation,String serverProfile) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
@@ -913,7 +918,12 @@ public class dbhelper {
              int rep =1 ;
             if (traderType.equals("1")) {
                 StationType stationType = (StationType) new StationType_Util().getStationType_by_id(session, Integer.parseInt(typeStation), "");
-                 rep = this.addStation(session, user, parent, stationType, "", "", sn1, sn2, "");
+                ServerProfile profile= (ServerProfile) new ServerProfile_Util().getStationType_by_id(session, Integer.parseInt(serverProfile), "");
+
+                 rep = this.addStation(session, user, trader2add, stationType, trader2add.getTraderCompany(), trader2add.getTraderCompany(), sn1, sn2,"" ,profile);
+                 if(rep== staticVars.unknownError){
+                  throw  new Exception();
+                 }
                 
             }
             session.getTransaction().commit();
@@ -1064,14 +1074,28 @@ public class dbhelper {
             Station station = new Station(stationType,
                     new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_ENT_Actif, ""),
                     trader, userInfo, stationBrand, stationReference, stationSn1, stationSn2, appversion);
-            stationUtil.addStation(station, session);
             return staticVars.onGoingProcessOK;
         } catch (Exception e) {
+            System.out.println("general_helpers.dbhelper.addStation()"+e.getMessage());
             System.out.println("helpers.dbhelper.addStation() : UNKNOWN ERROR");
             return staticVars.unknownError;
         }
     }
-
+    public int addStation(Session session, UserInfo userInfo, Trader trader, StationType stationType, String stationBrand, String stationReference, String stationSn1, String stationSn2, String appversion,ServerProfile profile) {
+        try {
+            station_Util stationUtil = new station_Util();
+            Station station = new Station(stationType,
+                    new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_ENT_Actif, ""),
+                    trader, userInfo, stationBrand, stationReference, stationSn1, stationSn2, appversion);
+            station.setServerProfile(profile);
+            stationUtil.addStation(station, session);
+            return staticVars.onGoingProcessOK;
+        } catch (Exception e) {
+            System.out.println("general_helpers.dbhelper.addStation()"+e.getMessage());
+            System.out.println("helpers.dbhelper.addStation() : UNKNOWN ERROR");
+            return staticVars.unknownError;
+        }
+    }
     public int addStation(UserInfo userInfo, Trader trader, String stationType, String stationBrand, String stationReference, String stationSn1, String stationSn2, String appversion) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
