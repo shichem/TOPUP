@@ -1,4 +1,6 @@
 package model_db;
+// Generated Jun 27, 2020 1:59:00 AM by Hibernate Tools 4.3.1
+
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +14,7 @@ public class OfferType  implements java.io.Serializable {
      private Integer idofferType;
      private String offerTypeDesc;
      private Integer flag;
-     private Set offerInfos = new HashSet(0);
+     private Set<OfferInfo> offerInfos = new HashSet<OfferInfo>(0);
 
     public OfferType() {
     }
@@ -21,7 +23,7 @@ public class OfferType  implements java.io.Serializable {
     public OfferType(String offerTypeDesc) {
         this.offerTypeDesc = offerTypeDesc;
     }
-    public OfferType(String offerTypeDesc, Integer flag, Set offerInfos) {
+    public OfferType(String offerTypeDesc, Integer flag, Set<OfferInfo> offerInfos) {
        this.offerTypeDesc = offerTypeDesc;
        this.flag = flag;
        this.offerInfos = offerInfos;
@@ -48,11 +50,11 @@ public class OfferType  implements java.io.Serializable {
     public void setFlag(Integer flag) {
         this.flag = flag;
     }
-    public Set getOfferInfos() {
+    public Set<OfferInfo> getOfferInfos() {
         return this.offerInfos;
     }
     
-    public void setOfferInfos(Set offerInfos) {
+    public void setOfferInfos(Set<OfferInfo> offerInfos) {
         this.offerInfos = offerInfos;
     }
 

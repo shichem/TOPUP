@@ -1,4 +1,5 @@
 package model_db;
+// Generated Jun 27, 2020 1:59:00 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -21,13 +22,16 @@ public class SimInfo  implements java.io.Serializable {
      private Date dateConsul;
      private Double lastSolde;
      private Double lastEstimatedSolde;
+     private Double lastBonus;
+     private Double lastEstimatedBonus;
      private Double averageResponseTime;
      private Double lastSignalStrength;
      private Double weightedIndex;
      private Integer totalTransactions;
      private Integer succededTransactions;
+     private Integer simTimeout;
      private Integer flag;
-     private Set simOffers = new HashSet(0);
+     private Set<SimOffer> simOffers = new HashSet<SimOffer>(0);
 
     public SimInfo() {
     }
@@ -40,7 +44,7 @@ public class SimInfo  implements java.io.Serializable {
         this.simnumber = simnumber;
         this.simPinCode = simPinCode;
     }
-    public SimInfo(Operator operator, PortInfo portInfo, SimType simType, StatusInfo statusInfo, String simnumber, String simPinCode, Date dateConsul, Double lastSolde, Double lastEstimatedSolde, Double averageResponseTime, Double lastSignalStrength, Double weightedIndex, Integer totalTransactions, Integer succededTransactions, Integer flag, Set simOffers) {
+    public SimInfo(Operator operator, PortInfo portInfo, SimType simType, StatusInfo statusInfo, String simnumber, String simPinCode, Date dateConsul, Double lastSolde, Double lastEstimatedSolde, Double lastBonus, Double lastEstimatedBonus, Double averageResponseTime, Double lastSignalStrength, Double weightedIndex, Integer totalTransactions, Integer succededTransactions, Integer simTimeout, Integer flag, Set<SimOffer> simOffers) {
        this.operator = operator;
        this.portInfo = portInfo;
        this.simType = simType;
@@ -50,11 +54,14 @@ public class SimInfo  implements java.io.Serializable {
        this.dateConsul = dateConsul;
        this.lastSolde = lastSolde;
        this.lastEstimatedSolde = lastEstimatedSolde;
+       this.lastBonus = lastBonus;
+       this.lastEstimatedBonus = lastEstimatedBonus;
        this.averageResponseTime = averageResponseTime;
        this.lastSignalStrength = lastSignalStrength;
        this.weightedIndex = weightedIndex;
        this.totalTransactions = totalTransactions;
        this.succededTransactions = succededTransactions;
+       this.simTimeout = simTimeout;
        this.flag = flag;
        this.simOffers = simOffers;
     }
@@ -129,6 +136,20 @@ public class SimInfo  implements java.io.Serializable {
     public void setLastEstimatedSolde(Double lastEstimatedSolde) {
         this.lastEstimatedSolde = lastEstimatedSolde;
     }
+    public Double getLastBonus() {
+        return this.lastBonus;
+    }
+    
+    public void setLastBonus(Double lastBonus) {
+        this.lastBonus = lastBonus;
+    }
+    public Double getLastEstimatedBonus() {
+        return this.lastEstimatedBonus;
+    }
+    
+    public void setLastEstimatedBonus(Double lastEstimatedBonus) {
+        this.lastEstimatedBonus = lastEstimatedBonus;
+    }
     public Double getAverageResponseTime() {
         return this.averageResponseTime;
     }
@@ -164,6 +185,13 @@ public class SimInfo  implements java.io.Serializable {
     public void setSuccededTransactions(Integer succededTransactions) {
         this.succededTransactions = succededTransactions;
     }
+    public Integer getSimTimeout() {
+        return this.simTimeout;
+    }
+    
+    public void setSimTimeout(Integer simTimeout) {
+        this.simTimeout = simTimeout;
+    }
     public Integer getFlag() {
         return this.flag;
     }
@@ -171,11 +199,11 @@ public class SimInfo  implements java.io.Serializable {
     public void setFlag(Integer flag) {
         this.flag = flag;
     }
-    public Set getSimOffers() {
+    public Set<SimOffer> getSimOffers() {
         return this.simOffers;
     }
     
-    public void setSimOffers(Set simOffers) {
+    public void setSimOffers(Set<SimOffer> simOffers) {
         this.simOffers = simOffers;
     }
 

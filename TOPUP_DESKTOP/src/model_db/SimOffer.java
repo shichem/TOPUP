@@ -1,4 +1,5 @@
 package model_db;
+// Generated Jun 27, 2020 1:59:00 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -19,7 +20,7 @@ public class SimOffer  implements java.io.Serializable {
      private Date dateDeactivation;
      private Double limitTransact;
      private Integer flag;
-     private Set transactionTopups = new HashSet(0);
+     private Set<TransactionTopup> transactionTopups = new HashSet<TransactionTopup>(0);
 
     public SimOffer() {
     }
@@ -31,7 +32,7 @@ public class SimOffer  implements java.io.Serializable {
         this.userInfo = userInfo;
         this.dateAffect = dateAffect;
     }
-    public SimOffer(OfferInfo offerInfo, SimInfo simInfo, UserInfo userInfo, Date dateAffect, Date dateDeactivation, Double limitTransact, Integer flag, Set transactionTopups) {
+    public SimOffer(OfferInfo offerInfo, SimInfo simInfo, UserInfo userInfo, Date dateAffect, Date dateDeactivation, Double limitTransact, Integer flag, Set<TransactionTopup> transactionTopups) {
        this.offerInfo = offerInfo;
        this.simInfo = simInfo;
        this.userInfo = userInfo;
@@ -98,11 +99,11 @@ public class SimOffer  implements java.io.Serializable {
     public void setFlag(Integer flag) {
         this.flag = flag;
     }
-    public Set getTransactionTopups() {
+    public Set<TransactionTopup> getTransactionTopups() {
         return this.transactionTopups;
     }
     
-    public void setTransactionTopups(Set transactionTopups) {
+    public void setTransactionTopups(Set<TransactionTopup> transactionTopups) {
         this.transactionTopups = transactionTopups;
     }
 

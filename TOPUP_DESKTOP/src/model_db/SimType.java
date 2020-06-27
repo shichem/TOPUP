@@ -1,4 +1,5 @@
 package model_db;
+// Generated Jun 27, 2020 1:59:00 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -13,7 +14,7 @@ public class SimType  implements java.io.Serializable {
      private Integer idsimType;
      private String simTypeDesc;
      private Integer flag;
-     private Set simInfos = new HashSet(0);
+     private Set<SimInfo> simInfos = new HashSet<SimInfo>(0);
 
     public SimType() {
     }
@@ -22,7 +23,7 @@ public class SimType  implements java.io.Serializable {
     public SimType(String simTypeDesc) {
         this.simTypeDesc = simTypeDesc;
     }
-    public SimType(String simTypeDesc, Integer flag, Set simInfos) {
+    public SimType(String simTypeDesc, Integer flag, Set<SimInfo> simInfos) {
        this.simTypeDesc = simTypeDesc;
        this.flag = flag;
        this.simInfos = simInfos;
@@ -49,11 +50,11 @@ public class SimType  implements java.io.Serializable {
     public void setFlag(Integer flag) {
         this.flag = flag;
     }
-    public Set getSimInfos() {
+    public Set<SimInfo> getSimInfos() {
         return this.simInfos;
     }
     
-    public void setSimInfos(Set simInfos) {
+    public void setSimInfos(Set<SimInfo> simInfos) {
         this.simInfos = simInfos;
     }
 

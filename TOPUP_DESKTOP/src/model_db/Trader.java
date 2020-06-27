@@ -1,4 +1,5 @@
 package model_db;
+// Generated Jun 27, 2020 1:59:00 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -28,10 +29,10 @@ public class Trader  implements java.io.Serializable {
      private String tel1;
      private String tel2;
      private Integer flag;
-     private Set stations = new HashSet(0);
-     private Set providerClientsForIdclient = new HashSet(0);
-     private Set providerClientsForIdprovider = new HashSet(0);
-     private Set userInfos = new HashSet(0);
+     private Set<Station> stations = new HashSet<Station>(0);
+     private Set<ProviderClient> providerClientsForIdclient = new HashSet<ProviderClient>(0);
+     private Set<ProviderClient> providerClientsForIdprovider = new HashSet<ProviderClient>(0);
+     private Set<UserInfo> userInfos = new HashSet<UserInfo>(0);
 
     public Trader() {
     }
@@ -55,7 +56,7 @@ public class Trader  implements java.io.Serializable {
         this.tel1 = tel1;
         this.tel2 = tel2;
     }
-    public Trader(StatusInfo statusInfo, TraderCategory traderCategory, TraderType traderType, UserInfo userInfoByIduserInfoUpdate, UserInfo userInfoByIduserInfo, String traderFname, String traderLname, String traderCompany, String simnumber, String adresse, String commune, String wilaya, String email1, String email2, String tel1, String tel2, Integer flag, Set stations, Set providerClientsForIdclient, Set providerClientsForIdprovider, Set userInfos) {
+    public Trader(StatusInfo statusInfo, TraderCategory traderCategory, TraderType traderType, UserInfo userInfoByIduserInfoUpdate, UserInfo userInfoByIduserInfo, String traderFname, String traderLname, String traderCompany, String simnumber, String adresse, String commune, String wilaya, String email1, String email2, String tel1, String tel2, Integer flag, Set<Station> stations, Set<ProviderClient> providerClientsForIdclient, Set<ProviderClient> providerClientsForIdprovider, Set<UserInfo> userInfos) {
        this.statusInfo = statusInfo;
        this.traderCategory = traderCategory;
        this.traderType = traderType;
@@ -205,32 +206,32 @@ public class Trader  implements java.io.Serializable {
     public void setFlag(Integer flag) {
         this.flag = flag;
     }
-    public Set getStations() {
+    public Set<Station> getStations() {
         return this.stations;
     }
     
-    public void setStations(Set stations) {
+    public void setStations(Set<Station> stations) {
         this.stations = stations;
     }
-    public Set getProviderClientsForIdclient() {
+    public Set<ProviderClient> getProviderClientsForIdclient() {
         return this.providerClientsForIdclient;
     }
     
-    public void setProviderClientsForIdclient(Set providerClientsForIdclient) {
+    public void setProviderClientsForIdclient(Set<ProviderClient> providerClientsForIdclient) {
         this.providerClientsForIdclient = providerClientsForIdclient;
     }
-    public Set getProviderClientsForIdprovider() {
+    public Set<ProviderClient> getProviderClientsForIdprovider() {
         return this.providerClientsForIdprovider;
     }
     
-    public void setProviderClientsForIdprovider(Set providerClientsForIdprovider) {
+    public void setProviderClientsForIdprovider(Set<ProviderClient> providerClientsForIdprovider) {
         this.providerClientsForIdprovider = providerClientsForIdprovider;
     }
-    public Set getUserInfos() {
+    public Set<UserInfo> getUserInfos() {
         return this.userInfos;
     }
     
-    public void setUserInfos(Set userInfos) {
+    public void setUserInfos(Set<UserInfo> userInfos) {
         this.userInfos = userInfos;
     }
 

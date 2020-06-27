@@ -1,4 +1,5 @@
 package model_db;
+// Generated Jun 27, 2020 1:59:00 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -13,7 +14,7 @@ public class UserCategory  implements java.io.Serializable {
      private Integer iduserCategory;
      private String userCategoryDesc;
      private Integer flag;
-     private Set userInfos = new HashSet(0);
+     private Set<UserInfo> userInfos = new HashSet<UserInfo>(0);
 
     public UserCategory() {
     }
@@ -22,7 +23,7 @@ public class UserCategory  implements java.io.Serializable {
     public UserCategory(String userCategoryDesc) {
         this.userCategoryDesc = userCategoryDesc;
     }
-    public UserCategory(String userCategoryDesc, Integer flag, Set userInfos) {
+    public UserCategory(String userCategoryDesc, Integer flag, Set<UserInfo> userInfos) {
        this.userCategoryDesc = userCategoryDesc;
        this.flag = flag;
        this.userInfos = userInfos;
@@ -49,11 +50,11 @@ public class UserCategory  implements java.io.Serializable {
     public void setFlag(Integer flag) {
         this.flag = flag;
     }
-    public Set getUserInfos() {
+    public Set<UserInfo> getUserInfos() {
         return this.userInfos;
     }
     
-    public void setUserInfos(Set userInfos) {
+    public void setUserInfos(Set<UserInfo> userInfos) {
         this.userInfos = userInfos;
     }
 

@@ -1,4 +1,5 @@
 package model_db;
+// Generated Jun 27, 2020 1:59:00 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -13,7 +14,7 @@ public class StationType  implements java.io.Serializable {
      private Integer idstationType;
      private String stationTypeDesc;
      private Integer flag;
-     private Set stations = new HashSet(0);
+     private Set<Station> stations = new HashSet<Station>(0);
 
     public StationType() {
     }
@@ -22,7 +23,7 @@ public class StationType  implements java.io.Serializable {
     public StationType(String stationTypeDesc) {
         this.stationTypeDesc = stationTypeDesc;
     }
-    public StationType(String stationTypeDesc, Integer flag, Set stations) {
+    public StationType(String stationTypeDesc, Integer flag, Set<Station> stations) {
        this.stationTypeDesc = stationTypeDesc;
        this.flag = flag;
        this.stations = stations;
@@ -49,11 +50,11 @@ public class StationType  implements java.io.Serializable {
     public void setFlag(Integer flag) {
         this.flag = flag;
     }
-    public Set getStations() {
+    public Set<Station> getStations() {
         return this.stations;
     }
     
-    public void setStations(Set stations) {
+    public void setStations(Set<Station> stations) {
         this.stations = stations;
     }
 

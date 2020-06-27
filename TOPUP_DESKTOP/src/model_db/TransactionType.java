@@ -1,4 +1,5 @@
 package model_db;
+// Generated Jun 27, 2020 1:59:00 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -13,7 +14,7 @@ public class TransactionType  implements java.io.Serializable {
      private Integer idtransactionType;
      private String transactionTypeDesc;
      private Integer flag;
-     private Set transactionTopups = new HashSet(0);
+     private Set<TransactionTopup> transactionTopups = new HashSet<TransactionTopup>(0);
 
     public TransactionType() {
     }
@@ -22,7 +23,7 @@ public class TransactionType  implements java.io.Serializable {
     public TransactionType(String transactionTypeDesc) {
         this.transactionTypeDesc = transactionTypeDesc;
     }
-    public TransactionType(String transactionTypeDesc, Integer flag, Set transactionTopups) {
+    public TransactionType(String transactionTypeDesc, Integer flag, Set<TransactionTopup> transactionTopups) {
        this.transactionTypeDesc = transactionTypeDesc;
        this.flag = flag;
        this.transactionTopups = transactionTopups;
@@ -49,11 +50,11 @@ public class TransactionType  implements java.io.Serializable {
     public void setFlag(Integer flag) {
         this.flag = flag;
     }
-    public Set getTransactionTopups() {
+    public Set<TransactionTopup> getTransactionTopups() {
         return this.transactionTopups;
     }
     
-    public void setTransactionTopups(Set transactionTopups) {
+    public void setTransactionTopups(Set<TransactionTopup> transactionTopups) {
         this.transactionTopups = transactionTopups;
     }
 

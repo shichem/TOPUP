@@ -1,4 +1,5 @@
 package model_db;
+// Generated Jun 27, 2020 1:59:00 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -13,7 +14,7 @@ public class TraderType  implements java.io.Serializable {
      private Integer idtraderType;
      private String traderTypeDesc;
      private Integer flag;
-     private Set traders = new HashSet(0);
+     private Set<Trader> traders = new HashSet<Trader>(0);
 
     public TraderType() {
     }
@@ -22,7 +23,7 @@ public class TraderType  implements java.io.Serializable {
     public TraderType(String traderTypeDesc) {
         this.traderTypeDesc = traderTypeDesc;
     }
-    public TraderType(String traderTypeDesc, Integer flag, Set traders) {
+    public TraderType(String traderTypeDesc, Integer flag, Set<Trader> traders) {
        this.traderTypeDesc = traderTypeDesc;
        this.flag = flag;
        this.traders = traders;
@@ -49,11 +50,11 @@ public class TraderType  implements java.io.Serializable {
     public void setFlag(Integer flag) {
         this.flag = flag;
     }
-    public Set getTraders() {
+    public Set<Trader> getTraders() {
         return this.traders;
     }
     
-    public void setTraders(Set traders) {
+    public void setTraders(Set<Trader> traders) {
         this.traders = traders;
     }
 

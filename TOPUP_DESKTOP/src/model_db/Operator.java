@@ -1,4 +1,5 @@
 package model_db;
+// Generated Jun 27, 2020 1:59:00 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -14,9 +15,9 @@ public class Operator  implements java.io.Serializable {
      private String operatorDesc;
      private Double transactLimit;
      private Integer flag;
-     private Set simInfos = new HashSet(0);
-     private Set offerInfos = new HashSet(0);
-     private Set providerClients = new HashSet(0);
+     private Set<SimInfo> simInfos = new HashSet<SimInfo>(0);
+     private Set<OfferInfo> offerInfos = new HashSet<OfferInfo>(0);
+     private Set<ProviderClient> providerClients = new HashSet<ProviderClient>(0);
 
     public Operator() {
     }
@@ -25,7 +26,7 @@ public class Operator  implements java.io.Serializable {
     public Operator(String operatorDesc) {
         this.operatorDesc = operatorDesc;
     }
-    public Operator(String operatorDesc, Double transactLimit, Integer flag, Set simInfos, Set offerInfos, Set providerClients) {
+    public Operator(String operatorDesc, Double transactLimit, Integer flag, Set<SimInfo> simInfos, Set<OfferInfo> offerInfos, Set<ProviderClient> providerClients) {
        this.operatorDesc = operatorDesc;
        this.transactLimit = transactLimit;
        this.flag = flag;
@@ -62,25 +63,25 @@ public class Operator  implements java.io.Serializable {
     public void setFlag(Integer flag) {
         this.flag = flag;
     }
-    public Set getSimInfos() {
+    public Set<SimInfo> getSimInfos() {
         return this.simInfos;
     }
     
-    public void setSimInfos(Set simInfos) {
+    public void setSimInfos(Set<SimInfo> simInfos) {
         this.simInfos = simInfos;
     }
-    public Set getOfferInfos() {
+    public Set<OfferInfo> getOfferInfos() {
         return this.offerInfos;
     }
     
-    public void setOfferInfos(Set offerInfos) {
+    public void setOfferInfos(Set<OfferInfo> offerInfos) {
         this.offerInfos = offerInfos;
     }
-    public Set getProviderClients() {
+    public Set<ProviderClient> getProviderClients() {
         return this.providerClients;
     }
     
-    public void setProviderClients(Set providerClients) {
+    public void setProviderClients(Set<ProviderClient> providerClients) {
         this.providerClients = providerClients;
     }
 

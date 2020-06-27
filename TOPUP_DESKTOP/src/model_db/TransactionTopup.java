@@ -1,4 +1,5 @@
 package model_db;
+// Generated Jun 27, 2020 1:59:00 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -12,10 +13,12 @@ public class TransactionTopup  implements java.io.Serializable {
      private Integer idtransacttopup;
      private ProviderClient providerClient;
      private SimOffer simOffer;
+     private Station station;
      private StatusInfo statusInfo;
      private TransactionType transactionType;
      private UserInfo userInfo;
      private String simClient;
+     private String transactToken;
      private double newSolde;
      private double transactAmount;
      private double realTransactAmount;
@@ -41,13 +44,15 @@ public class TransactionTopup  implements java.io.Serializable {
         this.recievedMessage = recievedMessage;
         this.sentMessage = sentMessage;
     }
-    public TransactionTopup(ProviderClient providerClient, SimOffer simOffer, StatusInfo statusInfo, TransactionType transactionType, UserInfo userInfo, String simClient, double newSolde, double transactAmount, double realTransactAmount, Date transactDate, double transactDuration, String recievedMessage, String sentMessage, Integer flag) {
+    public TransactionTopup(ProviderClient providerClient, SimOffer simOffer, Station station, StatusInfo statusInfo, TransactionType transactionType, UserInfo userInfo, String simClient, String transactToken, double newSolde, double transactAmount, double realTransactAmount, Date transactDate, double transactDuration, String recievedMessage, String sentMessage, Integer flag) {
        this.providerClient = providerClient;
        this.simOffer = simOffer;
+       this.station = station;
        this.statusInfo = statusInfo;
        this.transactionType = transactionType;
        this.userInfo = userInfo;
        this.simClient = simClient;
+       this.transactToken = transactToken;
        this.newSolde = newSolde;
        this.transactAmount = transactAmount;
        this.realTransactAmount = realTransactAmount;
@@ -79,6 +84,13 @@ public class TransactionTopup  implements java.io.Serializable {
     public void setSimOffer(SimOffer simOffer) {
         this.simOffer = simOffer;
     }
+    public Station getStation() {
+        return this.station;
+    }
+    
+    public void setStation(Station station) {
+        this.station = station;
+    }
     public StatusInfo getStatusInfo() {
         return this.statusInfo;
     }
@@ -106,6 +118,13 @@ public class TransactionTopup  implements java.io.Serializable {
     
     public void setSimClient(String simClient) {
         this.simClient = simClient;
+    }
+    public String getTransactToken() {
+        return this.transactToken;
+    }
+    
+    public void setTransactToken(String transactToken) {
+        this.transactToken = transactToken;
     }
     public double getNewSolde() {
         return this.newSolde;

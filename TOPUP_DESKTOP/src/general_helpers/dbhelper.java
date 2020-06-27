@@ -916,9 +916,6 @@ public class dbhelper {
                  rep = this.addStation(session, user, parent, stationType, "", "", sn1, sn2, "");
                 
             }
-                if (rep <>staticVars.onGoingProcessOK ) {                                   
-                    throw  new Exception();
-                }
             session.getTransaction().commit();
             session.close();
             return staticVars.onGoingProcessOK;

@@ -1,4 +1,5 @@
 package model_db;
+// Generated Jun 27, 2020 1:59:00 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -13,12 +14,13 @@ public class StatusInfo  implements java.io.Serializable {
      private Integer idstatusInfo;
      private String statusInfoDesc;
      private Integer flag;
-     private Set stations = new HashSet(0);
-     private Set simInfos = new HashSet(0);
-     private Set portInfos = new HashSet(0);
-     private Set traders = new HashSet(0);
-     private Set transactionSoldes = new HashSet(0);
-     private Set transactionTopups = new HashSet(0);
+     private Set<ServerProfile> serverProfiles = new HashSet<ServerProfile>(0);
+     private Set<Station> stations = new HashSet<Station>(0);
+     private Set<SimInfo> simInfos = new HashSet<SimInfo>(0);
+     private Set<PortInfo> portInfos = new HashSet<PortInfo>(0);
+     private Set<Trader> traders = new HashSet<Trader>(0);
+     private Set<TransactionSolde> transactionSoldes = new HashSet<TransactionSolde>(0);
+     private Set<TransactionTopup> transactionTopups = new HashSet<TransactionTopup>(0);
 
     public StatusInfo() {
     }
@@ -27,9 +29,10 @@ public class StatusInfo  implements java.io.Serializable {
     public StatusInfo(String statusInfoDesc) {
         this.statusInfoDesc = statusInfoDesc;
     }
-    public StatusInfo(String statusInfoDesc, Integer flag, Set stations, Set simInfos, Set portInfos, Set traders, Set transactionSoldes, Set transactionTopups) {
+    public StatusInfo(String statusInfoDesc, Integer flag, Set<ServerProfile> serverProfiles, Set<Station> stations, Set<SimInfo> simInfos, Set<PortInfo> portInfos, Set<Trader> traders, Set<TransactionSolde> transactionSoldes, Set<TransactionTopup> transactionTopups) {
        this.statusInfoDesc = statusInfoDesc;
        this.flag = flag;
+       this.serverProfiles = serverProfiles;
        this.stations = stations;
        this.simInfos = simInfos;
        this.portInfos = portInfos;
@@ -59,46 +62,53 @@ public class StatusInfo  implements java.io.Serializable {
     public void setFlag(Integer flag) {
         this.flag = flag;
     }
-    public Set getStations() {
+    public Set<ServerProfile> getServerProfiles() {
+        return this.serverProfiles;
+    }
+    
+    public void setServerProfiles(Set<ServerProfile> serverProfiles) {
+        this.serverProfiles = serverProfiles;
+    }
+    public Set<Station> getStations() {
         return this.stations;
     }
     
-    public void setStations(Set stations) {
+    public void setStations(Set<Station> stations) {
         this.stations = stations;
     }
-    public Set getSimInfos() {
+    public Set<SimInfo> getSimInfos() {
         return this.simInfos;
     }
     
-    public void setSimInfos(Set simInfos) {
+    public void setSimInfos(Set<SimInfo> simInfos) {
         this.simInfos = simInfos;
     }
-    public Set getPortInfos() {
+    public Set<PortInfo> getPortInfos() {
         return this.portInfos;
     }
     
-    public void setPortInfos(Set portInfos) {
+    public void setPortInfos(Set<PortInfo> portInfos) {
         this.portInfos = portInfos;
     }
-    public Set getTraders() {
+    public Set<Trader> getTraders() {
         return this.traders;
     }
     
-    public void setTraders(Set traders) {
+    public void setTraders(Set<Trader> traders) {
         this.traders = traders;
     }
-    public Set getTransactionSoldes() {
+    public Set<TransactionSolde> getTransactionSoldes() {
         return this.transactionSoldes;
     }
     
-    public void setTransactionSoldes(Set transactionSoldes) {
+    public void setTransactionSoldes(Set<TransactionSolde> transactionSoldes) {
         this.transactionSoldes = transactionSoldes;
     }
-    public Set getTransactionTopups() {
+    public Set<TransactionTopup> getTransactionTopups() {
         return this.transactionTopups;
     }
     
-    public void setTransactionTopups(Set transactionTopups) {
+    public void setTransactionTopups(Set<TransactionTopup> transactionTopups) {
         this.transactionTopups = transactionTopups;
     }
 

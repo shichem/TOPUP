@@ -1,4 +1,5 @@
 package model_db;
+// Generated Jun 27, 2020 1:59:00 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -17,16 +18,17 @@ public class UserInfo  implements java.io.Serializable {
      private String username;
      private String password;
      private Integer flag;
-     private Set simOffers = new HashSet(0);
-     private Set tradersForIduserInfoUpdate = new HashSet(0);
-     private Set tradersForIduserInfo = new HashSet(0);
-     private Set stations = new HashSet(0);
-     private Set offerInfosForIduserInfo = new HashSet(0);
-     private Set transactionSoldes = new HashSet(0);
-     private Set userInfos = new HashSet(0);
-     private Set providerClients = new HashSet(0);
-     private Set offerInfosForIduserInfoUpdate = new HashSet(0);
-     private Set transactionTopups = new HashSet(0);
+     private Set<SimOffer> simOffers = new HashSet<SimOffer>(0);
+     private Set<Trader> tradersForIduserInfoUpdate = new HashSet<Trader>(0);
+     private Set<Trader> tradersForIduserInfo = new HashSet<Trader>(0);
+     private Set<ServerProfile> serverProfiles = new HashSet<ServerProfile>(0);
+     private Set<Station> stations = new HashSet<Station>(0);
+     private Set<OfferInfo> offerInfosForIduserInfo = new HashSet<OfferInfo>(0);
+     private Set<TransactionSolde> transactionSoldes = new HashSet<TransactionSolde>(0);
+     private Set<UserInfo> userInfos = new HashSet<UserInfo>(0);
+     private Set<ProviderClient> providerClients = new HashSet<ProviderClient>(0);
+     private Set<OfferInfo> offerInfosForIduserInfoUpdate = new HashSet<OfferInfo>(0);
+     private Set<TransactionTopup> transactionTopups = new HashSet<TransactionTopup>(0);
 
     public UserInfo() {
     }
@@ -37,7 +39,7 @@ public class UserInfo  implements java.io.Serializable {
         this.username = username;
         this.password = password;
     }
-    public UserInfo(Trader trader, UserCategory userCategory, UserInfo userInfo, String username, String password, Integer flag, Set simOffers, Set tradersForIduserInfoUpdate, Set tradersForIduserInfo, Set stations, Set offerInfosForIduserInfo, Set transactionSoldes, Set userInfos, Set providerClients, Set offerInfosForIduserInfoUpdate, Set transactionTopups) {
+    public UserInfo(Trader trader, UserCategory userCategory, UserInfo userInfo, String username, String password, Integer flag, Set<SimOffer> simOffers, Set<Trader> tradersForIduserInfoUpdate, Set<Trader> tradersForIduserInfo, Set<ServerProfile> serverProfiles, Set<Station> stations, Set<OfferInfo> offerInfosForIduserInfo, Set<TransactionSolde> transactionSoldes, Set<UserInfo> userInfos, Set<ProviderClient> providerClients, Set<OfferInfo> offerInfosForIduserInfoUpdate, Set<TransactionTopup> transactionTopups) {
        this.trader = trader;
        this.userCategory = userCategory;
        this.userInfo = userInfo;
@@ -47,6 +49,7 @@ public class UserInfo  implements java.io.Serializable {
        this.simOffers = simOffers;
        this.tradersForIduserInfoUpdate = tradersForIduserInfoUpdate;
        this.tradersForIduserInfo = tradersForIduserInfo;
+       this.serverProfiles = serverProfiles;
        this.stations = stations;
        this.offerInfosForIduserInfo = offerInfosForIduserInfo;
        this.transactionSoldes = transactionSoldes;
@@ -105,74 +108,81 @@ public class UserInfo  implements java.io.Serializable {
     public void setFlag(Integer flag) {
         this.flag = flag;
     }
-    public Set getSimOffers() {
+    public Set<SimOffer> getSimOffers() {
         return this.simOffers;
     }
     
-    public void setSimOffers(Set simOffers) {
+    public void setSimOffers(Set<SimOffer> simOffers) {
         this.simOffers = simOffers;
     }
-    public Set getTradersForIduserInfoUpdate() {
+    public Set<Trader> getTradersForIduserInfoUpdate() {
         return this.tradersForIduserInfoUpdate;
     }
     
-    public void setTradersForIduserInfoUpdate(Set tradersForIduserInfoUpdate) {
+    public void setTradersForIduserInfoUpdate(Set<Trader> tradersForIduserInfoUpdate) {
         this.tradersForIduserInfoUpdate = tradersForIduserInfoUpdate;
     }
-    public Set getTradersForIduserInfo() {
+    public Set<Trader> getTradersForIduserInfo() {
         return this.tradersForIduserInfo;
     }
     
-    public void setTradersForIduserInfo(Set tradersForIduserInfo) {
+    public void setTradersForIduserInfo(Set<Trader> tradersForIduserInfo) {
         this.tradersForIduserInfo = tradersForIduserInfo;
     }
-    public Set getStations() {
+    public Set<ServerProfile> getServerProfiles() {
+        return this.serverProfiles;
+    }
+    
+    public void setServerProfiles(Set<ServerProfile> serverProfiles) {
+        this.serverProfiles = serverProfiles;
+    }
+    public Set<Station> getStations() {
         return this.stations;
     }
     
-    public void setStations(Set stations) {
+    public void setStations(Set<Station> stations) {
         this.stations = stations;
     }
-    public Set getOfferInfosForIduserInfo() {
+    public Set<OfferInfo> getOfferInfosForIduserInfo() {
         return this.offerInfosForIduserInfo;
     }
     
-    public void setOfferInfosForIduserInfo(Set offerInfosForIduserInfo) {
+    public void setOfferInfosForIduserInfo(Set<OfferInfo> offerInfosForIduserInfo) {
         this.offerInfosForIduserInfo = offerInfosForIduserInfo;
     }
-    public Set getTransactionSoldes() {
+    public Set<TransactionSolde> getTransactionSoldes() {
         return this.transactionSoldes;
     }
     
-    public void setTransactionSoldes(Set transactionSoldes) {
+    public void setTransactionSoldes(Set<TransactionSolde> transactionSoldes) {
         this.transactionSoldes = transactionSoldes;
     }
-    public Set getUserInfos() {
+    public Set<UserInfo> getUserInfos() {
         return this.userInfos;
     }
     
-    public void setUserInfos(Set userInfos) {
+    public void setUserInfos(Set<UserInfo> userInfos) {
         this.userInfos = userInfos;
     }
-    public Set getProviderClients() {
+    public Set<ProviderClient> getProviderClients() {
         return this.providerClients;
     }
     
-    public void setProviderClients(Set providerClients) {
+    public void setProviderClients(Set<ProviderClient> providerClients) {
         this.providerClients = providerClients;
     }
-    public Set getOfferInfosForIduserInfoUpdate() {
+    public Set<OfferInfo> getOfferInfosForIduserInfoUpdate() {
         return this.offerInfosForIduserInfoUpdate;
     }
     
-    public void setOfferInfosForIduserInfoUpdate(Set offerInfosForIduserInfoUpdate) {
+    public void setOfferInfosForIduserInfoUpdate(Set<OfferInfo> offerInfosForIduserInfoUpdate) {
         this.offerInfosForIduserInfoUpdate = offerInfosForIduserInfoUpdate;
     }
-    public Set getTransactionTopups() {
+    public Set<TransactionTopup> getTransactionTopups() {
         return this.transactionTopups;
     }
     
-    public void setTransactionTopups(Set transactionTopups) {
+    public void setTransactionTopups(Set<TransactionTopup> transactionTopups) {
         this.transactionTopups = transactionTopups;
     }
 

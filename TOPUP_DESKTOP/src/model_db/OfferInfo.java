@@ -1,4 +1,5 @@
 package model_db;
+// Generated Jun 27, 2020 1:59:00 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -26,8 +27,9 @@ public class OfferInfo  implements java.io.Serializable {
      private double transferedValue;
      private Integer isStatic;
      private Integer flag;
-     private Set offerInfoDetailses = new HashSet(0);
-     private Set simOffers = new HashSet(0);
+     private Double minLimitTransact;
+     private Set<OfferInfoDetails> offerInfoDetailses = new HashSet<OfferInfoDetails>(0);
+     private Set<SimOffer> simOffers = new HashSet<SimOffer>(0);
 
     public OfferInfo() {
     }
@@ -42,7 +44,7 @@ public class OfferInfo  implements java.io.Serializable {
         this.realValue = realValue;
         this.transferedValue = transferedValue;
     }
-    public OfferInfo(OfferType offerType, Operator operator, UserInfo userInfoByIduserInfo, UserInfo userInfoByIduserInfoUpdate, String offerDesc, String prenumber, String postnumber, String postPinCode, Date dateCrea, Double limitTransact, double realValue, double transferedValue, Integer isStatic, Integer flag, Set offerInfoDetailses, Set simOffers) {
+    public OfferInfo(OfferType offerType, Operator operator, UserInfo userInfoByIduserInfo, UserInfo userInfoByIduserInfoUpdate, String offerDesc, String prenumber, String postnumber, String postPinCode, Date dateCrea, Double limitTransact, double realValue, double transferedValue, Integer isStatic, Integer flag, Double minLimitTransact, Set<OfferInfoDetails> offerInfoDetailses, Set<SimOffer> simOffers) {
        this.offerType = offerType;
        this.operator = operator;
        this.userInfoByIduserInfo = userInfoByIduserInfo;
@@ -57,6 +59,7 @@ public class OfferInfo  implements java.io.Serializable {
        this.transferedValue = transferedValue;
        this.isStatic = isStatic;
        this.flag = flag;
+       this.minLimitTransact = minLimitTransact;
        this.offerInfoDetailses = offerInfoDetailses;
        this.simOffers = simOffers;
     }
@@ -166,18 +169,25 @@ public class OfferInfo  implements java.io.Serializable {
     public void setFlag(Integer flag) {
         this.flag = flag;
     }
-    public Set getOfferInfoDetailses() {
+    public Double getMinLimitTransact() {
+        return this.minLimitTransact;
+    }
+    
+    public void setMinLimitTransact(Double minLimitTransact) {
+        this.minLimitTransact = minLimitTransact;
+    }
+    public Set<OfferInfoDetails> getOfferInfoDetailses() {
         return this.offerInfoDetailses;
     }
     
-    public void setOfferInfoDetailses(Set offerInfoDetailses) {
+    public void setOfferInfoDetailses(Set<OfferInfoDetails> offerInfoDetailses) {
         this.offerInfoDetailses = offerInfoDetailses;
     }
-    public Set getSimOffers() {
+    public Set<SimOffer> getSimOffers() {
         return this.simOffers;
     }
     
-    public void setSimOffers(Set simOffers) {
+    public void setSimOffers(Set<SimOffer> simOffers) {
         this.simOffers = simOffers;
     }
 

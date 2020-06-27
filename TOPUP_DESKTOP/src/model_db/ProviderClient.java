@@ -1,4 +1,6 @@
-package model_db;	
+package model_db;
+// Generated Jun 27, 2020 1:59:00 AM by Hibernate Tools 4.3.1
+
 
 import java.util.Date;
 import java.util.HashSet;
@@ -16,12 +18,13 @@ public class ProviderClient  implements java.io.Serializable {
      private Trader traderByIdprovider;
      private UserInfo userInfo;
      private Double solde;
+     private Double pendedSolde;
      private Date dateAffect;
      private Date deactivationAffect;
      private Double limitTransact;
      private Integer flag;
-     private Set transactionTopups = new HashSet(0);
-     private Set transactionSoldes = new HashSet(0);
+     private Set<TransactionTopup> transactionTopups = new HashSet<TransactionTopup>(0);
+     private Set<TransactionSolde> transactionSoldes = new HashSet<TransactionSolde>(0);
 
     public ProviderClient() {
     }
@@ -33,12 +36,13 @@ public class ProviderClient  implements java.io.Serializable {
         this.userInfo = userInfo;
         this.dateAffect = dateAffect;
     }
-    public ProviderClient(Operator operator, Trader traderByIdclient, Trader traderByIdprovider, UserInfo userInfo, Double solde, Date dateAffect, Date deactivationAffect, Double limitTransact, Integer flag, Set transactionTopups, Set transactionSoldes) {
+    public ProviderClient(Operator operator, Trader traderByIdclient, Trader traderByIdprovider, UserInfo userInfo, Double solde, Double pendedSolde, Date dateAffect, Date deactivationAffect, Double limitTransact, Integer flag, Set<TransactionTopup> transactionTopups, Set<TransactionSolde> transactionSoldes) {
        this.operator = operator;
        this.traderByIdclient = traderByIdclient;
        this.traderByIdprovider = traderByIdprovider;
        this.userInfo = userInfo;
        this.solde = solde;
+       this.pendedSolde = pendedSolde;
        this.dateAffect = dateAffect;
        this.deactivationAffect = deactivationAffect;
        this.limitTransact = limitTransact;
@@ -89,6 +93,13 @@ public class ProviderClient  implements java.io.Serializable {
     public void setSolde(Double solde) {
         this.solde = solde;
     }
+    public Double getPendedSolde() {
+        return this.pendedSolde;
+    }
+    
+    public void setPendedSolde(Double pendedSolde) {
+        this.pendedSolde = pendedSolde;
+    }
     public Date getDateAffect() {
         return this.dateAffect;
     }
@@ -117,18 +128,18 @@ public class ProviderClient  implements java.io.Serializable {
     public void setFlag(Integer flag) {
         this.flag = flag;
     }
-    public Set getTransactionTopups() {
+    public Set<TransactionTopup> getTransactionTopups() {
         return this.transactionTopups;
     }
     
-    public void setTransactionTopups(Set transactionTopups) {
+    public void setTransactionTopups(Set<TransactionTopup> transactionTopups) {
         this.transactionTopups = transactionTopups;
     }
-    public Set getTransactionSoldes() {
+    public Set<TransactionSolde> getTransactionSoldes() {
         return this.transactionSoldes;
     }
     
-    public void setTransactionSoldes(Set transactionSoldes) {
+    public void setTransactionSoldes(Set<TransactionSolde> transactionSoldes) {
         this.transactionSoldes = transactionSoldes;
     }
 

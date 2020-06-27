@@ -1,4 +1,6 @@
 package model_db;
+// Generated Jun 27, 2020 1:59:00 AM by Hibernate Tools 4.3.1
+
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +16,7 @@ public class PortInfo  implements java.io.Serializable {
      private String portDesc;
      private Double score;
      private Integer flag;
-     private Set simInfos = new HashSet(0);
+     private Set<SimInfo> simInfos = new HashSet<SimInfo>(0);
 
     public PortInfo() {
     }
@@ -24,7 +26,7 @@ public class PortInfo  implements java.io.Serializable {
         this.statusInfo = statusInfo;
         this.portDesc = portDesc;
     }
-    public PortInfo(StatusInfo statusInfo, String portDesc, Double score, Integer flag, Set simInfos) {
+    public PortInfo(StatusInfo statusInfo, String portDesc, Double score, Integer flag, Set<SimInfo> simInfos) {
        this.statusInfo = statusInfo;
        this.portDesc = portDesc;
        this.score = score;
@@ -67,11 +69,11 @@ public class PortInfo  implements java.io.Serializable {
     public void setFlag(Integer flag) {
         this.flag = flag;
     }
-    public Set getSimInfos() {
+    public Set<SimInfo> getSimInfos() {
         return this.simInfos;
     }
     
-    public void setSimInfos(Set simInfos) {
+    public void setSimInfos(Set<SimInfo> simInfos) {
         this.simInfos = simInfos;
     }
 
