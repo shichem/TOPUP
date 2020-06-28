@@ -670,9 +670,19 @@ public class dbhelper {
                     prClient.setFlag(0);
                     prClientUtil.addProviderClient(prClient, session);
 
+                } else {
+                    if (provider.getTraderCategory().getTraderCategoryDesc().equals(staticVars.traderCategory_Grossiste)) {
+                        ProviderClient prClient = new ProviderClient(operator, client, user, new Date());
+                        prClient.setLimitTransact(soldeLimit);
+                        prClient.setSolde(-1.0);
+                        prClient.setFlag(0);
+                        prClient.setTraderByIdprovider(provider);
+                        prClientUtil.addProviderClient(prClient, session);
+                    }
+
                 }
             } else {
-                if (prClientUtil.getProviderClient_by_operatror_client(session, client, operator, "").isEmpty()) {
+                if (prClientUtil.getProviderClient_by_operatror_client(session, provider, operator, "").isEmpty()) {
                     System.out.println("general_helpers.dbhelper.addProviderClientLink()" + "in secend if  ");
 
                     ProviderClient prClient = new ProviderClient(operator, client, user, new Date());
@@ -884,10 +894,10 @@ public class dbhelper {
         }
     }
 
-    public int addTrader_forActualUser_AndLink(int userID, String providerTrader, String traderCategory, String traderType, 
-            String traderFname, String traderLname, String traderCompany, String simnumber, String adresse, String commune, String wilaya, String email1, 
+    public int addTrader_forActualUser_AndLink(int userID, String providerTrader, String traderCategory, String traderType,
+            String traderFname, String traderLname, String traderCompany, String simnumber, String adresse, String commune, String wilaya, String email1,
             String email2, String tel1, String tel2, Vector<Integer> operators, Vector<Double> limitSolde, String sn1, String sn2,
-            String typeStation,String serverProfile) {
+            String typeStation, String serverProfile) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
@@ -915,16 +925,16 @@ public class dbhelper {
                 this.addProviderClientLink(session, user, parent, trader2add, new Operator_Util().getOperator_by_id(session, operators.get(i), ""), limitSolde.get(i));
             }
             System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink()traderType =>" + traderType);
-             int rep =1 ;
+            int rep = 1;
             if (traderType.equals("1")) {
                 StationType stationType = (StationType) new StationType_Util().getStationType_by_id(session, Integer.parseInt(typeStation), "");
-                ServerProfile profile= (ServerProfile) new ServerProfile_Util().getStationType_by_id(session, Integer.parseInt(serverProfile), "");
+                ServerProfile profile = (ServerProfile) new ServerProfile_Util().getStationType_by_id(session, Integer.parseInt(serverProfile), "");
 
-                 rep = this.addStation(session, user, trader2add, stationType, trader2add.getTraderCompany(), trader2add.getTraderCompany(), sn1, sn2,"" ,profile);
-                 if(rep== staticVars.unknownError){
-                  throw  new Exception();
-                 }
-                
+                rep = this.addStation(session, user, trader2add, stationType, trader2add.getTraderCompany(), trader2add.getTraderCompany(), sn1, sn2, "", profile);
+                if (rep == staticVars.unknownError) {
+                    throw new Exception();
+                }
+
             }
             session.getTransaction().commit();
             session.close();
@@ -1076,12 +1086,13 @@ public class dbhelper {
                     trader, userInfo, stationBrand, stationReference, stationSn1, stationSn2, appversion);
             return staticVars.onGoingProcessOK;
         } catch (Exception e) {
-            System.out.println("general_helpers.dbhelper.addStation()"+e.getMessage());
+            System.out.println("general_helpers.dbhelper.addStation()" + e.getMessage());
             System.out.println("helpers.dbhelper.addStation() : UNKNOWN ERROR");
             return staticVars.unknownError;
         }
     }
-    public int addStation(Session session, UserInfo userInfo, Trader trader, StationType stationType, String stationBrand, String stationReference, String stationSn1, String stationSn2, String appversion,ServerProfile profile) {
+
+    public int addStation(Session session, UserInfo userInfo, Trader trader, StationType stationType, String stationBrand, String stationReference, String stationSn1, String stationSn2, String appversion, ServerProfile profile) {
         try {
             station_Util stationUtil = new station_Util();
             Station station = new Station(stationType,
@@ -1091,11 +1102,12 @@ public class dbhelper {
             stationUtil.addStation(station, session);
             return staticVars.onGoingProcessOK;
         } catch (Exception e) {
-            System.out.println("general_helpers.dbhelper.addStation()"+e.getMessage());
+            System.out.println("general_helpers.dbhelper.addStation()" + e.getMessage());
             System.out.println("helpers.dbhelper.addStation() : UNKNOWN ERROR");
             return staticVars.unknownError;
         }
     }
+
     public int addStation(UserInfo userInfo, Trader trader, String stationType, String stationBrand, String stationReference, String stationSn1, String stationSn2, String appversion) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
