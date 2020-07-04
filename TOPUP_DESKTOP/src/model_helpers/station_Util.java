@@ -5,6 +5,7 @@ import model_db.Station;
 import model_db.StationType;
 import model_db.StatusInfo;
 import model_db.Trader;
+import model_util.HibernateUtil;
 import model_util.hqlQueriesHelper;
 import org.hibernate.Session;
 
@@ -36,7 +37,16 @@ public class station_Util {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM Station where flag=0 and trader = " + trader.getIdtrader(), suffix);
 
     }
+   public List getStations_by_trader( Trader trader, String suffix) {
+        Session session  =  HibernateUtil.getSessionFactory().openSession();
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM Station where flag=0 and trader = " + trader.getIdtrader(), suffix);
 
+    }
+     public List getStations_by_trader(Session session , Trader trader, String suffix) {
+       
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM Station where flag=0 and trader = " + trader.getIdtrader(), suffix);
+
+    }
     public List getUserInfo_by_username(Session session, String username, String suffix) {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM Station where flag=0 "
                 + "and username LIKE '%" + username + "%'",

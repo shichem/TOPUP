@@ -234,7 +234,7 @@
         <script>
             $(document).ready(function () {
                 $("#type").change(function () {
-                    if (this.value == 2) {
+                    if (this.val() == 2) {
                         $("#simNB").show();
                         $("#simNumber").prop('required', true);
                         $('#sndiv').hide();
@@ -264,7 +264,7 @@
 
                 });
                 $("#company").change(function () {
-                    alert("The text has been changed.");
+                  //  alert("The text has been changed.");
                 });
             });
         </script>
