@@ -50,9 +50,10 @@ public class OperatorForTrader extends HttpServlet {
               out.println(" <div class=\"col-lg-12\" class=\"form-group\">");
               out.println("<label >"+provider.getOperator().getOperatorDesc()+"</label>" );
               out.println("<label >"+provider.getSolde()+"</label>" );
-
-              out.println("<input  required=\"\" id=`id_"+provider.getOperator().getOperatorDesc()+"\" "
-                      + "name=\"id_"+provider.getOperator().getOperatorDesc()+"\" "
+                  out.println("<input type=\"hidden\" name=\"id_"+provider.getOperator().getOperatorDesc()+"\"  "
+                          + "id=\"id_"+provider.getOperator().getOperatorDesc()+"\" value=\""+provider.getOperator().getIdoperator()+"\" />");
+              out.println("<input type=\"number\" id=\"amount_"+provider.getOperator().getOperatorDesc()+"\" "
+                      + "name=\"amount_"+provider.getOperator().getOperatorDesc()+"\" "
                       + "class=\"form-control\"  placeholder=\"Enter  montant "+provider.getOperator().getOperatorDesc()+"\">" );
               out.println("</div>");
             }

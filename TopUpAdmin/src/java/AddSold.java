@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import general_helpers.dbhelper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -34,11 +35,11 @@ public class AddSold extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
              String idtrader = request.getParameter("idtrader");
-                String tcategory = request.getParameter("catgory");
-                String providerTrader = request.getParameter("fourn");
-
-                String tcompany = request.getParameter("company");
-                String tfname = request.getParameter("fname");
+                String tcategory = request.getParameter("id_DJEZZY");
+                String providerTrader = request.getParameter("id_MOBILIS");
+                String tcompany = request.getParameter("id_OOREDOO");
+                dbhelper db = new dbhelper();
+                db.updateVirtualBalance(0, 0, 0, 0);
         }
     }
 
