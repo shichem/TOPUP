@@ -78,7 +78,7 @@
                                 <td><%=get.getTraderCategory().getTraderCategoryDesc()%></td>
                                 <td><a href="./editClient.jsp?id=<%=get.getIdtrader()%>"><i class="fa fa-edit fa-fw"></i></a>/                                    
                                     <a onclick="desctiveClient(<%=get.getIdtrader()%>)" href="#"><i class="fa fa-trash fa-fw"></i></a>
-                                    /<a href="#" id="modal_provider" ><i class="fa fa-credit-card fa-fw"></i></a></td>
+                                    /<a href="#" data-id="<%=get.getIdtrader()%>" id="modal_provider" ><i class="fa fa-credit-card fa-fw"></i></a></td>
 
                             </tr>
                             <%
@@ -134,9 +134,10 @@
                                         $(document).ready(function () {
                                             var table = $('#example').DataTable();
                                             $("#modal_provider").click(function () {
-                                                $.ajax({
+                                                     var clientId = $(this).data('id');
 
-                                                    url: "../OperatorForTrader",
+                                                $.ajax({
+                                                    url: "../OperatorForTrader?id="+clientId,
                                                     success: function (data) {
                                                        // alert(data);
                                                           $("#providerdiv").append(data);

@@ -36,8 +36,10 @@ public class OperatorForTrader extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+                    String idTrader = request.getParameter("id");
+                    int idclient = Integer.parseInt(idTrader);
             ProviderClient_Util pro_u = new ProviderClient_Util();
-            List listProcide =   pro_u.getProviderClient_by_client(9,"");
+            List listProcide =   pro_u.getProviderClient_by_client(idclient,"");
             for(int i=0 ;i<listProcide.size() ;i++){
               ProviderClient provider= (ProviderClient) listProcide.get(i);
               out.println(" <div class=\"col-lg-12\" class=\"form-group\">");
