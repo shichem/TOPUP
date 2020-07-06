@@ -1,4 +1,7 @@
 
+<%@page import="model_db.OfferInfo"%>
+<%@page import="java.util.List"%>
+<%@page import="model_helpers.OfferInfo_Util"%>
 <%-- 
     Document   : dashboard
     Created on : Mar 24, 2019, 3:06:28 PM
@@ -41,7 +44,22 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                            <%                                OfferInfo_Util offerInfo_Util = new OfferInfo_Util();
+                                List listOffre = offerInfo_Util.getAllOfferInfo("");
+                                System.out.println("className.methodName()"+listOffre.size());
+                                for (int i = 0; i < listOffre.size(); i++) {
+                                    OfferInfo offre = (OfferInfo) listOffre.get(i);
+                            %>
+                            <tr>
+                                <td><%=offre.getOfferDesc()%></td>
+                                <td><%=offre.getOperator().getOperatorDesc()%></td>
+                                <td><%=offre.getPrenumber() +offre.getPostnumber() +offre.getPostPinCode() %></td>
+                                <td><%=offre.getOfferType().getOfferTypeDesc()  %></td>
+                                <td><a onclick="desctiveOffreInfo(<%=offre.getIdofferInfo() %>)" href="#"><i class="fa fa-trash fa-fw"></i></a></td>
+                            </tr>
+                            <%
+                                }
+                            %>    
 
                         </tbody>
                         <tfoot>
@@ -72,6 +90,15 @@
                     var data = table.row(this).data();
                     alert('You clicked on ' + data[0] + '\'s row');
                 });
+                
+                 function desctiveOffreInfo(id) {
+                                            var r = confirm("vous voulez désactiver le client");
+                                            if (r == true) {
+                                                window.location.href = "../desactiveClient?id=" + id;
+                                            } else {
+
+                                            }
+                                        }
             });
         </script>
     </body>

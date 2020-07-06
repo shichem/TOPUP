@@ -1,0 +1,39 @@
+SMAP
+listOffre_jsp.java
+JSP
+*S JSP
+*F
++ 0 listOffre.jsp
+view/listOffre.jsp
++ 1 head.jsp
+view/template/head.jsp
++ 2 navigation.jsp
+view/template/navigation.jsp
++ 3 menu.jsp
+view/template/menu.jsp
++ 4 script.jsp
+view/template/script.jsp
+*L
+1,5:55
+9,10:59
+1#1,8:69
+9:77,3
+10,27:80
+18#0,8:106
+5#2,17:114
+22,7:132
+28,11:139
+39:150,3
+40,17:153
+5#3,52:170
+56#2,4:221
+25#0,23:224
+47,6:247
+52,2:253
+54,5:255,3
+59,4:270
+63,2:275
+64,21:277
+5#4,27:298
+84#0,18:325
+*E
