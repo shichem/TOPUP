@@ -78,7 +78,7 @@
                                 <td><%=get.getTraderCategory().getTraderCategoryDesc()%></td>
                                 <td><a href="./editClient.jsp?id=<%=get.getIdtrader()%>"><i class="fa fa-edit fa-fw"></i></a>/                                    
                                     <a onclick="desctiveClient(<%=get.getIdtrader()%>)" href="#"><i class="fa fa-trash fa-fw"></i></a>
-                                    /<a href="#" data-id="<%=get.getIdtrader()%>" id="modal_provider" ><i class="fa fa-credit-card fa-fw"></i></a></td>
+                                    /<a href="#" data-id="<%=get.getIdtrader()%>" id="modal_provider-<%=get.getIdtrader()%>" ><i class="fa fa-credit-card fa-fw"></i></a></td>
 
                             </tr>
                             <%
@@ -102,23 +102,24 @@
             <div class="modal fade" id="add_credit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form role="form" action="../AddClient" method="POST" >
-                                <div class="row"  id="providerdiv"></div>
+                        <form  action="../AddSold" method="POST">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
                                 
-                            </form>
-                        </div>
-                        i
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
+                                    <div class="row"  id="providerdiv"></div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="reset" class="btn btn-info"  data-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-success"  >Enregistrer</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -133,13 +134,14 @@
         <script>
                                         $(document).ready(function () {
                                             var table = $('#example').DataTable();
-                                            $("#modal_provider").click(function () {
+                                            $('[id^="modal_provider"]').click(function () {
                                                      var clientId = $(this).data('id');
 
                                                 $.ajax({
                                                     url: "../OperatorForTrader?id="+clientId,
                                                     success: function (data) {
                                                        // alert(data);
+                                                        $("#providerdiv").empty();
                                                           $("#providerdiv").append(data);
 
                                                           $("#add_credit").modal('show');

@@ -6,21 +6,18 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model_db.ProviderClient;
-import model_helpers.ProviderClient_Util;
 
 /**
  *
  * @author GarandaTech
  */
-@WebServlet(urlPatterns = {"/OperatorForTrader"})
-public class OperatorForTrader extends HttpServlet {
+@WebServlet(urlPatterns = {"/AddSold"})
+public class AddSold extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,28 +33,12 @@ public class OperatorForTrader extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-                    String idTrader = request.getParameter("id");
-                    int idclient = Integer.parseInt(idTrader);
-            ProviderClient_Util pro_u = new ProviderClient_Util();
-            List listProcide =   pro_u.getProviderClient_by_client(idclient,"");
-            out.println("<input type=\"hidden\" name=\"idtrader\"  id=\"idtrader\" value=\""+idclient+"\" />");
-            if(listProcide.size()==0){
-                          out.println("<label > le client il n'a pas un fournisseur </label>" );
+             String idtrader = request.getParameter("idtrader");
+                String tcategory = request.getParameter("catgory");
+                String providerTrader = request.getParameter("fourn");
 
-            }
-            for(int i=0 ;i<listProcide.size() ;i++){
-              ProviderClient provider= (ProviderClient) listProcide.get(i);
-              out.println(" <div class=\"col-lg-12\" class=\"form-group\">");
-              out.println("<label >"+provider.getOperator().getOperatorDesc()+"</label>" );
-              out.println("<label >"+provider.getSolde()+"</label>" );
-
-              out.println("<input  required=\"\" id=`id_"+provider.getOperator().getOperatorDesc()+"\" "
-                      + "name=\"id_"+provider.getOperator().getOperatorDesc()+"\" "
-                      + "class=\"form-control\"  placeholder=\"Enter  montant "+provider.getOperator().getOperatorDesc()+"\">" );
-              out.println("</div>");
-            }
-            
-            
+                String tcompany = request.getParameter("company");
+                String tfname = request.getParameter("fname");
         }
     }
 
