@@ -35,6 +35,11 @@
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
+                  <% if (request.getParameter("succesSold") != null) { %>
+                <div class="alert alert-success" role="alert">
+                  Sold ajout avec success pour le client 
+                </div>
+                <% } %>
                 <% if (request.getParameter("add") != null) { %>
                 <div class="alert alert-success" role="alert">
                     Client ajoutet avec success

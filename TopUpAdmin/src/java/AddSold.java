@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,12 +35,40 @@ public class AddSold extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-             String idtrader = request.getParameter("idtrader");
-                String tcategory = request.getParameter("id_DJEZZY");
-                String providerTrader = request.getParameter("id_MOBILIS");
-                String tcompany = request.getParameter("id_OOREDOO");
-                dbhelper db = new dbhelper();
-                db.updateVirtualBalance(0, 0, 0, 0);
+            HttpSession session = request.getSession();
+            try {
+                
+            
+            int userID = Integer.parseInt(session.getAttribute("Id").toString());
+
+            int idtrader =  Integer.parseInt(request.getParameter("idtrader"));
+            String id_DJEZZY = request.getParameter("id_DJEZZY");
+            String id_MOBILIS = request.getParameter("id_MOBILIS");
+            String id_OOREDOO = request.getParameter("id_OOREDOO");
+            String amount_DJEZZY = request.getParameter("amount_DJEZZY");
+            String amount_MOBILIS = request.getParameter("amount_MOBILIS");
+            String amount_OOREDOO = request.getParameter("amount_OOREDOO");
+            dbhelper db = new dbhelper();
+            if (!amount_DJEZZY.isEmpty()) {
+                System.out.println("AddSold.processRequest() Djezzy ="+amount_DJEZZY);
+                System.out.println("AddSold.processRequest() userId ="+userID);
+                System.out.println("AddSold.processRequest() traderID ="+idtrader);
+                System.out.println("AddSold.processRequest() idOperator ="+id_DJEZZY);
+                db.updateVirtualBalance(userID, idtrader,Integer.parseInt(id_DJEZZY), Double.parseDouble(amount_DJEZZY));
+            }
+            if (!amount_MOBILIS.isEmpty()) {
+                System.out.println("AddSold.processRequest() Mobilis"+amount_MOBILIS);
+               // db.updateVirtualBalance(userID, idtrader, Integer.parseInt(id_MOBILIS),  Double.parseDouble(amount_MOBILIS));
+            }
+            if (!amount_OOREDOO.isEmpty()) {
+                System.out.println("AddSold.processRequest() Ooredoo"+amount_OOREDOO);
+
+                //db.updateVirtualBalance(userID, idtrader, Integer.parseInt(id_OOREDOO),  Double.parseDouble(amount_OOREDOO));
+            }
+                   response.sendRedirect("view/listClient.jsp?succesSold");
+            } catch (Exception e) {
+                       response.sendRedirect("view/listClient.jsp?erreur");
+            }
         }
     }
 
