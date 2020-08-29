@@ -1919,7 +1919,7 @@ public class dbhelper {
             OfferInfo offer = OfferUtil.getOfferInfo_by_id(session,OfferInfo, "");
             offer.setOfferType(offerType);
             offer.setOperator(operator);
-            offer.setUserInfoByIduserInfoUpdate(userInfo);
+            //offer.setUserInfoByIduserInfoUpdate(userInfo);
             offer.setOfferDesc(offerDesc);
             offer.setRealValue(realValue);
             offer.setTransferedValue(transfertValue);                    

@@ -14,6 +14,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model_db.OfferInfo;
+import model_db.OfferType;
+import model_db.Operator;
+import model_db.UserInfo;
+import model_helpers.OfferInfo_Util;
+import model_helpers.OfferType_Util;
+import model_helpers.Operator_Util;
+import model_helpers.UserInfo_Util;
 import model_util.HibernateUtil;
 import org.hibernate.Session;
 
@@ -41,6 +49,8 @@ public class EditOffer extends HttpServlet {
 
         int userID = Integer.parseInt(session_.getAttribute("Id").toString());
         Integer id = Integer.parseInt(request.getParameter("id"));
+                Session session = HibernateUtil.getSessionFactory().openSession();
+
         try {
 
             String operateur = request.getParameter("operateur");
@@ -58,16 +68,38 @@ public class EditOffer extends HttpServlet {
             dmaontant = Double.valueOf(request.getParameter("dmaontant"));
             dbhelper db = new dbhelper();
 
-            int respeonse = db.UpadateOffer(id, userID, Integer.parseInt(operateur), offerDesc, Integer.parseInt(type), prenumber, postnumber, postpincode, tmaontant, dmaontant, 0, items);
-
+             session.getTransaction().begin();
+            /* TODO output your page here. You may use following sample code. */
+            String offreID = request.getParameter("id");
+            OfferInfo_Util info_Util = new OfferInfo_Util();
+            OfferInfo offerInfo = (OfferInfo) info_Util.getOfferInfo_by_id(session, Integer.parseInt(offreID), "");
+            System.out.println("DesctivateOffer.processRequest()"+offerInfo.getOfferDesc());
+            UserInfo userInfo = new UserInfo_Util().getUserInfo_by_id(session, userID, "");
+            OfferType offerType = new OfferType_Util().getOfferType_by_id(session, Integer.parseInt(type), "");
+            Operator operator = new Operator_Util().getOperator_by_id(session, Integer.parseInt(operateur), "");
+            OfferInfo offer = info_Util.getOfferInfo_by_id(session,id, "");
+            offer.setOfferType(offerType);
+            offer.setOperator(operator);
+            //offer.setUserInfoByIduserInfoUpdate(userInfo);
+            offer.setOfferDesc(offerDesc);
+            offer.setRealValue(tmaontant);
+            offer.setTransferedValue(dmaontant);                    
+            offer.setIsStatic(0);
+            offer.setPrenumber(prenumber);
+            offer.setPostnumber(postnumber);
+            offer.setPostPinCode(postpincode);
+            offerInfo.setFlag(0);
+            info_Util.updateOfferInfo(offerInfo, session);
+            session.getTransaction().commit();
+                        session.close();
             
-            if (respeonse == staticVars.onGoingProcessOK) {
+   
                 response.sendRedirect("view/editOffre.jsp?succes&id=" + id);
-            } else {
-                response.sendRedirect("view/editOffre.jsp?erreur&id=" + id);
-            }
+          
+               
         } catch (Exception e) {
-       
+             session.getTransaction().rollback();
+            session.close();
             response.sendRedirect("view/editOffre.jsp?erreur&id=" + id);
 
         }
