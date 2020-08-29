@@ -191,6 +191,8 @@ public class OfferInfo  implements java.io.Serializable {
         this.simOffers = simOffers;
     }
 
+  
+
 
 
 

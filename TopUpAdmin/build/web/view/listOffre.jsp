@@ -22,21 +22,42 @@
         <div id="wrapper">
 
             <!-- Navigation -->
+
             <%@include file="template/navigation.jsp" %>
 
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">List Offre</h1>
+                        <h1 class="page-header">List Offer</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
+                <% if (request.getParameter("add") != null) { %>
+                <div class="alert alert-success" role="alert">
+                    Offer ajoutet avec success
+                </div>
+                <% } %>
+                <% if (request.getParameter("edit") != null) { %>
+                <div class="alert alert-success" role="alert">
+                    Offer modifier avec success
+                </div>
+                <% } %>
+                <% if (request.getParameter("del") != null) { %>
+                <div class="alert alert-success" role="alert">
+                    Offer deactivate avec success
+                </div>
+                <% } %>
+                <% if (request.getParameter("erreur") != null) { %>
+                <div class="alert alert-danger" role="alert">
+                    Erreur dans mis a jour du Offer contact admin 
+                </div>
+                <% } %>
                 <div class="row">
-                    <table id="example" class="display" style="width:100%">
+                    <table id="example" class="display nowrap dataTable dtr-inline collapsed" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Offre</th>
+                                <th>Offer</th>
                                 <th>Operateur</th>
                                 <th>commande</th>
                                 <th>type</th>
@@ -46,16 +67,19 @@
                         <tbody>
                             <%                                OfferInfo_Util offerInfo_Util = new OfferInfo_Util();
                                 List listOffre = offerInfo_Util.getAllOfferInfo("");
-                                System.out.println("className.methodName()"+listOffre.size());
+                                System.out.println("className.methodName()" + listOffre.size());
                                 for (int i = 0; i < listOffre.size(); i++) {
                                     OfferInfo offre = (OfferInfo) listOffre.get(i);
                             %>
                             <tr>
                                 <td><%=offre.getOfferDesc()%></td>
                                 <td><%=offre.getOperator().getOperatorDesc()%></td>
-                                <td><%=offre.getPrenumber() +offre.getPostnumber() +offre.getPostPinCode() %></td>
-                                <td><%=offre.getOfferType().getOfferTypeDesc()  %></td>
-                                <td><a onclick="desctiveOffreInfo(<%=offre.getIdofferInfo() %>)" href="#"><i class="fa fa-trash fa-fw"></i></a></td>
+                                <td><%=offre.getPrenumber() + "0000000000" + offre.getPostnumber() + "0000" + offre.getPostPinCode() + ""%></td>
+                                <td><%=offre.getOfferType().getOfferTypeDesc()%></td>                                
+                                <td>
+                                   <a href="./editOffre.jsp?id=<%=offre.getIdofferInfo()%>"><i class="fa fa-edit fa-fw"></i></a>/ 
+                                    <a onclick="desctiveOffreInfo(<%=offre.getIdofferInfo()%>)" href="#"><i class="fa fa-trash fa-fw"></i></a>
+                                </td>
                             </tr>
                             <%
                                 }
@@ -83,23 +107,24 @@
         <!-- data -->
         <script src="./data/data_graph.js"></script>
         <script>
-            $(document).ready(function () {
-                var table = $('#example').DataTable();
+                                        $(document).ready(function () {
+                                            var table = $('#example').DataTable();
 
-                $('#example tbody').on('click', 'tr', function () {
-                    var data = table.row(this).data();
-                    alert('You clicked on ' + data[0] + '\'s row');
-                });
-                
-                 function desctiveOffreInfo(id) {
-                                            var r = confirm("vous voulez désactiver le client");
+                                            $('#example tbody').on('click', 'tr', function () {
+                                                var data = table.row(this).data();
+                                                alert('You clicked on ' + data[0] + '\'s row');
+                                            });
+
+
+                                        });
+                                        function desctiveOffreInfo(id) {
+                                            var r = confirm("vous voulez désactiver l'offer");
                                             if (r == true) {
-                                                window.location.href = "../desactiveClient?id=" + id;
+                                                window.location.href = "../DesctivateOffer?id=" + id;
                                             } else {
 
                                             }
                                         }
-            });
         </script>
     </body>
 

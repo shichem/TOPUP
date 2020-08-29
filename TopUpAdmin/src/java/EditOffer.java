@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+import custom_vars.staticVars;
+import general_helpers.dbhelper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -11,8 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model_db.Trader;
-import model_helpers.Trader_Util;
+import javax.servlet.http.HttpSession;
 import model_util.HibernateUtil;
 import org.hibernate.Session;
 
@@ -20,8 +21,8 @@ import org.hibernate.Session;
  *
  * @author GarandaTech
  */
-@WebServlet(urlPatterns = {"/desactiveClient"})
-public class desactiveClient extends HttpServlet {
+@WebServlet(urlPatterns = {"/EditOffer"})
+public class EditOffer extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,28 +36,41 @@ public class desactiveClient extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        //operateur
+        HttpSession session_ = request.getSession();
 
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-                session.getTransaction().begin();
-            String idTrader = request.getParameter("id");
-            Trader_Util trader_Util = new Trader_Util();
+        int userID = Integer.parseInt(session_.getAttribute("Id").toString());
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        try {
 
-            Trader trader = trader_Util.getTradfer_by_id(session, Integer.parseInt(idTrader), "");
-            trader.setFlag(1);
+            String operateur = request.getParameter("operateur");
+            String type = request.getParameter("type");
+            String offerDesc = request.getParameter("fname");
+            String prenumber = request.getParameter("preNumber");
+            String postnumber = request.getParameter("posteNumber");
+            String postpincode = request.getParameter("posteNumberPin");
+            double tmaontant = 0;
+            double dmaontant = 0;
+            String[] items = request.getParameterValues("Number");
+            String checked = request.getParameter("mant_iden");
 
-            trader_Util.updateTrader(trader, session);
-            session.getTransaction().commit();
-            session.close();
-            response.sendRedirect("view/listClient.jsp?del");
+            tmaontant = Double.valueOf(request.getParameter("tmaontant"));
+            dmaontant = Double.valueOf(request.getParameter("dmaontant"));
+            dbhelper db = new dbhelper();
 
+            int respeonse = db.UpadateOffer(id, userID, Integer.parseInt(operateur), offerDesc, Integer.parseInt(type), prenumber, postnumber, postpincode, tmaontant, dmaontant, 0, items);
+
+            
+            if (respeonse == staticVars.onGoingProcessOK) {
+                response.sendRedirect("view/editOffre.jsp?succes&id=" + id);
+            } else {
+                response.sendRedirect("view/editOffre.jsp?erreur&id=" + id);
+            }
         } catch (Exception e) {
-            session.getTransaction().rollback();
-            session.close();
-            response.sendRedirect("view/listClient.jsp?erreur");
-        }
+       
+            response.sendRedirect("view/editOffre.jsp?erreur&id=" + id);
 
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

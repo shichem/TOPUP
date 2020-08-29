@@ -36,7 +36,9 @@ import model_helpers.UserInfo_Util;
 import model_util.HibernateUtil;
 import org.hibernate.Session;
 import custom_vars.staticVars;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.Vector;
 import model_db.OfferInfoDetails;
 import model_db.OfferType;
@@ -59,6 +61,7 @@ import model_helpers.TraderCategory_Util;
 import model_helpers.TraderType_Util;
 import model_helpers.UserCategory_Util;
 import model_helpers.station_Util;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
@@ -1338,7 +1341,7 @@ public class dbhelper {
 
     public int updateVirtualBalance(int userID, int clientID, int operatorID, double amount) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        
+
         try {
             session.getTransaction().begin();
             System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 0");
@@ -1346,13 +1349,13 @@ public class dbhelper {
             UserInfo user = new UserInfo_Util().getUserInfo_by_id(session, userID, "");
             Trader client = new Trader_Util().getTradfer_by_id(session, clientID, "");
             Operator operator = new Operator_Util().getOperator_by_id(session, operatorID, "");
-                        System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 001"+operator.getOperatorDesc()+" == "+user.getUsername()+" === "+client.getTraderCompany());
+            System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 001" + operator.getOperatorDesc() + " == " + user.getUsername() + " === " + client.getTraderCompany());
             ProviderClient affectation = new ProviderClient_Util().getProviderClient_by_provider_client_operator(session, user.getTrader(), client, operator, "");
-             System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
+            System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
             StatusInfo enCoursST = new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_TCT_EnInstance, "");
-              System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
+            System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
             StatusInfo termineST = new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_TCT_Reussie, "");
-              System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
+            System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
             StatusInfo interrompueST = new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_TCT_Annule, "");
             double newBalance = affectation.getSolde() + amount;
             System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
@@ -1365,14 +1368,14 @@ public class dbhelper {
             if (((amount < 0) && (Math.abs(amount) > affectation.getSolde()))
                     || (amount + affectation.getLimitTransact() > affectation.getLimitTransact() && affectation.getLimitTransact() != -1)
                     || (amount > operator.getTransactLimit() && operator.getTransactLimit() != -1)) {
-                            System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 3");
+                System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 3");
 
                 transactSolde.setStatusInfo(interrompueST);
                 session.getTransaction().commit();
                 session.close();
                 return staticVars.LimitExceeded;
             } else {
-                            System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 4");
+                System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 4");
 
                 affectation.setSolde(newBalance);
                 transactSolde.setStatusInfo(termineST);
@@ -1381,7 +1384,7 @@ public class dbhelper {
                 return staticVars.onGoingProcessOK;
             }
         } catch (Exception e) {
-            System.out.println("general_helpers.dbhelper.updateVirtualBalance()"+e.getMessage());
+            System.out.println("general_helpers.dbhelper.updateVirtualBalance()" + e.getMessage());
             System.out.println("helpers.dbhelper.updateVirtualBalance() : UNKNOWN ERROR");
             session.getTransaction().commit();
             session.close();
@@ -1813,4 +1816,140 @@ public class dbhelper {
         session_solde.close();
         return checkStatus;
     }
+
+    public int addOffer(userUI user, String operatorName, String offerDesc, String offerTypeDesc, String prenumber, String postnumber, String postpincode,
+            double transfertValue, double realValue, int isStatic) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.getTransaction().begin();
+
+            OfferInfo_Util OfferUtil = new OfferInfo_Util();
+            if (OfferUtil.getOfferInfo_by_offerDesc(session, offerDesc, "").size() > 0) {
+                return staticVars.OfferAlreadyExists;
+            }
+
+            UserInfo userInfo = user.getActualUser();
+            OfferType offerType = user.getTsUI().getOfferTypeByDesc(offerTypeDesc);
+            Operator operator = user.getOperatorUIbyName(operatorName).getOperaror();
+
+            OfferInfo offer = new OfferInfo(offerType, operator, userInfo, offerDesc, new Date(), transfertValue, realValue);
+            offer.setIsStatic(isStatic);
+            offer.setPrenumber(prenumber);
+            offer.setPostnumber(postnumber);
+            offer.setPostPinCode(postpincode);
+
+            session.getTransaction().commit();
+            session.getTransaction().begin();
+
+            session.getTransaction().commit();
+            session.close();
+            return staticVars.onGoingProcessOK;
+        } catch (Exception e) {
+            System.out.println("helpers.dbhelper.addOffer() : UNKNOWN ERROR");
+            session.getTransaction().rollback();
+            session.close();
+            return staticVars.unknownError;
+        }
+    }
+
+    public int addOffer(int userID, int operatorID, String offerDesc, int offerTypeID, String prenumber, String postnumber, String postpincode,
+            double transfertValue, double realValue, int isStatic, String[] number) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        try {
+
+            OfferInfo_Util OfferUtil = new OfferInfo_Util();
+            if (OfferUtil.getOfferInfo_by_offerDesc(session, offerDesc, "").size() > 0) {
+                return staticVars.OfferAlreadyExists;
+            }
+            System.out.println("general_helpers.dbhelper.addOffer()" + "=============>");
+
+            UserInfo userInfo = new UserInfo_Util().getUserInfo_by_id(session, userID, "");
+            OfferType offerType = new OfferType_Util().getOfferType_by_id(session, offerTypeID, "");
+            Operator operator = new Operator_Util().getOperator_by_id(session, operatorID, "");
+            System.out.println("general_helpers.dbhelper.addOffer()" + "=============>");
+
+            OfferInfo offer = new OfferInfo(offerType, operator, userInfo, offerDesc, new Date(), realValue, transfertValue);
+            offer.setIsStatic(isStatic);
+            offer.setPrenumber(prenumber);
+            offer.setPostnumber(postnumber);
+            offer.setPostPinCode(postpincode);
+            offer.setFlag(0);
+            System.out.println("general_helpers.dbhelper.addOffer()" + "=============>");
+            Set<SimOffer> simoffers = new HashSet<SimOffer>();
+
+            session.saveOrUpdate(offer);
+            System.out.println("general_helpers.dbhelper.addOffer()in for+ ===" + number.length);
+            for (int i = 0; i < number.length; i++) {
+                System.out.println("general_helpers.dbhelper.addOffer()in for");
+                SimInfo info = new SimInfo_Util().getSimInfo_by_id(session, Integer.parseInt(number[i]), "");
+                SimOffer_Util offer_Util = new SimOffer_Util();
+                SimOffer adt = new SimOffer();
+                adt.setSimInfo(info);
+                adt.setOfferInfo(offer);
+                adt.setUserInfo(userInfo);
+                adt.setDateAffect(new Date());
+                session.saveOrUpdate(adt);
+            }
+            System.out.println("general_helpers.dbhelper.addOffer() end ");
+            session.getTransaction().commit();
+            session.close();
+            return staticVars.onGoingProcessOK;
+        } catch (Exception e) {
+            System.out.println("helpers.dbhelper.addOffer() : UNKNOWN ERROR==>" + e.getMessage());
+            session.getTransaction().rollback();
+            session.close();
+            return staticVars.unknownError;
+        }
+
+    }
+
+    public int UpadateOffer(int OfferInfo, int userID, int operatorID, String offerDesc, int offerTypeID, String prenumber, String postnumber, String postpincode,
+            double transfertValue, double realValue, int isStatic, String[] number) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.getTransaction().begin();
+                 OfferInfo_Util OfferUtil = new OfferInfo_Util();
+           /* if (OfferUtil.getOfferInfo_by_offerDesc(session, offerDesc, "").size() > 0) {
+                return staticVars.OfferAlreadyExists;
+            }*/
+             UserInfo userInfo = new UserInfo_Util().getUserInfo_by_id(session, userID, "");
+            OfferType offerType = new OfferType_Util().getOfferType_by_id(session, offerTypeID, "");
+            Operator operator = new Operator_Util().getOperator_by_id(session, operatorID, "");
+            OfferInfo offer = OfferUtil.getOfferInfo_by_id(session,OfferInfo, "");
+            offer.setOfferType(offerType);
+            offer.setOperator(operator);
+            offer.setUserInfoByIduserInfoUpdate(userInfo);
+            offer.setOfferDesc(offerDesc);
+            offer.setRealValue(realValue);
+            offer.setTransferedValue(transfertValue);                    
+            offer.setIsStatic(0);
+            offer.setPrenumber(prenumber);
+            offer.setPostnumber(postnumber);
+            offer.setPostPinCode(postpincode);
+            OfferUtil.updateOfferInfo(offer, session);
+            //SimOffer_Util offer_Util = new SimOffer_Util();
+           // offer_Util.deleteOfferInfo(session, OfferInfo, "");
+            System.out.println("general_helpers.dbhelper.addOffer()in for+ ===" + number.length);
+            /*for (int i = 0; i < number.length; i++) {
+                System.out.println("general_helpers.dbhelper.addOffer()in for");
+                SimInfo info = new SimInfo_Util().getSimInfo_by_id(session, Integer.parseInt(number[i]), "");
+                SimOffer adt = new SimOffer();
+                adt.setSimInfo(info);
+                adt.setOfferInfo(offer);
+                adt.setUserInfo(userInfo);
+                adt.setDateAffect(new Date());
+                session.saveOrUpdate(adt);
+            }*/
+            session.getTransaction().commit();
+            session.close();
+            return staticVars.onGoingProcessOK;
+        } catch (HibernateException e) {
+            System.out.println("helpers.dbhelper.addOffer() : UNKNOWN ERROR==>"+e.getMessage() );
+            session.getTransaction().rollback();
+            session.close();
+            return staticVars.unknownError;
+        }
+    }
+
 }

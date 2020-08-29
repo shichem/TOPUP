@@ -5,6 +5,7 @@ import model_db.Operator;
 import model_db.PortInfo;
 import model_db.SimInfo;
 import model_db.SimType;
+import model_util.HibernateUtil;
 import model_util.hqlQueriesHelper;
 import org.hibernate.Session;
 
@@ -17,7 +18,12 @@ public class SimInfo_Util {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0", suffix);
 
     }
+  
+  public List getAllSimInfo( String suffix) {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+          return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0", suffix);
 
+    }
     public SimInfo getSimInfo_by_id(Session session, int id, String suffix) {
         List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0 and idsimInfo = " + id, suffix);
         if (list.isEmpty()) {

@@ -40,9 +40,9 @@
                            <li>
                             <a href="#"><i class="fa fa-sim-card fa-fw"></i> Gestion SIM <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>
+                               <!--  <li>
                                     <a href="addSim.jsp"><i class="fa fa-sim-card fa-fw"></i>Ajouter SIM</a>
-                                </li>
+                                </li>-->
                                 <li>
                                     <a href="./listSim.jsp"><i class="fa fa-list fa-fw"></i>List SIM</a>
                                 </li>

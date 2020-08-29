@@ -11,8 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model_db.Trader;
-import model_helpers.Trader_Util;
+import model_db.SimInfo;
+import model_helpers.SimInfo_Util;
 import model_util.HibernateUtil;
 import org.hibernate.Session;
 
@@ -20,8 +20,8 @@ import org.hibernate.Session;
  *
  * @author GarandaTech
  */
-@WebServlet(urlPatterns = {"/desactiveClient"})
-public class desactiveClient extends HttpServlet {
+@WebServlet(urlPatterns = {"/DesactiveSim"})
+public class DesactivateSim extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,27 +36,23 @@ public class desactiveClient extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Session session = HibernateUtil.getSessionFactory().openSession();
-
         try (PrintWriter out = response.getWriter()) {
+            session.getTransaction().begin();
             /* TODO output your page here. You may use following sample code. */
-                session.getTransaction().begin();
-            String idTrader = request.getParameter("id");
-            Trader_Util trader_Util = new Trader_Util();
+            String offreID = request.getParameter("id");
+            SimInfo_Util info_Util = new SimInfo_Util();
+            SimInfo offerInfo = (SimInfo) info_Util.getSimInfo_by_id(session, Integer.parseInt(offreID), "");
 
-            Trader trader = trader_Util.getTradfer_by_id(session, Integer.parseInt(idTrader), "");
-            trader.setFlag(1);
-
-            trader_Util.updateTrader(trader, session);
+            offerInfo.setFlag(1);
+            info_Util.updateSimInfo(offerInfo, session);
             session.getTransaction().commit();
             session.close();
-            response.sendRedirect("view/listClient.jsp?del");
-
+            response.sendRedirect("view/listOffre.jsp?del");
         } catch (Exception e) {
             session.getTransaction().rollback();
             session.close();
             response.sendRedirect("view/listClient.jsp?erreur");
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

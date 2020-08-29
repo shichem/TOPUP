@@ -32,7 +32,16 @@ public class OfferInfo_Util {
             return ((OfferInfo) list.get(0));
         }
     }
+ public OfferInfo getOfferInfo_by_id( int id, String suffix) {
+           Session session = HibernateUtil.getSessionFactory().openSession();
 
+        List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM OfferInfo where flag=0 and idofferInfo = " + id, suffix);
+        if (list.isEmpty()) {
+            return null;
+        } else {
+            return ((OfferInfo) list.get(0));
+        }
+    }
     public List getOfferInfo_by_operator(Session session, Operator operator, String suffix) {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM OfferInfo where flag=0 and operator = " + operator.getIdoperator(), suffix);
 

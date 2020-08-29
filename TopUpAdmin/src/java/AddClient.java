@@ -82,7 +82,7 @@ public class AddClient extends HttpServlet {
                         tcategory, ttype, tfname, tlname, tcompany, tnumber,tadress, tcommune, twilaya,
                         temail1, temail2, ttel1, ttel2, operarorVect, limitSoldes,tsn1,tsn2,ttypeStation,tserverProfile);
                if(respeonse == staticVars.onGoingProcessOK){
-              response.sendRedirect("view/listClient.jsp");
+              response.sendRedirect("view/listClient.jsp?add");
          }else{
             response.sendRedirect("view/addClient.jsp?erreur");
          }

@@ -6,6 +6,9 @@
 --%>
 
 
+<%@page import="model_db.SimInfo"%>
+<%@page import="java.util.List"%>
+<%@page import="model_helpers.SimInfo_Util"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,7 +16,8 @@
 <html lang="en">
 
     <%@include file="template/head.jsp" %>
-
+    <%
+    %>
     <body>
 
         <div id="wrapper">
@@ -29,8 +33,28 @@
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
+                  <% if (request.getParameter("add") != null) { %>
+                <div class="alert alert-success" role="alert">
+                    Sim ajoutet avec success
+                </div>
+                <% } %>
+                <% if (request.getParameter("edit") != null) { %>
+                <div class="alert alert-success" role="alert">
+                    Sim modifier avec success
+                </div>
+                <% } %>
+                <% if (request.getParameter("del") != null) { %>
+                <div class="alert alert-success" role="alert">
+                    Sim deactivate avec success
+                </div>
+                <% } %>
+                <% if (request.getParameter("erreur") != null) { %>
+                <div class="alert alert-danger" role="alert">
+                    Erreur dans mis a jour du Sim contact admin 
+                </div>f
+                <% } %>
                 <div class="row">
-                    <table id="example" class="display" style="width:100%">
+                    <table id="example" class="display nowrap dataTable dtr-inline collapsed" style="width:100%" >
                         <thead>
                             <tr>
                                 <th>Sim number</th>
@@ -42,7 +66,24 @@
                         </thead>
                         <tbody>
 
+                            <%    List<SimInfo> simInfos = new SimInfo_Util().getAllSimInfo("");
 
+                                System.out.println("className.methodName()" + simInfos.size());
+                                for (int i = 0; i < simInfos.size(); i++) {
+                                    SimInfo info = (SimInfo) simInfos.get(i);
+                            %>
+                            <tr>
+                                <td><%=info.getSimnumber()%></td>
+                                <td><%=info.getOperator().getOperatorDesc()%></td>
+                                <td><%=info.getPortInfo().getPortDesc()%></td>
+                                <td><%=info.getSimType().getSimTypeDesc()%></td>
+                                <td>
+                               
+                                    <a onclick="desctiveSimInfo(<%=info.getIdsimInfo()%>)" href="#"><i class="fa fa-trash fa-fw"></i></a></td>
+                            </tr>
+                            <%
+                                }
+                            %>    
                         </tbody>
                         <tfoot>
                             <tr>
@@ -65,16 +106,25 @@
         <!-- data -->
         <script src="./data/data_graph.js"></script>
         <script>
-            $(document).ready(function () {
-                var table = $('#example').DataTable();
+                                        $(document).ready(function () {
+                                            var table = $('#example').DataTable();
 
-                $('#example tbody').on('click', 'tr', function () {
-                    var data = table.row(this).data();
-                    alert('You clicked on ' + data[0] + '\'s row');
-                });
-            });
+                                            $('#example tbody').on('click', 'tr', function () {
+                                                var data = table.row(this).data();
+                                                alert('You clicked on ' + data[0] + '\'s row');
+                                            });
+                                        });
+                                        function desctiveSimInfo(id) {
+                                            var r = confirm("vous voulez désactiver l'offer");
+                                            if (r == true) {
+                                                window.location.href = "../DesctivateSim?id=" + id;
+                                            } else {
+
+                                            }
+                                        }
         </script>
-    </body>
+    </script>
+</body>
 
 </html>
 

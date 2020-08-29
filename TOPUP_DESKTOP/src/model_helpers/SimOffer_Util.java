@@ -6,6 +6,7 @@ import model_db.SimInfo;
 import model_db.SimOffer;
 import model_db.StatusInfo;
 import model_util.hqlQueriesHelper;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 
@@ -60,6 +61,10 @@ public class SimOffer_Util {
         hqlQueriesHelper.executeUpdateHQLQuery_WithPreparedSession(adt, session);
     }
 
+     public void deleteOfferInfo(Session session,Integer offerInfo,String suffix) {
+        Query query = session.createQuery( "Delete SimOffer where offerInfo="+offerInfo);
+         query.executeUpdate();
+    }
 
 
 

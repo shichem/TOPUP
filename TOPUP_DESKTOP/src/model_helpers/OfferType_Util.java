@@ -2,6 +2,7 @@ package model_helpers;
 
 import java.util.List;
 import model_db.OfferType;
+import model_util.HibernateUtil;
 import model_util.hqlQueriesHelper;
 import org.hibernate.Session;
 
@@ -14,7 +15,11 @@ public class OfferType_Util {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM OfferType where flag=0", suffix);
 
     }
+  public List getAllOfferType( String suffix) {
+      Session session = HibernateUtil.getSessionFactory().openSession();
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM OfferType where flag=0", suffix);
 
+    }
     public OfferType getOfferType_by_id(Session session, int id, String suffix) {
         List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM OfferType where flag=0 and idofferType = " + id, suffix);
         if (list.isEmpty()) {

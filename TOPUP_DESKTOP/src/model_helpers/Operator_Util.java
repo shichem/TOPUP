@@ -2,6 +2,7 @@ package model_helpers;
 
 import java.util.List;
 import model_db.Operator;
+import model_util.HibernateUtil;
 import model_util.hqlQueriesHelper;
 import org.hibernate.Session;
 
@@ -14,7 +15,12 @@ public class Operator_Util {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM Operator where flag=0", suffix);
 
     }
+ public List getAllOperator( String suffix) {
+           Session session = HibernateUtil.getSessionFactory().openSession();
 
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM Operator where flag=0", suffix);
+
+    }
     public Operator getOperator_by_id(Session session, int id, String suffix) {
         List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM Operator where flag=0 and idoperator = " + id, suffix);
         if (list.isEmpty()) {

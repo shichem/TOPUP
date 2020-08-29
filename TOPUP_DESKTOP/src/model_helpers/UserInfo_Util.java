@@ -4,6 +4,7 @@ import java.util.List;
 import model_db.Trader;
 import model_db.UserCategory;
 import model_db.UserInfo;
+import model_util.HibernateUtil;
 import model_util.hqlQueriesHelper;
 import org.hibernate.Session;
 
@@ -26,6 +27,16 @@ public class UserInfo_Util {
         }
     }
 
+      public UserInfo getUserInfo_by_id( int id, String suffix) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM UserInfo where flag=0 and iduserInfo = " + id, suffix);
+        if (list.isEmpty()) {
+            return null;
+        } else {
+            return ((UserInfo) list.get(0));
+        }
+    }
+    
     public List getUserInfo_by_userCategory(Session session, UserCategory userCategory, String suffix) {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM UserInfo where flag=0 and userCategory = " + userCategory.getIduserCategory(), suffix);
 

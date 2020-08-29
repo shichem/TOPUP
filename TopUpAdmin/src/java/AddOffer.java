@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import custom_vars.staticVars;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -11,8 +12,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model_db.Trader;
-import model_helpers.Trader_Util;
+import model_db.OfferInfo;
+import general_helpers.dbhelper;
+import java.util.Date;
+import javax.servlet.http.HttpSession;
+import model_db.SimInfo;
+import model_db.SimOffer;
+import model_db.UserInfo;
+import model_helpers.OfferInfo_Util;
+import model_helpers.SimInfo_Util;
+import model_helpers.SimOffer_Util;
+import model_helpers.UserInfo_Util;
 import model_util.HibernateUtil;
 import org.hibernate.Session;
 
@@ -20,8 +30,8 @@ import org.hibernate.Session;
  *
  * @author GarandaTech
  */
-@WebServlet(urlPatterns = {"/desactiveClient"})
-public class desactiveClient extends HttpServlet {
+@WebServlet(urlPatterns = {"/AddOffer"})
+public class AddOffer extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,28 +45,40 @@ public class desactiveClient extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        HttpSession session = request.getSession();
 
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-                session.getTransaction().begin();
-            String idTrader = request.getParameter("id");
-            Trader_Util trader_Util = new Trader_Util();
+        try {
+            //operateur
+            String operateur = request.getParameter("operateur");
+            String type = request.getParameter("type");
+            String offerDesc = request.getParameter("fname");
+            String prenumber = request.getParameter("preNumber");
+            String postnumber = request.getParameter("posteNumber");
+            String postpincode = request.getParameter("posteNumberPin");
+            double tmaontant = 0;
+            double dmaontant = 0;
+            String[] items = request.getParameterValues("Number");
+            String checked = request.getParameter("mant_iden");
+            if (checked == "0") {
+                tmaontant = Double.valueOf(request.getParameter("tmaontant"));
+                dmaontant = Double.valueOf(request.getParameter("dmaontant"));
+            }
+            System.out.println("AddOffer.processRequest()" + "size===>" + items.length);
+            int isstatique = 0;
+            dbhelper db = new dbhelper();
+            int userID = Integer.parseInt(session.getAttribute("Id").toString());
+            UserInfo user = new UserInfo_Util().getUserInfo_by_id(userID, "");
+            int respeonse = db.addOffer(userID, Integer.parseInt(operateur), offerDesc, Integer.parseInt(type), prenumber, postnumber, postpincode, tmaontant, dmaontant, isstatique, items);
+            if (respeonse == staticVars.onGoingProcessOK) {
 
-            Trader trader = trader_Util.getTradfer_by_id(session, Integer.parseInt(idTrader), "");
-            trader.setFlag(1);
-
-            trader_Util.updateTrader(trader, session);
-            session.getTransaction().commit();
-            session.close();
-            response.sendRedirect("view/listClient.jsp?del");
-
+                response.sendRedirect("view/listOffre.jsp?add");
+            } else {
+                response.sendRedirect("view/listOffre.jsp?erreur");
+            }
         } catch (Exception e) {
-            session.getTransaction().rollback();
-            session.close();
-            response.sendRedirect("view/listClient.jsp?erreur");
-        }
+            e.printStackTrace();
 
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
