@@ -89,6 +89,17 @@ public class EditOffer extends HttpServlet {
             offer.setPostnumber(postnumber);
             offer.setPostPinCode(postpincode);
             offerInfo.setFlag(0);
+            //System.out.println("general_helpers.dbhelper.addOffer()in for+ ===" + number.length);
+            /*for (int i = 0; i < number.length; i++) {
+                System.out.println("general_helpers.dbhelper.addOffer()in for");
+                SimInfo info = new SimInfo_Util().getSimInfo_by_id(session, Integer.parseInt(number[i]), "");
+                SimOffer adt = new SimOffer();
+                adt.setSimInfo(info);
+                adt.setOfferInfo(offer);
+                adt.setUserInfo(userInfo);
+                adt.setDateAffect(new Date());
+                session.saveOrUpdate(adt);
+            }*/
             info_Util.updateOfferInfo(offerInfo, session);
             session.getTransaction().commit();
                         session.close();

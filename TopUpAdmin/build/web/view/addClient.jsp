@@ -234,7 +234,7 @@
         <script>
             $(document).ready(function () {
                 $("#type").change(function () {
-                    if (this.val() == 2) {
+                    if ($("#type").val() == "2") {
                         $("#simNB").show();
                         $("#simNumber").prop('required', true);
                         $('#sndiv').hide();

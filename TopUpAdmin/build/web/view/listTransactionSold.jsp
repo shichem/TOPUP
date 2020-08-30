@@ -2,6 +2,8 @@
 <%@page import="model_db.OfferInfo"%>
 <%@page import="java.util.List"%>
 <%@page import="model_helpers.OfferInfo_Util"%>
+<%@page import="model_helpers.TransactionSolde_Util"%>
+
 <%-- 
     Document   : dashboard
     Created on : Mar 24, 2019, 3:06:28 PM
@@ -65,8 +67,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <%                                OfferInfo_Util offerInfo_Util = new OfferInfo_Util();
-                                List listOffre = offerInfo_Util.getAllOfferInfo("");
+                            <%                              
+                                TransactionSolde_Util solde_Util = new TransactionSolde_Util();
+                                List listOffre = solde_Util.getAllTransactionSolde("");
                                 System.out.println("className.methodName()" + listOffre.size());
                                 for (int i = 0; i < listOffre.size(); i++) {
                                     OfferInfo offre = (OfferInfo) listOffre.get(i);

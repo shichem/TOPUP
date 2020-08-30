@@ -54,7 +54,7 @@
                 </div>
                 <% } %>
                 <div class="row">
-                    <table id="example" class="display nowrap dataTable dtr-inline collapsed" style="width:100%">
+                    <table id="example" class="display nowrap table dtr-inline collapsed" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Offer</th>

@@ -62,7 +62,7 @@
                 <% } %>
                 <div class="row">
 
-                    <table id="example" border="0" class="display nowrap dataTable dtr-inline collapsed" style="width:100%">
+                    <table id="example" border="0" class="display nowrap table dtr-inline collapsed" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Nom & Prenom</th>
@@ -81,9 +81,9 @@
                                 <td><%=get.getTraderCompany()%></td>
                                 <td><%=get.getTraderType().getTraderTypeDesc()%></td>
                                 <td><%=get.getTraderCategory().getTraderCategoryDesc()%></td>
-                                <td><a href="./editClient.jsp?id=<%=get.getIdtrader()%>"><i class="fa fa-edit fa-fw"></i></a>/                                    
-                                    <a onclick="desctiveClient(<%=get.getIdtrader()%>)" href="#"><i class="fa fa-trash fa-fw"></i></a>
-                                    /<a href="#" data-id="<%=get.getIdtrader()%>" id="modal_provider-<%=get.getIdtrader()%>" ><i class="fa fa-credit-card fa-fw"></i></a></td>
+                                <td><a href="./editClient.jsp?id=<%=get.getIdtrader()%>"><i class="fa fa-edit fa-fw" data-toggle="tooltip" data-placement="left" title="Modefie Client " ></i></a>/                                    
+                                    <a onclick="desctiveClient(<%=get.getIdtrader()%>)" href="#" data-toggle="tooltip" data-placement="left" title="desactive Client"><i class="fa fa-trash fa-fw"></i></a>
+                                    /<a href="#" data-id="<%=get.getIdtrader()%>" id="modal_provider-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="Ajouter sold "><i class="fa fa-credit-card fa-fw"></i></a></td>
 
                             </tr>
                             <%
@@ -109,7 +109,7 @@
                     <div class="modal-content">
                         <form  action="../AddSold" method="POST">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                <h5 class="modal-title" id="exampleModalLongTitle">Ajouter sold </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

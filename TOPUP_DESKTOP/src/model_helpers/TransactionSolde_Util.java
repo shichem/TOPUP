@@ -5,7 +5,9 @@ import model_db.ProviderClient;
 import model_db.StatusInfo;
 import model_db.Trader;
 import model_db.TransactionSolde;
+import model_util.HibernateUtil;
 import model_util.hqlQueriesHelper;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 /**
@@ -17,7 +19,11 @@ public class TransactionSolde_Util {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM TransactionSolde where flag=0", suffix);
 
     }
+  public List getAllTransactionSolde( String suffix) {
+      Session session = HibernateUtil.getSessionFactory().openSession();
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM TransactionSolde where flag=0", suffix);
 
+    }
     public TransactionSolde getTransactionSolde_by_id(Session session, int id, String suffix) {
         List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM TransactionSolde where flag=0 and idtransactsolde = " + id, suffix);
         if (list.isEmpty()) {
