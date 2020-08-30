@@ -21,7 +21,13 @@ public class ProviderClient_Util {
     public ProviderClient getProviderClientForTrader(Integer traderId, String suffix) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM ProviderClient where flag=0 and idclient=" + traderId, suffix);
+    if (list.isEmpty()) {
+            return null;
+        } else {
         return (ProviderClient) list.get(0);
+            }
+        
+       
 
     }
 

@@ -245,7 +245,7 @@
                                                 <input id="sn2" name="sn2" class="form-control" placeholder="Ente seriel number ">
                                             </div>
                                             <%}
-    List listcategory = new TraderCategory_Util().getAllTraderCategory("");
+                                                 List listcategory = new TraderCategory_Util().getAllTraderCategory("");
                                             %>
                                             <div  class="col-lg-6" class="form-group">
                                                 <label>client category</label>
@@ -276,16 +276,19 @@
 
                                                     <%
                                                         ProviderClient pc = new ProviderClient_Util().getProviderClientForTrader(trader.getIdtrader(), "");
-                                                        System.out.println("className.methodName()" + pc.getTraderByIdprovider().getIdtrader());
+                                                        
                                                         for (int i = 0; i < possibleParents.size(); i++) {
                                                             Trader get = (Trader) possibleParents.get(i);
                                                             String select = "";
+                                                            
+                                                            if(pc!=null ){
                                                             if (get.getIdtrader() == pc.getTraderByIdprovider().getIdtrader()) {
                                                                 select = "selected='selected'";
                                                             }
+                                                            }
                                                             System.out.println("==>" + select);
                                                     %>
-                                                    <option value="<%=get.getIdtrader()%>"  <%=select%>   ><%=get.getTraderCompany()%></option>
+                                                    <option value="<%=get.getIdtrader()%>"  <%=""%>   ><%=get.getTraderCompany()%></option>
                                                     <%
                                                         }
                                                     %>
@@ -346,7 +349,7 @@
                         $("#sn1").prop('required', true);
                     }
                 $("#type").change(function () {
-                    if (this.value == 2) {
+                    if ( $("#type").value == 2) {
                         $("#simNB").show();
                         $("#simNumber").prop('required', true);
                         $('#sndiv').hide();
