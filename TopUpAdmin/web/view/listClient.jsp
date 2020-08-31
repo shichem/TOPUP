@@ -35,9 +35,15 @@
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
-                  <% if (request.getParameter("succesSold") != null) { %>
+                
+                  <% if (request.getParameter("succesDebitSold") != null) { %>
                 <div class="alert alert-success" role="alert">
-                  Sold ajout avec success pour le client 
+                    Sold debit avec success pour le client 
+                </div>
+                <% } %>
+                <% if (request.getParameter("succesSold") != null) { %>
+                <div class="alert alert-success" role="alert">
+                    Sold ajout avec success pour le client 
                 </div>
                 <% } %>
                 <% if (request.getParameter("add") != null) { %>
@@ -83,7 +89,8 @@
                                 <td><%=get.getTraderCategory().getTraderCategoryDesc()%></td>
                                 <td><a href="./editClient.jsp?id=<%=get.getIdtrader()%>"><i class="fa fa-edit fa-fw" data-toggle="tooltip" data-placement="left" title="Modefie Client " ></i></a>/                                    
                                     <a onclick="desctiveClient(<%=get.getIdtrader()%>)" href="#" data-toggle="tooltip" data-placement="left" title="desactive Client"><i class="fa fa-trash fa-fw"></i></a>
-                                    /<a href="#" data-id="<%=get.getIdtrader()%>" id="modal_provider-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="debit sold "><i class="fa fa-credit-card fa-fw"></i></a> /<a href="#" data-id="<%=get.getIdtrader()%>" id="modal_provider-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title=" sold "><i class="fa fa-eraser fa-fw"></i></a></td>
+                                    /<a href="#" data-id="<%=get.getIdtrader()%>" id="modal_provider-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="ajout sold "><i class="fa fa-credit-card fa-fw"></i></a> /
+                                    <a href="#" data-id="<%=get.getIdtrader()%>" id="debit-sold-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="debit sold "><i class="fa fa-eraser fa-fw"></i></a></td>
 
                             </tr>
                             <%
@@ -115,8 +122,33 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                
-                                    <div class="row"  id="providerdiv"></div>
+
+                                <div class="row"  id="providerdiv"></div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="reset" class="btn btn-info"  data-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-success"  >Enregistrer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="debit_credit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form  action="../DebitSold" method="POST">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Debit sold </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="row"  id="providerdivDebit"></div>
 
                             </div>
 
@@ -140,21 +172,34 @@
                                         $(document).ready(function () {
                                             var table = $('#example').DataTable();
                                             $('[id^="modal_provider"]').click(function () {
-                                                     var clientId = $(this).data('id');
+                                                var clientId = $(this).data('id');
 
                                                 $.ajax({
-                                                    url: "../OperatorForTrader?id="+clientId,
+                                                    url: "../OperatorForTrader?id=" + clientId,
                                                     success: function (data) {
-                                                       // alert(data);
+                                                        // alert(data);
                                                         $("#providerdiv").empty();
-                                                          $("#providerdiv").append(data);
+                                                        $("#providerdiv").append(data);
 
-                                                          $("#add_credit").modal('show');
+                                                        $("#add_credit").modal('show');
                                                     }
                                                 });
-                                              
-                                            });
 
+                                            });
+                                            $('[id^="debit-sold"]').click(function () {
+                                                var clientId = $(this).data('id');
+                                                $.ajax({
+                                                    url: "../OperatorForTrader?id=" + clientId,
+                                                    success: function (data) {
+                                                        // alert(data);
+                                                        $("#providerdivDebit").empty();
+                                                        $("#providerdivDebit").append(data);
+
+                                                        $("#debit_credit").modal('show');
+                                                    }
+                                                });
+
+                                            });
                                         });
 
                                         function desctiveClient(id) {

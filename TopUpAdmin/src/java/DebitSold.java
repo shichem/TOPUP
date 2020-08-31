@@ -18,8 +18,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author GarandaTech
  */
-@WebServlet(urlPatterns = {"/AddSold"})
-public class AddSold extends HttpServlet {
+@WebServlet(urlPatterns = {"/DebitSold"})
+public class DebitSold extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -54,18 +54,18 @@ public class AddSold extends HttpServlet {
                 System.out.println("AddSold.processRequest() userId ="+userID);
                 System.out.println("AddSold.processRequest() traderID ="+idtrader);
                 System.out.println("AddSold.processRequest() idOperator ="+id_DJEZZY);
-                db.updateVirtualBalance(userID, idtrader,Integer.parseInt(id_DJEZZY), Double.parseDouble(amount_DJEZZY));
+                db.updateVirtualBalance(userID, idtrader,Integer.parseInt(id_DJEZZY), -Double.parseDouble(amount_DJEZZY));
             }
             if (!amount_MOBILIS.isEmpty()) {
                 System.out.println("AddSold.processRequest() Mobilis"+amount_MOBILIS);
-                db.updateVirtualBalance(userID, idtrader, Integer.parseInt(id_MOBILIS),  Double.parseDouble(amount_MOBILIS));
+                db.updateVirtualBalance(userID, idtrader, Integer.parseInt(id_MOBILIS),  -Double.parseDouble(amount_MOBILIS));
             }
             if (!amount_OOREDOO.isEmpty()) {
                 System.out.println("AddSold.processRequest() Ooredoo"+amount_OOREDOO);
 
-                db.updateVirtualBalance(userID, idtrader, Integer.parseInt(id_OOREDOO),  Double.parseDouble(amount_OOREDOO));
+                db.updateVirtualBalance(userID, idtrader, Integer.parseInt(id_OOREDOO),  -Double.parseDouble(amount_OOREDOO));
             }
-                   response.sendRedirect("view/listClient.jsp?succesSold");
+                   response.sendRedirect("view/listClient.jsp?succesDebitSold");
             } catch (Exception e) {
                        response.sendRedirect("view/listClient.jsp?erreur");
             }
