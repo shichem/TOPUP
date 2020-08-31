@@ -1,9 +1,12 @@
 package model_helpers;
 
 import java.util.List;
+import java.util.Map;
+import javax.persistence.Tuple;
 import model_db.SimOffer;
 import model_db.StatusInfo;
 import model_db.TransactionTopup;
+import model_util.HibernateUtil;
 import model_util.hqlQueriesHelper;
 import org.hibernate.Session;
 
@@ -17,6 +20,59 @@ public class TransactionTopup_Util {
 
     }
 
+    public Integer getAllTransactionTopup() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM TransactionTopup where flag=0", "");
+
+        if (list.isEmpty()) {
+            return 0;
+        } else {
+            return list.size();
+        }
+
+    }
+
+    public List getAllTransactionTopupGroupTransactionSim() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "SELECT Count(*)    FROM TransactionTopup where flag=0 group by simOffer.simInfo.simnumber", "");
+        if (list.isEmpty()) {
+                    System.out.println("model_helpers.TransactionTopup_Util.getAllTransactionTopupGroupTransactionSim() empty" );
+
+            return null;
+        } else {
+            System.out.println("model_helpers.TransactionTopup_Util.getAllTransactionTopupGroupTransactionSim()" + list.size());
+     return  list;
+        }
+    }
+      public List getAllTransactionTopupGroupTransactionSim1() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "SELECT simOffer.simInfo.simnumber  FROM TransactionTopup where flag=0 group by simOffer.simInfo.simnumber", "");
+        if (list.isEmpty()) {
+                    System.out.println("model_helpers.TransactionTopup_Util.getAllTransactionTopupGroupTransactionSim() empty" );
+
+            return null;
+        } else {
+            System.out.println("model_helpers.TransactionTopup_Util.getAllTransactionTopupGroupTransactionSim()" + list.size());
+     return  list;
+        }  
+   
+
+}
+public Integer getAllTransactionTopupByOperator(String op) {
+                Session session = HibernateUtil.getSessionFactory().openSession();
+
+        List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM TransactionTopup where flag=0 and simOffer.simInfo.operator.operatorDesc ='"+op+"'", "");
+        
+         if (list.isEmpty()) {
+            return 0;
+        } else {
+        return list.size();
+            }
+
+    }
     public TransactionTopup getTransactionTopup_by_id(Session session, int id, String suffix) {
         List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM TransactionTopup where flag=0 and idtransacttopup = " + id, suffix);
         if (list.isEmpty()) {

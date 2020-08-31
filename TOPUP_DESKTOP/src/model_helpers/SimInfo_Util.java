@@ -5,6 +5,7 @@ import model_db.Operator;
 import model_db.PortInfo;
 import model_db.SimInfo;
 import model_db.SimType;
+import model_db.TransactionSolde;
 import model_util.HibernateUtil;
 import model_util.hqlQueriesHelper;
 import org.hibernate.Session;
@@ -18,12 +19,50 @@ public class SimInfo_Util {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0", suffix);
 
     }
-  
-  public List getAllSimInfo( String suffix) {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-          return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0", suffix);
+    public Integer getAllSimInfoByOperator(String op) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0 and operator.operatorDesc ='"+op+"'", "");
+
+        if (list.isEmpty()) {
+            return 0;
+        } else {
+            return list.size();
+        }
 
     }
+     public Double getLastSoldByOperatorEstimed(String op) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, " SELECT SUM(lastEstimatedSolde)  FROM SimInfo where flag=0 and operator.operatorDesc ='"+op+"'", "");
+
+        if (list.isEmpty()) {
+            return (Double) 0.0;
+        } else {
+            System.out.println("model_helpers.SimInfo_Util.getLastSoldByOperatorEstimed()"+list.size());
+          return  (Double) list.get(0);
+        }
+
+    }
+    
+     public Double getLasSoldByOperator(String op) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "SELECT SUM(lastSolde)  FROM SimInfo where flag=0 and operator.operatorDesc ='"+op+"'", "");
+
+        if (list.isEmpty()) {
+            return 0.0;
+        } else {
+                        System.out.println("model_helpers.SimInfo_Util.getLasSoldByOperator()"+list.size());
+
+            return    (Double) list.get(0);
+        }
+
+    }
+
+    public List getAllSimInfo(String suffix) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0", suffix);
+
+    }
+
     public SimInfo getSimInfo_by_id(Session session, int id, String suffix) {
         List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0 and idsimInfo = " + id, suffix);
         if (list.isEmpty()) {

@@ -19,11 +19,33 @@ public class TransactionSolde_Util {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM TransactionSolde where flag=0", suffix);
 
     }
-  public List getAllTransactionSolde( String suffix) {
-      Session session = HibernateUtil.getSessionFactory().openSession();
-        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM TransactionSolde where flag=0", suffix);
+
+    public Integer getAllTransactionSolde() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+          List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM TransactionSolde where flag=0", "");
+ if (list.isEmpty()) {
+            return 0;
+        } else {
+        return list.size();
+            }
 
     }
+   public Integer getAllTransactionSoldeParOperateur(String op) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+          List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM TransactionSolde where flag=0 and op", "");
+ if (list.isEmpty()) {
+            return 0;
+        } else {
+        return list.size();
+            }
+
+    }
+    public List getAllTransactionSolde(String suffix) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM TransactionSolde where  flag=0", suffix);
+
+    }
+
     public TransactionSolde getTransactionSolde_by_id(Session session, int id, String suffix) {
         List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM TransactionSolde where flag=0 and idtransactsolde = " + id, suffix);
         if (list.isEmpty()) {
@@ -72,7 +94,7 @@ public class TransactionSolde_Util {
 
     }
 
-     public List getTransactionSolde_by_provider_statusInfo(Session session, Trader provider, StatusInfo statusInfo, String suffix) {
+    public List getTransactionSolde_by_provider_statusInfo(Session session, Trader provider, StatusInfo statusInfo, String suffix) {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM TransactionSolde where flag=0 "
                 + "and providerClient.traderByIdprovider = " + provider.getIdtrader()
                 + " and statusInfo = " + statusInfo.getIdstatusInfo(),
@@ -86,7 +108,7 @@ public class TransactionSolde_Util {
                 + "and (transactAmount >= " + transactAmountmin + " and transactAmount <= " + transactAmountmax + ")",
                 suffix);
     }
-    
+
     public void addTransactionSolde(TransactionSolde adt, Session session) {
         hqlQueriesHelper.executeAddHQLQuery_WithPreparedSession(adt, session);
     }

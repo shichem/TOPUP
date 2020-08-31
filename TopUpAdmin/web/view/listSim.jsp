@@ -33,7 +33,7 @@
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
-                  <% if (request.getParameter("add") != null) { %>
+                <% if (request.getParameter("add") != null) { %>
                 <div class="alert alert-success" role="alert">
                     Sim ajoutet avec success
                 </div>
@@ -59,6 +59,8 @@
                             <tr>
                                 <th>Sim number</th>
                                 <th>Operateur</th>
+                                <th>last sold</th>
+                                <th>Sold estimed</th>
                                 <th>Port</th>
                                 <th>Type</th>
                                 <th>Action</th>
@@ -75,10 +77,12 @@
                             <tr>
                                 <td><%=info.getSimnumber()%></td>
                                 <td><%=info.getOperator().getOperatorDesc()%></td>
+                                 <td><%=info.getLastSolde() %></td>
+                                  <td><%=info.getLastEstimatedSolde() %></td>
                                 <td><%=info.getPortInfo().getPortDesc()%></td>
                                 <td><%=info.getSimType().getSimTypeDesc()%></td>
                                 <td>
-                               
+
                                     <a onclick="desctiveSimInfo(<%=info.getIdsimInfo()%>)" href="#"><i class="fa fa-trash fa-fw"></i></a></td>
                             </tr>
                             <%
@@ -89,6 +93,8 @@
                             <tr>
                                 <th>Sim number</th>
                                 <th>Operateur</th>
+                                 <th>last sold</th>
+                                <th>Sold estimed</th>
                                 <th>Port</th>
                                 <th>Type</th>
                                 <th>Action</th>

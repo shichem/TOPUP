@@ -83,7 +83,7 @@
                                 <td><%=get.getTraderCategory().getTraderCategoryDesc()%></td>
                                 <td><a href="./editClient.jsp?id=<%=get.getIdtrader()%>"><i class="fa fa-edit fa-fw" data-toggle="tooltip" data-placement="left" title="Modefie Client " ></i></a>/                                    
                                     <a onclick="desctiveClient(<%=get.getIdtrader()%>)" href="#" data-toggle="tooltip" data-placement="left" title="desactive Client"><i class="fa fa-trash fa-fw"></i></a>
-                                    /<a href="#" data-id="<%=get.getIdtrader()%>" id="modal_provider-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="Ajouter sold "><i class="fa fa-credit-card fa-fw"></i></a> /<a href="#" data-id="<%=get.getIdtrader()%>" id="modal_provider-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="Ajouter sold "><i class="fa fa-credit-card fa-fw"></i></a></td>
+                                    /<a href="#" data-id="<%=get.getIdtrader()%>" id="modal_provider-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="debit sold "><i class="fa fa-credit-card fa-fw"></i></a> /<a href="#" data-id="<%=get.getIdtrader()%>" id="modal_provider-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title=" sold "><i class="fa fa-eraser fa-fw"></i></a></td>
 
                             </tr>
                             <%
