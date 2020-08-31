@@ -25,6 +25,18 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <li>
+                            <a href="#"><i class="fa fa-laptop fa-fw"></i> Gestion des Station<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#"><i class="fa fa-user fa-fw"></i>Ajouter Station</a>
+                                </li>
+                                <li>
+                                    <a href="./listStation.jsp"><i class="fa fa-list fa-fw"></i>List Station</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
                          <li>
                             <a href="#"><i class="fa fa-cubes fa-fw"></i> Gestion des offres <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -51,7 +63,7 @@
                         </li>
                         
                         <li>
-                            <a href="#"><i class="fa fa-sim-card fa-fw"></i> Transaction  <span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-exchange-alt fa-fw"></i> Transaction  <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                <!--  <li>
                                     <a href="addSim.jsp"><i class="fa fa-sim-card fa-fw"></i>Ajouter SIM</a>

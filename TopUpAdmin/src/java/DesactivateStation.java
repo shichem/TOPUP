@@ -6,21 +6,22 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model_db.ProviderClient;
-import model_helpers.ProviderClient_Util;
+import model_db.Station;
+import model_helpers.station_Util;
+import model_util.HibernateUtil;
+import org.hibernate.Session;
 
 /**
  *
  * @author GarandaTech
  */
-@WebServlet(urlPatterns = {"/OperatorForTrader"})
-public class OperatorForTrader extends HttpServlet {
+@WebServlet(urlPatterns = {"/DesactivateStation"})
+public class DesactivateStation extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,32 +35,23 @@ public class OperatorForTrader extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try (PrintWriter out = response.getWriter()) {
+            session.getTransaction().begin();
             /* TODO output your page here. You may use following sample code. */
-                    String idTrader = request.getParameter("id");
-                    int idclient = Integer.parseInt(idTrader);
-            ProviderClient_Util pro_u = new ProviderClient_Util();
-            List listProcide =   pro_u.getProviderClient_by_client(idclient,"");
-            out.println("<input type=\"hidden\" name=\"idtrader\"  id=\"idtrader\" value=\""+idclient+"\" />");
-            if(listProcide.size()==0){
-                          out.println("<label > le client il n'a pas un fournisseur </label>" );
+            String stationId = request.getParameter("id");
+            station_Util info_Util = new station_Util();
+            Station station   = (Station) info_Util.getStation_by_id(session, Integer.parseInt(stationId), "");
 
-            }
-            for(int i=0 ;i<listProcide.size() ;i++){
-              ProviderClient provider= (ProviderClient) listProcide.get(i);
-              out.println(" <div class=\"col-lg-12\" class=\"form-group\">");
-              out.println("<label >"+provider.getOperator().getOperatorDesc()+"</label>" );
-              out.println("<label id=\"label_"+provider.getOperator().getOperatorDesc()+"\" >"+provider.getSolde()+"</label>" );
-                 out.println("<label id=\"new_"+provider.getOperator().getOperatorDesc()+"\" ></label>" );
-                  out.println("<input type=\"hidden\" name=\"id_"+provider.getOperator().getOperatorDesc()+"\"  "
-                          + "id=\"id_"+provider.getOperator().getOperatorDesc()+"\" value=\""+provider.getOperator().getIdoperator()+"\" />");
-              out.println("<input type=\"number\" id=\"amount_"+provider.getOperator().getOperatorDesc()+"\" "
-                      + "name=\"amount_"+provider.getOperator().getOperatorDesc()+"\" "
-                      + "class=\"form-control\"  placeholder=\"Enter  montant "+provider.getOperator().getOperatorDesc()+"\">" );
-              out.println("</div>");
-            }
-            
-            
+            station.setFlag(1);
+            info_Util.updateStation(station, session);
+            session.getTransaction().commit();
+            session.close();
+            response.sendRedirect("view/listStation.jsp?del");
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            session.close();
+            response.sendRedirect("view/listStation.jsp?erreur");
         }
     }
 

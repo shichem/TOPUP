@@ -16,6 +16,8 @@ public class StationType_Util {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM StationType where flag=0", suffix);
 
     }
+    
+   
    public List getAllStationType( String suffix) {
         Session session  =  HibernateUtil.getSessionFactory().openSession();
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM StationType where flag=0", suffix);

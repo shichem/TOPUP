@@ -35,8 +35,8 @@
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
-                
-                  <% if (request.getParameter("succesDebitSold") != null) { %>
+
+                <% if (request.getParameter("succesDebitSold") != null) { %>
                 <div class="alert alert-success" role="alert">
                     Sold debit avec success pour le client 
                 </div>
@@ -87,10 +87,10 @@
                                 <td><%=get.getTraderCompany()%></td>
                                 <td><%=get.getTraderType().getTraderTypeDesc()%></td>
                                 <td><%=get.getTraderCategory().getTraderCategoryDesc()%></td>
-                                <td><a href="./editClient.jsp?id=<%=get.getIdtrader()%>"><i class="fa fa-edit fa-fw" data-toggle="tooltip" data-placement="left" title="Modefie Client " ></i></a>/                                    
-                                    <a onclick="desctiveClient(<%=get.getIdtrader()%>)" href="#" data-toggle="tooltip" data-placement="left" title="desactive Client"><i class="fa fa-trash fa-fw"></i></a>
-                                    /<a href="#" data-id="<%=get.getIdtrader()%>" id="modal_provider-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="ajout sold "><i class="fa fa-credit-card fa-fw"></i></a> /
-                                    <a href="#" data-id="<%=get.getIdtrader()%>" id="debit-sold-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="debit sold "><i class="fa fa-eraser fa-fw"></i></a></td>
+                                <td><a href="./editClient.jsp?id=<%=get.getIdtrader()%>"><i class="fa fa-edit fa-fw" data-toggle="tooltip" data-placement="left" title="Modefie Client " ></i><span>Edit </span></a>/                                    
+                                    <a onclick="desctiveClient(<%=get.getIdtrader()%>)" href="#" data-toggle="tooltip" data-placement="left" title="desactive Client"> <i class="fa fa-trash fa-fw"></i><span>Desactive </span></a>
+                                    /<a href="#" data-id="<%=get.getIdtrader()%>" id="modal_provider-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="ajout sold "> <i class="fa fa-credit-card fa-fw"></i><span>Ajout sold </span></a> /
+                                    <a href="#" data-id="<%=get.getIdtrader()%>" id="debit-sold-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="debit sold "> <i class="fa fa-eraser fa-fw"></i><span>Debit sold </span></a></td>
 
                             </tr>
                             <%
@@ -170,6 +170,9 @@
         <script src="./data/data_graph.js"></script>
         <script>
                                         $(document).ready(function () {
+
+
+
                                             var table = $('#example').DataTable();
                                             $('[id^="modal_provider"]').click(function () {
                                                 var clientId = $(this).data('id');
@@ -180,8 +183,35 @@
                                                         // alert(data);
                                                         $("#providerdiv").empty();
                                                         $("#providerdiv").append(data);
-
+                                                        $("#providerdivDebit").empty();
                                                         $("#add_credit").modal('show');
+                                                        $("#amount_DJEZZY").change(function () {
+                                                            $('#new_DJEZZY').text("")
+                                                            if ($("#amount_DJEZZY").val().length!=0) {
+                                                                var old = parseFloat($('#label_DJEZZY').text());
+                                                                $('#new_DJEZZY').text(old + parseFloat($("#amount_DJEZZY").val()));
+                                                                $("#new_DJEZZY").css("color", "green");
+                                                            }
+
+                                                        });
+                                                        $("#amount_MOBILIS").change(function () {
+                                                            $('#new_MOBILIS').text("")
+                                                            if ($("#amount_MOBILIS").val().length!=0) {
+                                                                var old = parseFloat($('#label_MOBILIS').text());
+                                                                $('#new_MOBILIS').text(old + parseFloat($("#amount_MOBILIS").val()));
+                                                                $("#new_MOBILIS").css("color", "green");
+                                                            }
+
+                                                        });
+                                                        $("#amount_OOREDOO").change(function () {
+                                                            $('#new_OOREDOO').text("")
+                                                            if ($("#amount_OOREDOO").val().length!=0) {
+                                                                var old = parseFloat($('#label_OOREDOO').text());
+                                                                $('#new_OOREDOO').text(old + parseFloat($("#amount_OOREDOO").val()));
+                                                                $("#new_OOREDOO").css("color", "green");
+                                                            }
+
+                                                        });
                                                     }
                                                 });
 
@@ -192,15 +222,42 @@
                                                     url: "../OperatorForTrader?id=" + clientId,
                                                     success: function (data) {
                                                         // alert(data);
+                                                        $("#providerdiv").empty();
                                                         $("#providerdivDebit").empty();
                                                         $("#providerdivDebit").append(data);
-
                                                         $("#debit_credit").modal('show');
+                                                        $("#amount_DJEZZY").change(function () {
+                                                            $('#new_DJEZZY').text("")
+                                                            if ($("#amount_DJEZZY").val().length!=0) {
+                                                                var old = parseFloat($('#label_DJEZZY').text());
+                                                                $('#new_DJEZZY').text(old - parseFloat($("#amount_DJEZZY").val()));
+                                                                $("#new_DJEZZY").css("color", "red");
+                                                            }
+                                                        });
+                                                        $("#amount_MOBILIS").change(function () {
+                                                            $('#new_MOBILIS').text("")
+                                                            if ($("#amount_MOBILIS").val().length!=0) {
+                                                                var old = parseFloat($('#label_MOBILIS').text());
+                                                                $('#new_MOBILIS').text(old - parseFloat($("#amount_MOBILIS").val()));
+                                                                $("#new_MOBILIS").css("color", "red");
+                                                            }
+
+                                                        });
+                                                        $("#amount_OOREDOO").change(function () {
+                                                            $('#new_OOREDOO').text("")
+                                                            if ($("#amount_OOREDOO").val().length!=0) {
+                                                                var old = parseFloat($('#label_OOREDOO').text());
+                                                                $('#new_OOREDOO').text(old - parseFloat($("#amount_OOREDOO").val()));
+                                                                $("#new_OOREDOO").css("color", "red");
+                                                            }
+
+
+                                                        });
                                                     }
                                                 });
-
                                             });
-                                        });
+                                        }
+                                        );
 
                                         function desctiveClient(id) {
                                             var r = confirm("vous voulez désactiver le client");

@@ -170,7 +170,6 @@
                                             <div class="col-lg-12" >
                                                 <div style="float:right">
                                                     <br/>
-                                                    <button type="reset" class="btn btn-info">Annuler</button>
                                                     <button type="submit" class="btn btn-success"  >Enregistrer</button>
 
                                                 </div>
