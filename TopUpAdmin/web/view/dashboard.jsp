@@ -254,15 +254,16 @@
                             </div>
                         </div>
                     </div>
-                    <!--                    <div class="col-lg-6">
+                                        <div class="col-lg-6">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
+                                                    Transaction par offer
                                                 </div>
                                                 <div class="panel-body">
                                                     <div id="morris-bar-chart"></div>
                                                 </div>
                                             </div>
-                                        </div>-->
+                                        </div>
                     <!-- /.col-lg-6 -->
                 </div>
                 <!-- /.row -->
@@ -351,50 +352,28 @@
 
                 });
 
-//    Morris.Bar({
-//        element: 'morris-bar-chart',
-//        data: [{
-//            y: 'G 1 ',
-//            a: 100,
-//            b: 90,
-//            c:80
-//        }, {
-//            y: 'G 2',
-//            a: 75,
-//            b: 65,
-//            c:80
-//        }, {
-//            y: 'G 3',
-//            a: 50,
-//            b: 40,
-//            c:80
-//        }, {
-//            y: 'G 4',
-//            a: 75,
-//            b: 65,
-//            c:80
-//        }, {
-//            y: 'G 5',
-//            a: 50,
-//            b: 40,
-//            c:80
-//        }, {
-//            y: 'G 6',
-//            a: 75,
-//            b: 65,
-//            c:80
-//        }, {
-//            y: 'G 7',
-//            a: 100,
-//            b: 90,
-//            c:80
-//        }],
-//        xkey: 'y',
-//        ykeys: ['a', 'b','c'],
-//        labels: ['Djezzy', 'Mobilis','Ooredoo'],
-//        hideHover: 'auto',
-//        resize: true
-//    });
+    Morris.Bar({
+        element: 'morris-bar-chart',
+        data: [
+                    <%  List listY = new TransactionTopup_Util().getAllTransactionTopupGroupByOffer();
+                List list1a = new TransactionTopup_Util().getAllTransactionTopupGroupByOffer1();
+                for (int i = 0; i < listY.size(); i++) {
+                    int   j =1;
+                   out.println("{y :'" + (String) list1a.get(i) + "',a :" + listY.get(i).toString() + "}");
+
+                if ((j ) < listY.size()) {
+                    out.print(",");
+                }
+                j++;
+            }
+
+            %>],
+        xkey: 'y',
+        ykeys: ['a'],
+        labels: ['Transaction' ],
+        hideHover: 'auto',
+        resize: true
+    });
             });
 
         </script>
