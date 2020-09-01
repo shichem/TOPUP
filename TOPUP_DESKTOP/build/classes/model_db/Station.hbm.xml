@@ -38,6 +38,18 @@
         <property name="appversion" type="string">
             <column name="appversion" length="50" not-null="true" />
         </property>
+        <property name="stationName" type="string">
+            <column name="station_name" length="50" not-null="false" />
+        </property>
+        <property name="passCode" type="string">
+            <column name="pass_code" length="50" not-null="false" />
+        </property>
+        <property name="defaultUsername" type="string">
+            <column name="default_username" length="150" not-null="false" />
+        </property>
+        <property name="defaultPassword" type="string">
+            <column name="default_password" length="150" not-null="false" />
+        </property>
         <property name="flag" type="java.lang.Integer">
             <column name="flag" />
         </property>

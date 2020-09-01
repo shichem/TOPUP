@@ -12,6 +12,10 @@ public class Station  implements java.io.Serializable {
 
 
      private Integer idstation;
+     private String stationName;
+      private String passCode	;
+      private String defaultUsername;
+      private String defaultPassword;
      private ServerProfile serverProfile;
      private StationType stationType;
      private StatusInfo statusInfo;
@@ -63,6 +67,18 @@ public class Station  implements java.io.Serializable {
     
     public void setIdstation(Integer idstation) {
         this.idstation = idstation;
+    }
+    public void setStationName(String stationName){
+        this.stationName = stationName;
+    }
+    public String getStationName() {
+        return this.stationName;
+    }  
+    public void setPassCode(String passCode){
+        this.passCode = passCode;
+    }
+    public String getPassCode() {
+        return this.passCode;
     }
     public ServerProfile getServerProfile() {
         return this.serverProfile;
@@ -154,6 +170,34 @@ public class Station  implements java.io.Serializable {
     
     public void setStationLoginSessions(Set<StationLoginSession> stationLoginSessions) {
         this.stationLoginSessions = stationLoginSessions;
+    }
+
+    /**
+     * @return the defaultUsername
+     */
+    public String getDefaultUsername() {
+        return defaultUsername;
+    }
+
+    /**
+     * @param defaultUsername the defaultUsername to set
+     */
+    public void setDefaultUsername(String defaultUsername) {
+        this.defaultUsername = defaultUsername;
+    }
+
+    /**
+     * @return the defaultPassword
+     */
+    public String getDefaultPassword() {
+        return defaultPassword;
+    }
+
+    /**
+     * @param defaultPassword the defaultPassword to set
+     */
+    public void setDefaultPassword(String defaultPassword) {
+        this.defaultPassword = defaultPassword;
     }
 
 

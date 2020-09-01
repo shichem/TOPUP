@@ -1101,6 +1101,7 @@ public class dbhelper {
             Station station = new Station(stationType,
                     new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_ENT_Actif, ""),
                     trader, userInfo, stationBrand, stationReference, stationSn1, stationSn2, appversion);
+            station.setStationName(trader.getTraderFname()+"-"+stationType.getStationTypeDesc());
             station.setServerProfile(profile);
             stationUtil.addStation(station, session);
             return staticVars.onGoingProcessOK;

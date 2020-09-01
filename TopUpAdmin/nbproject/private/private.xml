@@ -3,15 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/TOPUP/TopUpAdmin/src/java/DesctivateOffer.java</file>
-            <file>file:/F:/TOPUP/TopUpAdmin/src/java/desactiveClient.java</file>
-            <file>file:/F:/TOPUP/TopUpAdmin/src/java/AddClient.java</file>
-            <file>file:/F:/TOPUP/TopUpAdmin/web/view/listOffre.jsp</file>
-            <file>file:/F:/TOPUP/TopUpAdmin/web/view/listSim.jsp</file>
-            <file>file:/F:/TOPUP/TopUpAdmin/web/view/addOffre.jsp</file>
+            <file>file:/F:/TOPUP/TopUpAdmin/web/view/editClient.jsp</file>
             <file>file:/F:/TOPUP/TopUpAdmin/web/view/listClient.jsp</file>
-            <file>file:/F:/TOPUP/TopUpAdmin/src/java/AddOffer.java</file>
-            <file>file:/F:/TOPUP/TopUpAdmin/src/java/DesactivateSim.java</file>
+            <file>file:/F:/TOPUP/TopUpAdmin/src/java/OperatorForTrader.java</file>
         </group>
     </open-files>
 </project-private>

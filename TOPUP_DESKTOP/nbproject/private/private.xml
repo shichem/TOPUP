@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/F:/TOPUP/TOPUP_DESKTOP/src/model_db/SimOffer.java</file>
-            <file>file:/F:/TOPUP/TOPUP_DESKTOP/src/model_db/OfferInfo.java</file>
-            <file>file:/F:/TOPUP/TOPUP_DESKTOP/src/model_helpers/SimInfo_Util.java</file>
-            <file>file:/F:/TOPUP/TOPUP_DESKTOP/src/model_helpers/UserInfo_Util.java</file>
-            <file>file:/F:/TOPUP/TOPUP_DESKTOP/src/model_util/hqlQueriesHelper.java</file>
-            <file>file:/F:/TOPUP/TOPUP_DESKTOP/src/model_helpers/OfferInfo_Util.java</file>
-            <file>file:/F:/TOPUP/TOPUP_DESKTOP/src/model_db/SimInfo.java</file>
-            <file>file:/F:/TOPUP/TOPUP_DESKTOP/src/general_helpers/dbhelper.java</file>
-            <file>file:/F:/TOPUP/TOPUP_DESKTOP/src/model_helpers/SimOffer_Util.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

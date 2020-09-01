@@ -24,7 +24,7 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Ajouter Sim</h1>
+                        <h1 class="page-header">Ajouter Station</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -39,17 +39,8 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <form role="form">
-                                            <div class="col-lg-6" class="form-group">
-                                                <label>Nom Sim</label>
-                                                <input id="fname"  name="fname" class="form-control" placeholder="Enter nom du sim">
-                                            </div>
-                                            <div class="col-lg-6" class="form-group">
-                                                <label>Numero Sim</label>
-                                                <input id="laneme" name="lname" class="form-control" placeholder="Enter numero de votre sim">
-                                            </div>
-
-                                            <div class="col-lg-6" class="form-group">
-                                                <label>Operateur</label>
+                                             <div class="col-lg-6" class="form-group">
+                                                <label>Treader</label>
                                                  <select id="operateur" name="operateur" class="form-control">
                                                     <option value="1">Djezzy</option>
                                                     <option value="2">Mobilis</option>
@@ -57,23 +48,35 @@
                                                     
                                                 </select>
                                             </div>
+
                                             <div class="col-lg-6" class="form-group">
-                                                <label>Type</label>
-                                                <select id="type" name="type" class="form-control">
+                                                <label>Nom Station</label>
+                                                <input id="fname"  name="fname" class="form-control" placeholder="Enter nom du sim">
+                                            </div>
+                                            <div class="col-lg-6" class="form-group">
+                                                <label>Numero sn1</label>
+                                                <input id="sn2" name="sn2" class="form-control" placeholder="Enter numero serie  de votre station">
+                                            </div>
+                                               <div class="col-lg-6" class="form-group">
+                                                <label>Numero sn1</label>
+                                                <input id="sn2" name="sn2" class="form-control" placeholder="Enter numero serie de votre station">
+                                            </div>
+                                            <div class="col-lg-6" class="form-group">
+                                                <label>type</label>
+                                                 <select id="type" name="type" class="form-control">
+                                                    <option value="1">Djezzy</option>
+                                                    <option value="2">Mobilis</option>
+                                                    <option value="3">Ooredoo</option>
+                                                    
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6" class="form-group">
+                                                <label>status</label>
+                                                <select id="status" name="status" class="form-control">
                                                    
                                                 </select>
                                             </div>
-                                            <div class="col-lg-6" class="form-group">
-                                                <label>Port</label>
-                                                <select id="port" name="port" class="form-control">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
-                                            </div>
-
+                                           
                                             <div class="col-lg-12" >
                                                 <div style="float:right">
                                                     <br/>
