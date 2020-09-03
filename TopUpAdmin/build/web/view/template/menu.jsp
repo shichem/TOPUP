@@ -29,7 +29,7 @@
                             <a href="#"><i class="fa fa-laptop fa-fw"></i> Gestion des Station<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#"><i class="fa fa-user fa-fw"></i>Ajouter Station</a>
+                                    <a href="./addStation.jsp"><i class="fa fa-user fa-fw"></i>Ajouter Station</a>
                                 </li>
                                 <li>
                                     <a href="./listStation.jsp"><i class="fa fa-list fa-fw"></i>List Station</a>

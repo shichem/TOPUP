@@ -34,7 +34,16 @@ public class station_Util {
             return ((Station) list.get(0));
         }
     }
+  public Station getStation_by_id(int id, String suffix) {
+                       Session session  =  HibernateUtil.getSessionFactory().openSession();
 
+        List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM Station where flag=0 and idstation = " + id, suffix);
+        if (list.isEmpty()) {
+            return null;
+        } else {
+            return ((Station) list.get(0));
+        }
+    }
     public List getUserInfo_by_stationType(Session session, StationType stationType, String suffix) {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM Station where flag=0 and stationType = " + stationType.getIdstationType(), suffix);
 

@@ -81,7 +81,7 @@
                                          <td><%=station.getStationSn1() %></td>
                                             <td><%=station.getStationSn2() %></td>
                                 <td>
-                                   <a href="./editOffre.jsp?id=<%=station.getIdstation()%>"><i class="fa fa-edit fa-fw"></i></a>/ 
+                                   <a href="./editStation.jsp?id=<%=station.getIdstation()%>"><i class="fa fa-edit fa-fw"></i></a>/ 
                                     <a onclick="desctiveStation(<%=station.getIdstation()%>)" href="#"><i class="fa fa-trash fa-fw"></i></a>
                                 </td>
                             </tr>

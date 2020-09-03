@@ -2,6 +2,7 @@ package model_helpers;
 
 import java.util.List;
 import model_db.StatusInfo;
+import model_util.HibernateUtil;
 import model_util.hqlQueriesHelper;
 import org.hibernate.Session;
 
@@ -11,6 +12,11 @@ import org.hibernate.Session;
 public class StatusInfo_Util {
 
     public List getAllStatusInfo(Session session, String suffix) {
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM StatusInfo where flag=0", suffix);
+
+    }
+ public List getAllStatusInfo(String suffix) {
+        Session session  =  HibernateUtil.getSessionFactory().openSession();
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM StatusInfo where flag=0", suffix);
 
     }
@@ -27,7 +33,12 @@ public class StatusInfo_Util {
     public List getStatusInfo_by_statusInfoDesc_Like(Session session, String statusInfoDesc, String suffix) {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM StatusInfo where flag=0 and statusInfoDesc LIKE '%" + statusInfoDesc + "%'", suffix);
     }
+ public List getStatusInfo_by_statusInfoDesc_Like( String statusInfoDesc, String suffix) {
+             Session session  =  HibernateUtil.getSessionFactory().openSession();
 
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM StatusInfo where flag=0 and statusInfoDesc LIKE '%" + statusInfoDesc + "%'", suffix);
+    }
+    
     public StatusInfo getStatusInfo_by_statusInfoDesc(Session session, String statusInfoDesc, String suffix) {
         List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM StatusInfo where flag=0 and statusInfoDesc = '" + statusInfoDesc + "'", suffix);
         if (list.isEmpty()) {

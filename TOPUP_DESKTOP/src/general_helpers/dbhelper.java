@@ -1103,7 +1103,11 @@ public class dbhelper {
                     trader, userInfo, stationBrand, stationReference, stationSn1, stationSn2, appversion);
             station.setStationName(trader.getTraderFname()+"-"+stationType.getStationTypeDesc());
             station.setServerProfile(profile);
+            station.setDefaultPassword("admin");
+            station.setDefaultUsername("admin");
+            station.setFlag(0);
             stationUtil.addStation(station, session);
+            
             return staticVars.onGoingProcessOK;
         } catch (Exception e) {
             System.out.println("general_helpers.dbhelper.addStation()" + e.getMessage());

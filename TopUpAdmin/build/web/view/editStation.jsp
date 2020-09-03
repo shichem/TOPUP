@@ -3,10 +3,13 @@
 <%@page import="model_helpers.StatusInfo_Util"%>
 <%@page import="model_db.StationType"%>
 <%@page import="model_db.ServerProfile"%>
+<%@page import="model_db.Station"%>
+
 <%@page import="model_helpers.ServerProfile_Util"%>
 <%@page import="model_helpers.StationType_Util"%>
 <%@page import="model_helpers.StationType_Util"%>
 <%@page import="java.util.List"%>
+<%@page import="model_helpers.station_Util" %>
 
 <%-- 
     Document   : dashboard
@@ -66,7 +69,13 @@
         }
     </style>
     <%@include file="template/head.jsp" %>
+     <%
+        if (request.getParameter("id") != null) {
+            String stationId = request.getParameter("id");
+             Station station =(Station) new station_Util().getStation_by_id(Integer.parseInt( stationId), "");
+            // System.out.println("className.methodName()"+listStation.size());
 
+    %>
     <body>
 
         <div id="wrapper">
@@ -77,7 +86,7 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Ajouter Station</h1>
+                        <h1 class="page-header">Modefie  Station</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -95,7 +104,7 @@
                                             <div class="col-lg-12" class="form-group">
                                                 <label>Client</label>
                                                 <div class="autocomplete" >
-                                                    <input id="treader" type="text" required="" name="trader" class=" form-control"  placeholder="nom du client " autocomplete="off">
+                                                    <input id="treader" value="<%=station.getTrader().getIdtrader() +"-"+station.getTrader().getTraderFname()  %>" type="text" required="" name="trader" class=" form-control"  placeholder="nom du client " autocomplete="off">
                                                 </div>
 
                                             </div>
@@ -120,7 +129,7 @@
 
                                             <div class="col-lg-6" class="form-group">
                                                 <label>Nom Station</label>
-                                                <input id="fname"  required="" name="fname" class="form-control" placeholder="Enter nom du sim">
+                                                <input id="fname" value=""  required="" name="fname" class="form-control" placeholder="Enter nom du sim">
                                             </div>
                                             <div class="col-lg-6" class="form-group">
                                                 <label>Numero sn1</label>
@@ -336,6 +345,11 @@
 
         </script>
     </body>
-
+ <%
+        } else {
+            String redirectURL = "../erreur.jsp";
+            // response.sendRedirect(redirectURL);
+        }
+    %>
 </html>
 

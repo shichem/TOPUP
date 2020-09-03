@@ -153,7 +153,7 @@
                                                     <%                                for (int i = 0; i < listServer.size(); i++) {
                                                             ServerProfile get = (ServerProfile) listServer.get(i);
                                                     %>
-                                                    <option value="<%=get.getIdProfile()%>"><%=get.getServerAdress1()%></option>
+                                                    <option value="<%=get.getIdProfile()%>"><%=get.getIdProfile()+"-"+get.getServerAdress1()%></option>
                                                     <%
                                                         }
                                                     %>
@@ -190,7 +190,8 @@
                                             <%
                                                 List possibleParents = new Trader_Util().getTrader_by_trader_grossiste("");
                                             %>
-                                            <div class="col-lg-6" class="form-group">
+                                                        dbhelper helper = new dbhelper();
+        <div class="col-lg-6" class="form-group">
                                                 <label>Fournisseur</label>
 
                                                 <select  id="fourn" name="fourn" class="form-control">
