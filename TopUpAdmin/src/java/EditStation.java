@@ -16,14 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model_db.ServerProfile;
 import model_db.StationType;
-import model_db.StatusInfo;
 import model_helpers.ServerProfile_Util;
 import model_helpers.StationType_Util;
 import model_util.HibernateUtil;
 import org.hibernate.Session;
 import model_db.Trader;
 import model_db.UserInfo;
+import model_db.Station;
+import model_db.StatusInfo;
 import model_helpers.StatusInfo_Util;
+import model_helpers.station_Util;
 import model_helpers.TraderType_Util;
 import model_helpers.Trader_Util;
 import model_helpers.UserInfo_Util;
@@ -32,8 +34,8 @@ import model_helpers.UserInfo_Util;
  *
  * @author GarandaTech
  */
-@WebServlet(urlPatterns = {"/AddStation"})
-public class AddStation extends HttpServlet {
+@WebServlet(urlPatterns = {"/EditStation"})
+public class EditStation extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,10 +53,11 @@ public class AddStation extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             session.getTransaction().begin();
+            String stationId = request.getParameter("id");
 
-            String TraderStr = request.getParameter("trader");
-            String[] arrOfStr = TraderStr.split("-", 5);
-            Integer id = Integer.parseInt(arrOfStr[0].toString());
+            // String TraderStr = request.getParameter("trader");
+            //String[] arrOfStr = TraderStr.split("-", 5);
+            // Integer id = Integer.parseInt(arrOfStr[0].toString());
             String tsn1 = request.getParameter("sn1");
             String tsn2 = request.getParameter("sn2");
             String ttypeStation = request.getParameter("typeStationId");
@@ -70,26 +73,31 @@ public class AddStation extends HttpServlet {
             int userID = Integer.parseInt(httpSession.getAttribute("Id").toString());
 
             StationType stationType = (StationType) new StationType_Util().getStationType_by_id(session, Integer.parseInt(ttypeStation), "");
-            Trader trader = (Trader) new Trader_Util().getTradfer_by_id(session, id, "");
+            // Trader trader = (Trader) new Trader_Util().getTradfer_by_id(session, id, "");
             ServerProfile profile = (ServerProfile) new ServerProfile_Util().getStationType_by_id(session, Integer.parseInt(tserverProfile), "");
             UserInfo user = new UserInfo_Util().getUserInfo_by_id(session, userID, "");
-            dbhelper helper = new dbhelper();
-           StatusInfo status = new StatusInfo_Util().getStatusInfo_by_id(session, Integer.parseInt(statusStationId), "");
 
-            int respeonse = helper.addStation(session, user, trader,status, stationType, trader.getTraderCompany(), trader.getTraderCompany(), tsn1, tsn2, "", profile, stationName,userName,password);
+            Station st = new station_Util().getStation_by_id(session, Integer.parseInt(stationId), "");
+           StatusInfo statusInfo = new StatusInfo_Util().getStatusInfo_by_id(session, Integer.parseInt(statusStationId), "");
+
+            st.setStationName(stationName);
+            st.setStationSn1(tsn1);
+            st.setStationSn2(tsn2);
+            st.setDefaultPassword(password);
+            st.setDefaultUsername(userName);
+            st.setStationType(stationType);
+            st.setServerProfile(profile);
+            st.setStatusInfo(statusInfo);
+            new station_Util().updateStation(st, session);
             session.getTransaction().commit();
             session.close();
-            if (respeonse == staticVars.onGoingProcessOK) {
-                response.sendRedirect("view/listStation.jsp?add");
-            } else {
-                response.sendRedirect("view/addStation.jsp?erreur");
-            }
+            response.sendRedirect("view/editStation.jsp?succes&id=" + stationId);
 
         } catch (Exception e) {
             e.printStackTrace();
             session.getTransaction().rollback();
             session.close();
-            response.sendRedirect("view/listStation.jsp?erreur");
+            response.sendRedirect("view/editStation.jsp?erreur");
 
         }
     }

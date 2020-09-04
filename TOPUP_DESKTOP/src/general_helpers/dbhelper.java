@@ -1116,6 +1116,25 @@ public class dbhelper {
         }
     }
 
+    public int addStation(Session session, UserInfo userInfo, Trader trader,StatusInfo infoStatus , StationType stationType, String stationBrand, String stationReference, String stationSn1, String stationSn2, String appversion, ServerProfile profile,String name,String username,String password) {
+        try {
+            station_Util stationUtil = new station_Util();
+            Station station = new Station(stationType, infoStatus,
+                    trader, userInfo, stationBrand, stationReference, stationSn1, stationSn2, appversion);
+            station.setStationName(name);
+            station.setServerProfile(profile);
+            station.setDefaultPassword(password);
+            station.setDefaultUsername(username);
+            station.setFlag(0);
+            stationUtil.addStation(station, session);
+            
+            return staticVars.onGoingProcessOK;
+        } catch (Exception e) {
+            System.out.println("general_helpers.dbhelper.addStation()" + e.getMessage());
+            System.out.println("helpers.dbhelper.addStation() : UNKNOWN ERROR");
+            return staticVars.unknownError;
+        }
+    }
     public int addStation(UserInfo userInfo, Trader trader, String stationType, String stationBrand, String stationReference, String stationSn1, String stationSn2, String appversion) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {

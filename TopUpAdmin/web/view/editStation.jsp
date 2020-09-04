@@ -69,10 +69,10 @@
         }
     </style>
     <%@include file="template/head.jsp" %>
-     <%
+    <%
         if (request.getParameter("id") != null) {
             String stationId = request.getParameter("id");
-             Station station =(Station) new station_Util().getStation_by_id(Integer.parseInt( stationId), "");
+            Station station = (Station) new station_Util().getStation_by_id(Integer.parseInt(stationId), "");
             // System.out.println("className.methodName()"+listStation.size());
 
     %>
@@ -91,6 +91,16 @@
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
+                  <% if (request.getParameter("succes") != null) { %>
+                <div class="alert alert-success" role="alert">
+                    Station modefie avec success
+                </div>
+                <% } %>
+                <% if (request.getParameter("erreur") != null) { %>
+                <div class="alert alert-danger" role="alert">
+                    Erreur dans mis a jour du Station contact admin 
+                </div>
+                <% }%>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
@@ -100,11 +110,13 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <form role="form" action="../AddStation" method="POST">
+                                        <form role="form" action="../EditStation" method="POST">
+                                            <input type="hidden" name="id" id="id" value="<%= stationId%>" /> 
+
                                             <div class="col-lg-12" class="form-group">
                                                 <label>Client</label>
                                                 <div class="autocomplete" >
-                                                    <input id="treader" value="<%=station.getTrader().getIdtrader() +"-"+station.getTrader().getTraderFname()  %>" type="text" required="" name="trader" class=" form-control"  placeholder="nom du client " autocomplete="off">
+                                                    <input id="treader" readonly="" value="<%=station.getTrader().getIdtrader() + "-" + station.getTrader().getTraderFname()%>" type="text" required="" name="trader" class=" form-control"  placeholder="nom du client " autocomplete="off">
                                                 </div>
 
                                             </div>
@@ -117,10 +129,16 @@
 
                                                     <option value="">Selection Type du station  </option>
 
-                                                    <%                                for (int i = 0; i < listTyoeStation.size(); i++) {
+                                                    <%    for (int i = 0; i < listTyoeStation.size(); i++) {
+
                                                             StationType get = (StationType) listTyoeStation.get(i);
+                                                            String select = "";
+                                                            if (get.getIdstationType() == station.getStationType().getIdstationType()) {
+                                                                select = "selected='selected'";
+                                                            }
+
                                                     %>
-                                                    <option value="<%=get.getIdstationType()%>"><%=get.getStationTypeDesc()%></option>
+                                                    <option value="<%=get.getIdstationType()%>"  <%=select%> ><%=get.getStationTypeDesc()%></option>
                                                     <%
                                                         }
                                                     %>
@@ -129,15 +147,15 @@
 
                                             <div class="col-lg-6" class="form-group">
                                                 <label>Nom Station</label>
-                                                <input id="fname" value=""  required="" name="fname" class="form-control" placeholder="Enter nom du sim">
+                                                <input id="fname" value="<%=station.getStationName()%>"  required="" name="fname" class="form-control" placeholder="Enter nom du sim">
                                             </div>
                                             <div class="col-lg-6" class="form-group">
                                                 <label>Numero sn1</label>
-                                                <input id="sn1" name="sn1" class="form-control" required="" placeholder="Enter numero serie  de votre station">
+                                                <input id="sn1" name="sn1" value="<%=station.getStationSn1()%>" class="form-control" required="" placeholder="Enter numero serie  de votre station">
                                             </div>
                                             <div class="col-lg-6" class="form-group">
                                                 <label>Numero sn1</label>
-                                                <input id="sn2" name="sn2" class="form-control" required="" placeholder="Enter numero serie de votre station">
+                                                <input id="sn2" name="sn2" value="<%=station.getStationSn2()%>" class="form-control" required="" placeholder="Enter numero serie de votre station">
                                             </div>
                                             <div class="col-lg-6" class="form-group">
                                                 <%
@@ -147,10 +165,15 @@
                                                 <select id="type" name="statusStationId" required="" class="form-control">
                                                     <option value="">Selection status du station  </option>
 
-                                                    <%                                for (int i = 0; i < listStatus.size(); i++) {
+                                                    <%
+                                                        for (int i = 0; i < listStatus.size(); i++) {
                                                             StatusInfo get = (StatusInfo) listStatus.get(i);
+                                                            String select = "";
+                                                            if (get.getIdstatusInfo() == station.getStatusInfo().getIdstatusInfo()) {
+                                                                select = "selected='selected'";
+                                                            }
                                                     %>
-                                                    <option value="<%=get.getIdstatusInfo()%>"><%=get.getStatusInfoDesc()%></option>
+                                                    <option value="<%=get.getIdstatusInfo()%>" <%=select%> ><%=get.getStatusInfoDesc()%> </option>
                                                     <%
                                                         }
                                                     %>
@@ -166,10 +189,15 @@
                                                 <select  id="serverProfileId" name="serverProfileId" required="" class="form-control">
                                                     <option value="">Selection un server profile  </option>
 
-                                                    <%                                for (int i = 0; i < listServer.size(); i++) {
+                                                    <%
+                                                        for (int i = 0; i < listServer.size(); i++) {
                                                             ServerProfile get = (ServerProfile) listServer.get(i);
+                                                            String select = "";
+                                                            if (get.getIdProfile() == station.getServerProfile().getIdProfile()) {
+                                                                select = "selected='selected'";
+                                                            }
                                                     %>
-                                                    <option value="<%=get.getIdProfile()%>"><%=get.getServerAdress1()%></option>
+                                                    <option value="<%=get.getIdProfile()%>" <%=select%> ><%=get.getIdProfile() + "-" + get.getServerAdress1()%></option>
                                                     <%
                                                         }
                                                     %>
@@ -177,17 +205,16 @@
                                             </div>
                                             <div class="col-lg-6" class="form-group">
                                                 <label>User Name</label>
-                                                <input id="userName"  name="userName" required="" class="form-control" value="admin" placeholder="Enter nom du sim">
+                                                <input id="userName"  name="userName" value="<%=station.getDefaultUsername()%>" required="" class="form-control" value="admin" placeholder="Enter nom du sim">
                                             </div>
                                             <div class="col-lg-6" class="form-group">
                                                 <label>Password</label>
-                                                <input id="password"  name="password" required="" class="form-control" value="admin" placeholder="Enter nom du sim">
+                                                <input id="password"  name="password" value="<%=station.getDefaultPassword()%>" required="" class="form-control" value="admin" placeholder="Enter nom du sim">
                                             </div>
 
                                             <div class="col-lg-12" >
                                                 <div style="float:right">
                                                     <br/>
-                                                    <button type="reset" class="btn btn-info">Annuler</button>
                                                     <button type="submit" class="btn btn-success"  >Enregistrer</button>
 
                                                 </div>
@@ -249,7 +276,7 @@
                                     b.addEventListener("click", function (e) {
                                         /*insert the value for the autocomplete text field:*/
                                         inp.value = this.getElementsByTagName("input")[0].value;
-                                                $("#fname").val(inp.value);
+                                        $("#fname").val(inp.value);
                                         /*close the list of autocompleted values,
                                          (or any other open lists of autocompleted values:*/
                                         closeAllLists();
@@ -335,17 +362,17 @@
                     autocomplete(document.getElementById("treader"), treader);
 
                 });
-                 $("#typeStationId").change(function () {
-                          $("#fname").val($("#treader").val() +"-"+ $("#typeStationId :selected").text());
-                 });
-             
+                $("#typeStationId").change(function () {
+                    $("#fname").val($("#treader").val() + "-" + $("#typeStationId :selected").text());
+                });
+
             }
             );
 
 
         </script>
     </body>
- <%
+    <%
         } else {
             String redirectURL = "../erreur.jsp";
             // response.sendRedirect(redirectURL);
