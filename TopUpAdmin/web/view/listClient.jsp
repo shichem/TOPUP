@@ -1,4 +1,6 @@
 
+<%@page import="model_db.ProviderClient"%>
+<%@page import="model_helpers.ProviderClient_Util"%>
 <%@page import="model_helpers.Trader_Util"%>
 <%@page import="java.util.List"%>
 <%@page import="model_db.Trader"%>
@@ -19,14 +21,18 @@
     <%@include file="template/head.jsp" %>
 
     <body>
-        <%
-            List traders = new Trader_Util().getAllTrader("");
-        %>
+
         <div id="wrapper">
 
             <!-- Navigation -->
             <%@include file="template/navigation.jsp" %>
-
+            <%  
+                HttpSession hs =  request.getSession();   
+                System.out.println("className.methodName()" + hs.getAttribute("Id").toString());
+                    Integer userID = Integer.parseInt(hs.getAttribute("Id").toString());
+                    System.out.println("className.methodName() userID =="+userID);
+                List traders = new ProviderClient_Util().getAllTrader_ForProvider(userID, "");
+            %>
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
@@ -80,7 +86,8 @@
                         </thead>
                         <tbody>
                             <%                                for (int i = 0; i < traders.size(); i++) {
-                                    Trader get = (Trader) traders.get(i);
+                                    ProviderClient client = (ProviderClient) traders.get(i);
+                                    Trader get = client.getTraderByIdclient();
                             %>
                             <tr>
                                 <td><%=get.getTraderFname() + " " + get.getTraderLname()%></td>
@@ -127,9 +134,9 @@
 
                             </div>
 
-                            <div class="modal-footer">
                                 <button type="reset" class="btn btn-info"  data-dismiss="modal">Annuler</button>
                                 <button type="submit" class="btn btn-success"  >Enregistrer</button>
+                            <div class="modal-footer">
                             </div>
                         </form>
                     </div>
@@ -187,7 +194,7 @@
                                                         $("#add_credit").modal('show');
                                                         $("#amount_DJEZZY").change(function () {
                                                             $('#new_DJEZZY').text("")
-                                                            if ($("#amount_DJEZZY").val().length!=0) {
+                                                            if ($("#amount_DJEZZY").val().length != 0) {
                                                                 var old = parseFloat($('#label_DJEZZY').text());
                                                                 $('#new_DJEZZY').text(old + parseFloat($("#amount_DJEZZY").val()));
                                                                 $("#new_DJEZZY").css("color", "green");
@@ -196,7 +203,7 @@
                                                         });
                                                         $("#amount_MOBILIS").change(function () {
                                                             $('#new_MOBILIS').text("")
-                                                            if ($("#amount_MOBILIS").val().length!=0) {
+                                                            if ($("#amount_MOBILIS").val().length != 0) {
                                                                 var old = parseFloat($('#label_MOBILIS').text());
                                                                 $('#new_MOBILIS').text(old + parseFloat($("#amount_MOBILIS").val()));
                                                                 $("#new_MOBILIS").css("color", "green");
@@ -205,7 +212,7 @@
                                                         });
                                                         $("#amount_OOREDOO").change(function () {
                                                             $('#new_OOREDOO').text("")
-                                                            if ($("#amount_OOREDOO").val().length!=0) {
+                                                            if ($("#amount_OOREDOO").val().length != 0) {
                                                                 var old = parseFloat($('#label_OOREDOO').text());
                                                                 $('#new_OOREDOO').text(old + parseFloat($("#amount_OOREDOO").val()));
                                                                 $("#new_OOREDOO").css("color", "green");
@@ -228,7 +235,7 @@
                                                         $("#debit_credit").modal('show');
                                                         $("#amount_DJEZZY").change(function () {
                                                             $('#new_DJEZZY').text("")
-                                                            if ($("#amount_DJEZZY").val().length!=0) {
+                                                            if ($("#amount_DJEZZY").val().length != 0) {
                                                                 var old = parseFloat($('#label_DJEZZY').text());
                                                                 $('#new_DJEZZY').text(old - parseFloat($("#amount_DJEZZY").val()));
                                                                 $("#new_DJEZZY").css("color", "red");
@@ -236,7 +243,7 @@
                                                         });
                                                         $("#amount_MOBILIS").change(function () {
                                                             $('#new_MOBILIS').text("")
-                                                            if ($("#amount_MOBILIS").val().length!=0) {
+                                                            if ($("#amount_MOBILIS").val().length != 0) {
                                                                 var old = parseFloat($('#label_MOBILIS').text());
                                                                 $('#new_MOBILIS').text(old - parseFloat($("#amount_MOBILIS").val()));
                                                                 $("#new_MOBILIS").css("color", "red");
@@ -245,7 +252,7 @@
                                                         });
                                                         $("#amount_OOREDOO").change(function () {
                                                             $('#new_OOREDOO').text("")
-                                                            if ($("#amount_OOREDOO").val().length!=0) {
+                                                            if ($("#amount_OOREDOO").val().length != 0) {
                                                                 var old = parseFloat($('#label_OOREDOO').text());
                                                                 $('#new_OOREDOO').text(old - parseFloat($("#amount_OOREDOO").val()));
                                                                 $("#new_OOREDOO").css("color", "red");

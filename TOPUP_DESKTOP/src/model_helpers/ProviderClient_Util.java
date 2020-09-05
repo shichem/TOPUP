@@ -4,6 +4,7 @@ import java.util.List;
 import model_db.Operator;
 import model_db.ProviderClient;
 import model_db.Trader;
+import model_db.UserInfo;
 import model_util.HibernateUtil;
 import model_util.hqlQueriesHelper;
 import org.hibernate.Session;
@@ -21,14 +22,24 @@ public class ProviderClient_Util {
     public ProviderClient getProviderClientForTrader(Integer traderId, String suffix) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM ProviderClient where flag=0 and idclient=" + traderId, suffix);
-    if (list.isEmpty()) {
+        if (list.isEmpty()) {
             return null;
         } else {
-        return (ProviderClient) list.get(0);
-            }
-        
-       
+            return (ProviderClient) list.get(0);
+        }
 
+    }
+
+    public List getAllTrader_ForProvider(int userID, String suffix) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        UserInfo user = new UserInfo_Util().getUserInfo_by_id(session, userID, "");
+        List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM ProviderClient where flag=0 and idproviderClient = " + user.getTrader().getIdtrader(), suffix);
+        System.out.println("model_helpers.ProviderClient_Util.getAllTrader_ForProvider()size+++"+list.size());
+        if (list.isEmpty()) {
+            return null;
+        } else {
+            return list;
+        }
     }
 
     public ProviderClient getProviderClient_by_id(Session session, int id, String suffix) {
@@ -81,6 +92,7 @@ public class ProviderClient_Util {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM ProviderClient where flag=0 and traderByIdclient = " + clientId, suffix);
 
     }
+
     public List getProviderClient_by_provider_operator(Session session, Trader provider, Operator operator, String suffix) {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM ProviderClient where flag=0"
                 + " and traderByIdprovider = " + provider.getIdtrader()
