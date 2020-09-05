@@ -219,10 +219,43 @@
         <!-- data -->
         <script>
             $(document).ready(function () {
+
+                jQuery.fn.DataTable.Api.register('buttons.exportData()', function (options) {
+
+                    alert("test");
+                    var jsonResult  = $.ajax({
+                        url: '../ListTransactionTopUpAllExportExcl',
+                        type: 'GET',
+
+                        data: {
+                            // Read values
+                            status: $('#statusStation :selected').val(),
+                            type: $('#type :selected').val(),
+                            name: $('#treader').val(),
+                            dateDebut: $('#dateDebut').val(),
+                            dateFin: $('#dateFin').val()
+
+                        },
+                        success: function (result) {
+                            //Do nothing
+                        },
+                        async: false
+                    });
+                    console.log(jsonResult);
+                    return {body: jsonResult.responseJSON.data, header: $("#myTable thead tr th").map(function () {
+                            return this.innerHTML;
+                        }).get()};
+
+
+                }
+                );
+
                 $('#example').DataTable({
+                    "dom": "Blfrtip",
                     responsive: true,
                     "processing": true,
                     "serverSide": true,
+                    "bFilter": false,
                     "bSort": false,
                     'ajax': {
                         'url': '../ListTransactionTopUp',
@@ -236,13 +269,32 @@
                             // Append to data
                             data.status = status;
                             data.type = type;
-                            data.name =name;
-                            data.dateDebut= dateDebut;
+                            data.name = name;
+                            data.dateDebut = dateDebut;
                             data.dateFin = dateFin;
-                            
+
                         }
-                    }
+                    },
+
+                    lengthMenu: [[10, 25, 100, -1], [10, 25, 100, "All"]],
+
+                    pageLength: 10,
+
+                    buttons: [
+                        {
+                            extend: 'excel',
+                            text: '<span class="fa fa-file-excel-o"></span> Excel Export',
+                            exportOptions: {
+                                modifier: {
+                                    search: 'applied',
+                                    order: 'applied'
+                                }
+                            }
+                        }
+                    ],
                 });
+
+
                 $('#example tbody').on('click', 'tr', function () {
                     var data = table.row(this).data();
                     alert('You clicked on ' + data[0] + '\'s row');
@@ -391,12 +443,12 @@
 
             }
             );
-              
-              
-             function rechercher(){
-                      $('#example').DataTable().draw();
 
-             }
+
+            function rechercher() {
+                $('#example').DataTable().draw();
+
+            }
 
         </script>
     </body>
