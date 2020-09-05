@@ -123,13 +123,13 @@
                                         List listStatus = new StatusInfo_Util().getStatusInfo_by_statusInfoDesc_Like("TCT", "");
                                     %>
                                     <label>status</label>
-                                    <select id="type" name="statusStationId" required="" class="form-control">
+                                    <select id="statusStation" name="statusStationId" required="" class="form-control">
                                         <option value="">Selection status du transction  </option>
 
                                         <%                                for (int i = 0; i < listStatus.size(); i++) {
                                                 StatusInfo get = (StatusInfo) listStatus.get(i);
                                         %>
-                                        <option value="<%=get.getIdstatusInfo()%>"><%=get.getStatusInfoDesc()%></option>
+                                        <option value="<%=get.getStatusInfoDesc()%>"><%=get.getStatusInfoDesc()%></option>
                                         <%
                                             }
                                         %>
@@ -147,7 +147,7 @@
                                         <%                                for (int i = 0; i < listtype.size(); i++) {
                                                 TransactionType get = (TransactionType) listtype.get(i);
                                         %>
-                                        <option value="<%=get.getIdtransactionType()%>"><%=get.getTransactionTypeDesc()%></option>
+                                        <option value="<%=get.getTransactionTypeDesc()%>"><%=get.getTransactionTypeDesc()%></option>
                                         <%
                                             }
                                         %>
@@ -162,12 +162,12 @@
                                 <div class="col-lg-6" class="form-group">
 
                                     <label>date fin</label>
-                                    <input type="date" id="dateFine" value="dateFine" class="form-control"/>
+                                    <input type="date" id="dateFin" value="dateFin" class="form-control"/>
                                 </div>
                                 <div class="col-lg-12" >
                                     <div style="float:right">
                                         <br/>
-                                        <button type="btn" class="btn btn-success"  >Rechercher</button>
+                                        <button type="btn" class="btn btn-success"  onclick="rechercher()" >Rechercher</button>
 
                                     </div>
                                 </div>
@@ -224,7 +224,24 @@
                     "processing": true,
                     "serverSide": true,
                     "bSort": false,
-                    "ajax": "../ListTransactionTopUp",
+                    'ajax': {
+                        'url': '../ListTransactionTopUp',
+                        'data': function (data) {
+                            // Read values
+                            var status = $('#statusStation :selected').val();
+                            var type = $('#type :selected').val();
+                            var name = $('#treader').val();
+                            var dateDebut = $('#dateDebut').val();
+                            var dateFin = $('#dateFin').val();
+                            // Append to data
+                            data.status = status;
+                            data.type = type;
+                            data.name =name;
+                            data.dateDebut= dateDebut;
+                            data.dateFin = dateFin;
+                            
+                        }
+                    }
                 });
                 $('#example tbody').on('click', 'tr', function () {
                     var data = table.row(this).data();
@@ -374,7 +391,12 @@
 
             }
             );
+              
+              
+             function rechercher(){
+                      $('#example').DataTable().draw();
 
+             }
 
         </script>
     </body>

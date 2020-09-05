@@ -23,11 +23,21 @@ public class TransactionTopup_Util {
 
     }
 
-    public List getAllTransactionTopup(Integer start, Integer length) {
+    public List getAllTransactionTopup(Integer start, Integer length,String Status,String type , String name ,String dateDebut,String dateFin) {
+     String dateWhere = "";
+        if(dateDebut!=""){
+            dateWhere ="and transactDate BETWEEN  ' "+dateDebut +" 00:00:00.0'";
+        }
+         if(dateFin!=""){
+         dateWhere +=" and '"+dateFin+" 00:00:00.0'";
+        }
+         System.out.println("model_helpers.TransactionTopup_Util.getAllTransactionTopup()===>>"+dateWhere);
         Session session = HibernateUtil.getSessionFactory().openSession();
         List resultList = new ArrayList();
         try {
-            Query q = session.createQuery("FROM TransactionTopup where flag=0" ).setFirstResult(start).setMaxResults(length);
+            Query q = session.createQuery("FROM TransactionTopup where providerClient.traderByIdclient.traderFname like '%"+name+"%' and statusInfo.statusInfoDesc like '%"+Status+"%' and transactionType.transactionTypeDesc like '%"+type+"%' "
+                    +dateWhere
+                    + " and flag=0" ).setFirstResult(start).setMaxResults(length);
             resultList = q.list();
         } catch (HibernateException he) {
             he.printStackTrace();

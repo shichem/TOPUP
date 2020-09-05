@@ -38,9 +38,19 @@ public class ListTransactionTopUp extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             Integer start = Integer.parseInt(request.getParameter("start"));
             Integer length = Integer.parseInt(request.getParameter("length"));
+            String status = request.getParameter("status");
+            String type = request.getParameter("type");
+            String name = request.getParameter("name");
+            String dateDebut =request.getParameter("dateDebut");
+            String dateFin =request.getParameter("dateFin");
+            String name1 = "";
+            if(name !=""){
+                 String[] arrOfStr = name.split("-", 5);
+            name1= arrOfStr[1].toString();
+            } 
             TransactionTopup_Util topup_Util = new TransactionTopup_Util();
             int count = topup_Util.getAllTransactionTopup();
-            List l = topup_Util.getAllTransactionTopup(start, length);
+            List l = topup_Util.getAllTransactionTopup(start, length,status,type,name1,dateDebut,dateFin);
 
             out.print("{\n \n"
                     + "  \"recordsTotal\": " + count + ",\n"

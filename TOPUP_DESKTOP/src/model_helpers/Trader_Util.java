@@ -107,8 +107,7 @@ public class Trader_Util {
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM Trader where flag=0 "
-                + "and traderFname LIKE '%" + traderFname + "%'"
-                + "and traderLname LIKE '%" + traderFname + "%'",
+                + "and traderFname LIKE '%" + traderFname + "%'",
                 suffix);
     }
 
