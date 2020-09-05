@@ -210,8 +210,12 @@
 
                                                     <%                                for (int i = 0; i < listType.size(); i++) {
                                                             StationType get = (StationType) listType.get(i);
+                                                            String select = "";
+                                                            if (get.getIdstatusInfo() == station.getStatusInfo().getIdstatusInfo()) {
+                                                                select = "selected='selected'";
+                                                            }
                                                     %>
-                                                    <option value="<%=get.getIdstationType()%>"><%=get.getStationTypeDesc()%></option>
+                                                    <option value="<%=get.getIdstationType()%>" <%=select%>><%=get.getStationTypeDesc()%></option>
                                                     <%
                                                         }
                                                     %>

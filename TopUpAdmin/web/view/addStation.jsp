@@ -140,8 +140,12 @@
 
                                                     <%                                for (int i = 0; i < listStatus.size(); i++) {
                                                             StatusInfo get = (StatusInfo) listStatus.get(i);
+                                                            String select = "";
+                                                            if (get.getIdstatusInfo() == 1) {
+                                                                select = "selected='selected'";
+                                                            }
                                                     %>
-                                                    <option value="<%=get.getIdstatusInfo()%>"><%=get.getStatusInfoDesc()%></option>
+                                                    <option value="<%=get.getIdstatusInfo()%>" <%=select%> ><%=get.getStatusInfoDesc()%></option>
                                                     <%
                                                         }
                                                     %>
