@@ -42,7 +42,7 @@ public class ListTransactionTopUp extends HttpServlet {
             int count = topup_Util.getAllTransactionTopup();
             List l = topup_Util.getAllTransactionTopup(start, length);
 
-            out.print("{\n  \n"
+            out.print("{\n \n"
                     + "  \"recordsTotal\": " + count + ",\n"
                     + "  \"recordsFiltered\": " + count + ","
                     + "" + "\"data\": [");

@@ -3,6 +3,7 @@ package model_helpers;
 import java.util.List;
 import model_db.StatusInfo;
 import model_db.TransactionType;
+import model_util.HibernateUtil;
 import model_util.hqlQueriesHelper;
 import org.hibernate.Session;
 
@@ -15,7 +16,12 @@ public class TransactionType_Util {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM TransactionType where flag=0", suffix);
 
     }
+  public List getAllTransactionType( String suffix) {
+              Session session = HibernateUtil.getSessionFactory().openSession();
 
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM TransactionType where flag=0", suffix);
+
+    }
     public TransactionType getTransactionType_by_id(Session session, int id, String suffix) {
         List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM TransactionType where flag=0 and idtransactionType = " + id, suffix);
         if (list.isEmpty()) {
