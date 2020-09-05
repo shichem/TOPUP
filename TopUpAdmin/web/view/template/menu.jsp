@@ -69,7 +69,7 @@
                                     <a href="addSim.jsp"><i class="fa fa-sim-card fa-fw"></i>Ajouter SIM</a>
                                 </li>-->
                                 <li>
-                                    <a href="./listSim.jsp"><i class="fa fa-list fa-fw"></i>TopUp</a>
+                                    <a href="./listTransactionTopUp.jsp"><i class="fa fa-list fa-fw"></i>TopUp</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
