@@ -18,11 +18,11 @@
                 <a class="navbar-brand" href="index.html">EtopUp</a>
             </div>
             <!-- /.navbar-header -->
-   <%
-       String User="" ;
+            <%
+                String User = "";
                 if (session.getAttribute("username") != null) {
                     User = session.getAttribute("username").toString();
-                }else{
+                } else {
                     response.sendRedirect("../login.jsp");
                 }
             %>

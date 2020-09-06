@@ -5,6 +5,7 @@ import model_db.StatusInfo;
 import model_db.Trader;
 import model_db.TraderCategory;
 import model_db.TraderType;
+import model_db.UserInfo;
 import model_util.HibernateUtil;
 import model_util.hqlQueriesHelper;
 import org.hibernate.Session;
@@ -45,6 +46,15 @@ public class Trader_Util {
             return ((Trader) list.get(0));
         }
     }
+    
+     public List getAllTrader(Integer userId) {
+        Session globalSession = HibernateUtil.getSessionFactory().openSession();
+        UserInfo user = new UserInfo_Util().getUserInfo_by_id(globalSession, userId, "");
+        System.out.println("model_helpers.ProviderClient_Util.getAllTrader_ForProvider()  id "+  user.getTrader().getIdtrader() );
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(globalSession, "FROM Trader  t join t.providerClientsForIdclient pro where  pro.idprovider  ="+user.getTrader().getIdtrader() , "");
+
+    }
+
 
     public List getTrader_by_statusInfo(Session session, StatusInfo statusInfo, String suffix) {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM Trader where flag=0 and statusInfo = " + statusInfo.getIdstatusInfo(), suffix);

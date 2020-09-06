@@ -1,12 +1,20 @@
 package model_helpers;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import model_db.Operator;
 import model_db.ProviderClient;
 import model_db.Trader;
 import model_db.UserInfo;
 import model_util.HibernateUtil;
 import model_util.hqlQueriesHelper;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -30,16 +38,48 @@ public class ProviderClient_Util {
 
     }
 
-    public List getAllTrader_ForProvider(int userID, String suffix) {
+    public List<ProviderClient> getAllTrader_ForProvider(int userID, String suffix) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         UserInfo user = new UserInfo_Util().getUserInfo_by_id(session, userID, "");
-        List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM ProviderClient where flag=0 and idproviderClient = " + user.getTrader().getIdtrader(), suffix);
-        System.out.println("model_helpers.ProviderClient_Util.getAllTrader_ForProvider()size+++"+list.size());
-        if (list.isEmpty()) {
-            return null;
-        } else {
-            return list;
+        System.out.println("model_helpers.ProviderClient_Util.getAllTrader_ForProvider()  id " + user.getTrader().getIdtrader());
+        List<ProviderClient> resultList = new ArrayList<ProviderClient>();
+        try {
+            Query q = session.createQuery("FROM ProviderClient  where flag=0 and idprovider = " + user.getTrader().getIdtrader());
+            resultList = q.list();//q.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
         }
+        System.out.println("model_helpers.ProviderClient_Util.getAllTrader_ForProvider()size+++" + resultList.size());
+        List<ProviderClient> collect = resultList.stream()
+                .filter(distinctByKey(p -> p.getTraderByIdclient().getIdtrader()))
+                .collect(Collectors.toList());
+        return collect;
+
+    } 
+    
+     public List<ProviderClient> getAllTrader_ForProvider(int providerId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();        
+        List<ProviderClient> resultList = new ArrayList<ProviderClient>();
+        try {
+            Query q = session.createQuery("FROM ProviderClient  where flag=0 and idprovider = " + providerId);
+            resultList = q.list();//q.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
+        System.out.println("model_helpers.ProviderClient_Util.getAllTrader_ForProvider()size+++" + resultList.size());
+        List<ProviderClient> collect = resultList.stream()
+                .filter(distinctByKey(p -> p.getTraderByIdclient().getIdtrader()))
+                .collect(Collectors.toList());
+        return collect;
+
+    } 
+
+    public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) 
+    {
+        Map<Object, Boolean> map = new ConcurrentHashMap<>();
+        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
 
     public ProviderClient getProviderClient_by_id(Session session, int id, String suffix) {

@@ -26,12 +26,10 @@
 
             <!-- Navigation -->
             <%@include file="template/navigation.jsp" %>
-            <%        
-                HttpSession hs = request.getSession();
-                System.out.println("className.methodName()" + hs.getAttribute("Id").toString());
-                Integer userID = Integer.parseInt(hs.getAttribute("Id").toString());
-                System.out.println("className.methodName() userID ==" + userID);
-                List traders = new ProviderClient_Util().getAllTrader_ForProvider(userID, "");
+            <%                if (request.getParameter("id") != null) {
+
+                    Integer providerID = Integer.parseInt(request.getParameter("id").toString());
+                    List traders = new ProviderClient_Util().getAllTrader_ForProvider(providerID);
             %>
             <div id="page-wrapper">
                 <div class="row">
@@ -97,8 +95,7 @@
                                 <td><a href="./editClient.jsp?id=<%=get.getIdtrader()%>"><i class="fa fa-edit fa-fw" data-toggle="tooltip" data-placement="left" title="Modefie Client " ></i><span>Edit </span></a>/                                    
                                     <a onclick="desctiveClient(<%=get.getIdtrader()%>)" href="#" data-toggle="tooltip" data-placement="left" title="desactive Client"> <i class="fa fa-trash fa-fw"></i><span>Desactive </span></a>
                                     /<a onclick="addSold(<%=get.getIdtrader()%>)"  href="#" data-id="<%=get.getIdtrader()%>" id="modal_provider-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="ajout sold "> <i class="fa fa-credit-card fa-fw"></i><span>Ajout sold </span></a> /
-                                    <a onclick="debitSold(<%=get.getIdtrader()%>)" href="#" data-id="<%=get.getIdtrader()%>" id="debit-sold-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="debit sold "> <i class="fa fa-eraser fa-fw"></i><span>Debit sold </span></a> /
-                                    <a o href="./listClientGro.jsp?id=<%=get.getIdtrader()%>" > <i class="fa fa-list fa-fw"></i><span>List Client </span></a></td>
+                                    <a onclick="debitSold(<%=get.getIdtrader()%>)" href="#" data-id="<%=get.getIdtrader()%>" id="debit-sold-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="debit sold "> <i class="fa fa-eraser fa-fw"></i><span>Debit sold </span></a></td>
 
                             </tr>
                             <%
@@ -170,7 +167,12 @@
                 </div>
             </div>
             <!-- /#page-wrapper -->
-
+            <%
+                } else {
+                    String redirectURL = "../erreur.jsp";
+                    // response.sendRedirect(redirectURL);
+                }
+            %>
         </div>
         <!-- /#wrapper -->
 
@@ -183,6 +185,7 @@
 
 
                                             $('#example').dataTable({
+                                                "pageLength": 4
                                             });
 
 

@@ -69,20 +69,19 @@
         }
     </style>
     <%@include file="template/head.jsp" %>
-    <%
-        if (request.getParameter("id") != null) {
-            String stationId = request.getParameter("id");
-            Station station = (Station) new station_Util().getStation_by_id(Integer.parseInt(stationId), "");
-            // System.out.println("className.methodName()"+listStation.size());
 
-    %>
     <body>
 
         <div id="wrapper">
 
             <!-- Navigation -->
             <%@include file="template/navigation.jsp" %>
+            <%        if (request.getParameter("id") != null) {
+                    String stationId = request.getParameter("id");
+                    Station station = (Station) new station_Util().getStation_by_id(Integer.parseInt(stationId), "");
+                    // System.out.println("className.methodName()"+listStation.size());
 
+            %>
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
@@ -91,7 +90,7 @@
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
-                  <% if (request.getParameter("succes") != null) { %>
+                <% if (request.getParameter("succes") != null) { %>
                 <div class="alert alert-success" role="alert">
                     Station modefie avec success
                 </div>
@@ -230,7 +229,12 @@
                 </div>
             </div>
             <!-- /#page-wrapper -->
-
+            <%
+                } else {
+                    String redirectURL = "../erreur.jsp";
+                    // response.sendRedirect(redirectURL);
+                }
+            %>
         </div>
         <!-- /#wrapper -->
 
@@ -372,11 +376,6 @@
 
         </script>
     </body>
-    <%
-        } else {
-            String redirectURL = "../erreur.jsp";
-            // response.sendRedirect(redirectURL);
-        }
-    %>
+
 </html>
 
