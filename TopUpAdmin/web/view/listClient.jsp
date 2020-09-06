@@ -27,9 +27,8 @@
             <!-- Navigation -->
             <%@include file="template/navigation.jsp" %>
             <%        
-                HttpSession hs = request.getSession();
-                System.out.println("className.methodName()" + hs.getAttribute("Id").toString());
-                Integer userID = Integer.parseInt(hs.getAttribute("Id").toString());
+                System.out.println("className.methodName()" + session.getAttribute("Id").toString());
+                Integer userID = Integer.parseInt(session.getAttribute("Id").toString());
                 System.out.println("className.methodName() userID ==" + userID);
                 List traders = new ProviderClient_Util().getAllTrader_ForProvider(userID, "");
             %>
