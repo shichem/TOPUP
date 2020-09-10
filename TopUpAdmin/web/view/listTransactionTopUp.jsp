@@ -242,7 +242,7 @@
                         async: false
                     });
                     console.log(jsonResult);
-                    return {body: jsonResult.responseJSON.data, header: $("#myTable thead tr th").map(function () {
+                    return {body: jsonResult.responseJSON.data, header: $("#example thead tr th").map(function () {
                             return this.innerHTML;
                         }).get()};
 
