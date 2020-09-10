@@ -252,8 +252,8 @@
             $(document).ready(function () {
                 $("#type").change(function () {
                     if ($("#type").val() == "2") {
-                                     $("#submit2").hide();
-                          $("#submit1").show();
+                        $("#submit2").hide();
+                        $("#submit1").show();
                         $("#stationDiv").hide();
                         $("#simNB").show();
                         $("#simNumber").prop('required', true);
@@ -268,8 +268,8 @@
 
 
                     } else {
-                                                  $("#submit1").hide();
-                          $("#submit2").show();
+                        $("#submit1").hide();
+                        $("#submit2").show();
                         $("#stationDiv").show();
                         $('#simNB').hide();
                         $('#sndiv').show();

@@ -149,79 +149,9 @@
                                                 <label>Sim number</label>
                                                 <input id="simNumber"  name="simNumber" value="<%=trader.getSimnumber()%>" class="form-control" placeholder="Ente sim number ">
                                             </div>
+
+
                                             <%
-                                                if (listStation.size() != 0) {
-                                                    List listType = new StationType_Util().getAllStationType("");
-                                            %>
-                                            <div  ${1==  trader.getTraderType().getIdtraderType() ? 'hidden' : ''}  id="typeStation"   class="col-lg-6" class="form-group">
-                                                <label>Type Station</label>
-
-                                                <select  id="typeStationId" name="typeStationId" class="form-control">
-                                                    <option value="">Select un type  </option>
-
-                                                    <%
-                                                        for (int i = 0; i < listType.size(); i++) {
-                                                            StationType get = (StationType) listType.get(i);
-                                                            String select = "";
-                                                            if (get.getIdstationType() == station.getStationType().getIdstationType()) {
-                                                                select = "selected=selected";
-                                                            }
-                                                    %>
-                                                    <option value="<%=get.getIdstationType()%>"  <%=select%> ><%=get.getStationTypeDesc()%></option>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </select>
-                                            </div>
-                                            <%
-                                                List listServer = new ServerProfile_Util().getAllServerProfile("");
-
-
-                                            %> 
-                                            <div id="serverProfile"  ${1==  trader.getTraderType().getIdtraderType() ? 'hidden' : ''}  class="col-lg-6" class="form-group">
-                                                <label>Server Profile </label>
-
-                                                <select   id="serverProfileId" name="serverProfileId" class="form-control">
-                                                    <option value="">Selection un server profile  </option>
-
-                                                    <%                                                        for (int i = 0; i < listServer.size(); i++) {
-                                                            ServerProfile get = (ServerProfile) listServer.get(i);
-                                                            String select = "";
-                                                            if (get.getIdProfile() == station.getServerProfile().getIdProfile()) {
-                                                                select = "selected= selected";
-                                                            
-                                                              }
-
-                                                    %>
-                                                    <option value="<%=get.getIdProfile()%>" <%=select%>><%=get.getServerAdress1()%></option>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </select>
-                                            </div>
-                                            <div ${1 ==  trader.getTraderType().getIdtraderType() ? 'hidden' : ''}  class="col-lg-6" id="sndiv"  class="form-group">
-                                                <label>seriel number</label>
-                                                <input id="sn1" name="sn1"   value="<%=station.getStationSn1()%>" class="form-control" placeholder="Ente seriel number ">
-                                            </div>
-                                            <div ${1 ==  trader.getTraderType().getIdtraderType() ? 'hidden' : ''}  class="col-lg-6" id="sndiv1"  class="form-group">
-                                                <label>seriel number2</label>
-                                                <input id="sn2" name="sn2"  value="<%=station.getStationSn2()%>" class="form-control" placeholder="Ente seriel number ">
-                                            </div>
-                                            <%
-                                            } else {
-                                            %>
-
-
-
-                                            <div class="col-lg-6" id="sndiv" hidden="" class="form-group">
-                                                <label>seriel number</label>
-                                                <input id="sn1" name="sn1" class="form-control" placeholder="Ente seriel number ">
-                                            </div>
-                                            <div class="col-lg-6" id="sndiv1" hidden="" class="form-group">
-                                                <label>seriel number2</label>
-                                                <input id="sn2" name="sn2" class="form-control" placeholder="Ente seriel number ">
-                                            </div>
-                                            <%}
                                                 List listcategory = new TraderCategory_Util().getAllTraderCategory("");
                                             %>
                                             <div  class="col-lg-6" class="form-group">
@@ -307,53 +237,26 @@
                 if ($("#type").val() == 2) {
                     $("#simNB").show();
                     $("#simNumber").prop('required', true);
-                    $('#sndiv').hide();
-                    $('#sndiv1').hide();
-                    $('#typeStation').hide();
-                    $("#typeStationId").prop('required', false);
-                    $('#serverProfile').hide();
-                    $("#serverProfileId").prop('required', false);
-                    $("#sn2").prop('required', false);
-                    $("#sn1").prop('required', false);
+
 
 
                 } else {
                     $('#simNB').hide();
-                    $('#sndiv').show();
-                    $('#sndiv1').show();
-                    $('#typeStation').show();
+
                     $("simNumber").prop('required', false);
-                    $("#typeStationId").prop('required', true);
-                    $('#serverProfile').show();
-                    $("#serverProfileId").prop('required', true);
-                    $("#sn2").prop('required', true);
-                    $("#sn1").prop('required', true);
+
                 }
                 $("#type").change(function () {
                     if ($("#type").value == 2) {
                         $("#simNB").show();
                         $("#simNumber").prop('required', true);
-                        $('#sndiv').hide();
-                        $('#sndiv1').hide();
-                        $('#typeStation').hide();
-                        $("#typeStationId").prop('required', false);
-                        $('#serverProfile').hide();
-                        $("#serverProfileId").prop('required', false);
-                        $("#sn2").prop('required', false);
-                        $("#sn1").prop('required', false);
+
 
 
                     } else {
                         $('#simNB').hide();
-                        $('#sndiv').show();
-                        $('#sndiv1').show();
-                        $('#typeStation').show();
+
                         $("simNumber").prop('required', false);
-                        $("#typeStationId").prop('required', true);
-                        $('#serverProfile').show();
-                        $("#serverProfileId").prop('required', true);
-                        $("#sn2").prop('required', true);
-                        $("#sn1").prop('required', true);
                     }
 
 

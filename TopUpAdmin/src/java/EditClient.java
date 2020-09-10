@@ -68,10 +68,7 @@ public class EditClient extends HttpServlet {
             String temail2 = request.getParameter("email2");
             String ttel1 = request.getParameter("telephone1");
             String ttel2 = request.getParameter("telephone2");
-            String tsn1 = request.getParameter("sn1");
-            String tsn2 = request.getParameter("sn2");
-            String ttypeStation = request.getParameter("typeStationId");
-            String tserverProfile = request.getParameter("serverProfileId");
+            
             Trader_Util trader_Util = new Trader_Util();
             dbhelper helper = new dbhelper();
             session.getTransaction().begin();
@@ -85,30 +82,13 @@ public class EditClient extends HttpServlet {
             trader.setEmail2(temail2);
             trader.setTel1(ttel1);
             trader.setTel2(ttel2);
-            trader.setSimnumber(tnumber);
+            
             trader.setTraderType(new TraderType_Util().geTraderType_by_id(session, Integer.parseInt(ttype), ""));
             trader.setTraderCategory(new TraderCategory_Util().getTraderCategory_by_id(session, Integer.parseInt(tcategory), ""));
             trader_Util.updateTrader(trader, session);
 
-            if (ttype.equals("1")) {
-                List listStation = new station_Util().getStations_by_trader(session,trader, "");
-                Station station = null;
-                if (listStation.size() != 0) {
-                    station = (Station) listStation.get(0);
-                    StationType stationType = (StationType) new StationType_Util().getStationType_by_id(session, Integer.parseInt(ttypeStation), "");
-                    ServerProfile profile = (ServerProfile) new ServerProfile_Util().getStationType_by_id(session, Integer.parseInt(tserverProfile), "");
-                    station.setStationType(stationType);
-                    station.setServerProfile(profile);
-                    station.setStationSn1(tsn1);
-                    station.setStationSn2(tsn2);
-                    new station_Util().updateStation(station, session);
-                } else {
-                    StationType stationType = (StationType) new StationType_Util().getStationType_by_id(session, Integer.parseInt(ttypeStation), "");
-                    ServerProfile profile = (ServerProfile) new ServerProfile_Util().getStationType_by_id(session, Integer.parseInt(tserverProfile), "");
-                      UserInfo user = new UserInfo_Util().getUserInfo_by_id(session, userID, "");
-
-                    new dbhelper().addStation(session, user, trader, stationType, trader.getTraderCompany(), trader.getTraderCompany(), tsn1, tsn2, "", profile);
-                }
+            if (ttype.equals("2")) {
+              trader.setSimnumber(tnumber);
             }
             session.getTransaction().commit();
             session.close();
