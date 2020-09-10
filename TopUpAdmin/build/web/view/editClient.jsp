@@ -247,7 +247,7 @@
 
                 }
                 $("#type").change(function () {
-                    if ($("#type").value == 2) {
+                    if ($("#type").val() == 2) {
                         $("#simNB").show();
                         $("#simNumber").prop('required', true);
 
