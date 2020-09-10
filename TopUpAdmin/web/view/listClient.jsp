@@ -1,4 +1,5 @@
 
+<%@page import="custom_vars.staticVars"%>
 <%@page import="model_db.ProviderClient"%>
 <%@page import="model_helpers.ProviderClient_Util"%>
 <%@page import="model_helpers.Trader_Util"%>
@@ -26,8 +27,7 @@
 
             <!-- Navigation -->
             <%@include file="template/navigation.jsp" %>
-            <%        
-                System.out.println("className.methodName()" + session.getAttribute("Id").toString());
+            <%                System.out.println("className.methodName()" + session.getAttribute("Id").toString());
                 Integer userID = Integer.parseInt(session.getAttribute("Id").toString());
                 System.out.println("className.methodName() userID ==" + userID);
                 List traders = new ProviderClient_Util().getAllTrader_ForProvider(userID, "");
@@ -97,7 +97,10 @@
                                     <a onclick="desctiveClient(<%=get.getIdtrader()%>)" href="#" data-toggle="tooltip" data-placement="left" title="desactive Client"> <i class="fa fa-trash fa-fw"></i><span>Desactive </span></a>
                                     /<a onclick="addSold(<%=get.getIdtrader()%>)"  href="#" data-id="<%=get.getIdtrader()%>" id="modal_provider-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="ajout sold "> <i class="fa fa-credit-card fa-fw"></i><span>Ajout sold </span></a> /
                                     <a onclick="debitSold(<%=get.getIdtrader()%>)" href="#" data-id="<%=get.getIdtrader()%>" id="debit-sold-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="debit sold "> <i class="fa fa-eraser fa-fw"></i><span>Debit sold </span></a> /
-                                    <a o href="./listClientGro.jsp?id=<%=get.getIdtrader()%>" > <i class="fa fa-list fa-fw"></i><span>List Client </span></a></td>
+                                            <% if (get.getTraderCategory().getTraderCategoryDesc().equals(staticVars.traderCategory_Grossiste)) {%>
+                                    <a o href="./listClientGro.jsp?id=<%=get.getIdtrader()%>" > <i class="fa fa-list fa-fw"></i><span>List Client </span></a>
+                                            <% }%>
+                                </td>
 
                             </tr>
                             <%

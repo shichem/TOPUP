@@ -1416,6 +1416,64 @@ public class dbhelper {
         }
     }
 
+      public int updateVirtualBalanceProvider(int userID,int providerID, int clientID, int operatorID, double amount) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.getTransaction().begin();
+            System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 0");
+            UserInfo user = new UserInfo_Util().getUserInfo_by_id(session, userID, "");
+            Trader client = new Trader_Util().getTradfer_by_id(session, clientID, "");
+            Operator operator = new Operator_Util().getOperator_by_id(session, operatorID, "");
+            Trader providerTrader = new Trader_Util().getTradfer_by_id(session, providerID, "");
+            ProviderClient affectationProv = new ProviderClient_Util().getProviderClient_by_provider_client_operator(session, user.getTrader(), providerTrader, operator, "");
+            ProviderClient affectation = new ProviderClient_Util().getProviderClient_by_provider_client_operator(session, providerTrader, client, operator, "");
+            System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
+            StatusInfo enCoursST = new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_TCT_EnInstance, "");
+            System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
+            StatusInfo termineST = new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_TCT_Reussie, "");
+            System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
+            StatusInfo interrompueST = new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_TCT_Annule, "");
+            double newBalance = affectation.getSolde() + amount;
+            double newBalanceProv = affectationProv.getSolde() - amount;
+
+            System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
+            TransactionSolde transactSolde = new TransactionSolde(affectation, enCoursST, user, affectation.getSolde(), newBalance, amount, new Date());
+            new TransactionSolde_Util().addTransactionSolde(transactSolde, session);
+              System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
+            TransactionSolde transactSoldeProvi = new TransactionSolde(affectationProv, enCoursST, user, affectationProv.getSolde(), newBalanceProv, amount, new Date());
+            new TransactionSolde_Util().addTransactionSolde(transactSolde, session);
+             session.getTransaction().commit();
+            System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 2");
+
+            session.getTransaction().begin();
+              if (((amount < 0) && (Math.abs(amount) > affectation.getSolde()))
+                    || (amount + affectation.getLimitTransact() > affectation.getLimitTransact() && affectation.getLimitTransact() != -1)
+                    || (amount > operator.getTransactLimit() && operator.getTransactLimit() != -1)){
+                System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 3");
+
+                transactSolde.setStatusInfo(interrompueST);
+                session.getTransaction().commit();
+                session.close();
+                return staticVars.LimitExceeded;
+            } else {
+                affectationProv.setSolde(newBalanceProv);
+                System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 4");               
+                affectation.setSolde(newBalance);
+                transactSolde.setStatusInfo(termineST);
+                session.getTransaction().commit();
+                session.close();
+                return staticVars.onGoingProcessOK;
+            }
+        } catch (Exception e) {
+            System.out.println("general_helpers.dbhelper.updateVirtualBalance()" + e.getMessage());
+            System.out.println("helpers.dbhelper.updateVirtualBalance() : UNKNOWN ERROR");
+            session.getTransaction().commit();
+            session.close();
+            return staticVars.unknownError;
+        }
+    }
+
     public int updateVirtualBalance(Session session, int userID, int clientID, int operatorID, double amount) {
         try {
             session.getTransaction().begin();

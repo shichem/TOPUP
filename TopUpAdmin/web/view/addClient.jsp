@@ -50,14 +50,15 @@
                 <% } %>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Information sur Client  
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <form role="form" action="../AddClient" method="POST" >
+                        <form role="form" action="../AddClient" method="POST" >
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Information sur Client  
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
                                             <div class="col-lg-6" class="form-group">
                                                 <label>Nom</label>
                                                 <input required="" id="fname"  name="fname" class="form-control" placeholder="Enter nom">
@@ -126,48 +127,6 @@
                                             </div>
                                             <%                                                List listType = new StationType_Util().getAllStationType("");
                                             %>             
-                                            <div id="typeStation"  hidden="" class="col-lg-6" class="form-group">
-                                                <label>Type Station</label>
-
-                                                <select  id="typeStationId" name="typeStationId" class="form-control">
-                                                    <option value="">Select un type  </option>
-
-                                                    <%                                for (int i = 0; i < listType.size(); i++) {
-                                                            StationType get = (StationType) listType.get(i);
-                                                    %>
-                                                    <option value="<%=get.getIdstationType()%>"><%=get.getStationTypeDesc()%></option>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </select>
-                                            </div>
-                                            <%
-                                                List listServer = new ServerProfile_Util().getAllServerProfile("");
-                                            %> 
-                                            <div id="serverProfile"   hidden="" class="col-lg-6" class="form-group">
-                                                <label>Server Profile </label>
-
-                                                <select  id="serverProfileId" name="serverProfileId" class="form-control">
-                                                    <option value="">Selection un server profile  </option>
-
-                                                    <%                                for (int i = 0; i < listServer.size(); i++) {
-                                                            ServerProfile get = (ServerProfile) listServer.get(i);
-                                                    %>
-                                                    <option value="<%=get.getIdProfile()%>"><%=get.getIdProfile() + "-" + get.getServerAdress1()%></option>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </select>
-                                            </div>
-
-                                            <div class="col-lg-6" id="sndiv" hidden="" class="form-group">
-                                                <label>seriel number</label>
-                                                <input id="sn1" name="sn1" class="form-control" placeholder="Ente seriel number ">
-                                            </div>
-                                            <div class="col-lg-6" id="sndiv1" hidden="" class="form-group">
-                                                <label>seriel number2</label>
-                                                <input id="sn2" name="sn2" class="form-control" placeholder="Ente seriel number ">
-                                            </div>
 
 
                                             <%                                                List listcategory = new TraderCategory_Util().getAllTraderCategory("");
@@ -205,7 +164,7 @@
                                                     %>
                                                 </select>
                                             </div>
-                                            <div class="col-lg-12" >
+                                            <div class="col-lg-12" id="submit1">
                                                 <div style="float:right">
                                                     <br/>
                                                     <button type="reset" class="btn btn-info">Annuler</button>
@@ -213,13 +172,71 @@
 
                                                 </div>
                                             </div>
-                                        </form>
-                                    </div>   
+                                        </div>   
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="panel panel-default" id="stationDiv" hidden="">
+                                <div class="panel-heading">
+                                    Information sur station  
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div id="typeStation"  hidden="" class="col-lg-6" class="form-group">
+                                            <label>Type Station</label>
+
+                                            <select  id="typeStationId" name="typeStationId" class="form-control">
+                                                <option value="">Select un type  </option>
+
+                                                <%                                for (int i = 0; i < listType.size(); i++) {
+                                                        StationType get = (StationType) listType.get(i);
+                                                %>
+                                                <option value="<%=get.getIdstationType()%>"><%=get.getStationTypeDesc()%></option>
+                                                <%
+                                                    }
+                                                %>
+                                            </select>
+                                        </div>
+                                        <%
+                                            List listServer = new ServerProfile_Util().getAllServerProfile("");
+                                        %> 
+                                        <div id="serverProfile"   hidden="" class="col-lg-6" class="form-group">
+                                            <label>Server Profile </label>
+
+                                            <select  id="serverProfileId" name="serverProfileId" class="form-control">
+                                                <option value="">Selection un server profile  </option>
+
+                                                <%                                for (int i = 0; i < listServer.size(); i++) {
+                                                        ServerProfile get = (ServerProfile) listServer.get(i);
+                                                %>
+                                                <option value="<%=get.getIdProfile()%>"><%=get.getIdProfile() + "-" + get.getServerAdress1()%></option>
+                                                <%
+                                                    }
+                                                %>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-lg-6" id="sndiv" hidden="" class="form-group">
+                                            <label>seriel number</label>
+                                            <input id="sn1" name="sn1" class="form-control" placeholder="Ente seriel number ">
+                                        </div>
+                                        <div class="col-lg-6" id="sndiv1" hidden="" class="form-group">
+                                            <label>seriel number2</label>
+                                            <input id="sn2" name="sn2" class="form-control" placeholder="Ente seriel number ">
+                                        </div>
+                                        <div class="col-lg-12" id="submit2" hiden="">
+                                            <div style="float:right">
+                                                <br/>
+                                                <button type="reset" class="btn btn-info">Annuler</button>
+                                                <button type="submit" class="btn btn-success"  >Enregistrer</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                        </div>
-
+                        </form>
                     </div>                        
                 </div>
             </div>
@@ -235,6 +252,9 @@
             $(document).ready(function () {
                 $("#type").change(function () {
                     if ($("#type").val() == "2") {
+                                     $("#submit2").hide();
+                          $("#submit1").show();
+                        $("#stationDiv").hide();
                         $("#simNB").show();
                         $("#simNumber").prop('required', true);
                         $('#sndiv').hide();
@@ -248,6 +268,9 @@
 
 
                     } else {
+                                                  $("#submit1").hide();
+                          $("#submit2").show();
+                        $("#stationDiv").show();
                         $('#simNB').hide();
                         $('#sndiv').show();
                         $('#sndiv1').show();

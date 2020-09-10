@@ -119,7 +119,8 @@
             <div class="modal fade" id="add_credit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form  action="../AddSold" method="POST">
+                        <form  action="../AddSoldProvider" method="POST">
+                            <input type="hidden" name="providerId" value="<%= providerID%>">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLongTitle">Ajouter sold </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -145,7 +146,9 @@
             <div class="modal fade" id="debit_credit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form  action="../DebitSold" method="POST">
+                        <form  action="../DebitSoldProvider" method="POST">
+                            <input type="hidden" name="providerId" value="<%= providerID%>">
+
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLongTitle">Debit sold </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
