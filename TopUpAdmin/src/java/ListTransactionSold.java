@@ -12,15 +12,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model_db.TransactionSolde;
 import model_helpers.TransactionTopup_Util;
 import model_db.TransactionTopup;
+import model_helpers.TransactionSolde_Util;
 
 /**
  *
  * @author GarandaTech
  */
-@WebServlet(urlPatterns = {"/ListTransactionTopUp"})
-public class ListTransactionTopUp extends HttpServlet {
+@WebServlet(urlPatterns = {"/ListTransactionSold"})
+public class ListTransactionSold extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,18 +43,23 @@ public class ListTransactionTopUp extends HttpServlet {
             String status = request.getParameter("status");
             String type = request.getParameter("type");
             String name = request.getParameter("name");
-            String dateDebut =request.getParameter("dateDebut");
-            String dateFin =request.getParameter("dateFin");
+            String dateDebut = request.getParameter("dateDebut");
+            String provider = request.getParameter("provider");
+            String dateFin = request.getParameter("dateFin");
             String name1 = "";
-            if(name !=""){
-                 String[] arrOfStr = name.split("-", 5);
-            name1= arrOfStr[1].toString();
-            } 
-            TransactionTopup_Util topup_Util = new TransactionTopup_Util();
-            int count = topup_Util.getAllTransactionTopup();
-            int filtreCount = topup_Util.getAllTransactionTopup(0, count,status,type,name1,dateDebut,dateFin).size();
-
-            List l = topup_Util.getAllTransactionTopup(start, length,status,type,name1,dateDebut,dateFin);
+            if (name != "") {
+                String[] arrOfStr = name.split("-", 5);
+                name1 = arrOfStr[1].toString();
+            }
+            String provider1 = "";
+            if (provider != "") {
+                String[] arrOfStr = provider.split("-", 5);
+                provider1 = arrOfStr[1].toString();
+            }
+            TransactionSolde_Util solde_Util = new TransactionSolde_Util();
+            int count = solde_Util.getAllTransactionSolde();
+            int filtreCount = solde_Util.getAllTransactionSold(0, count,status,provider1,name1,dateDebut,dateFin).size();
+            List l = solde_Util.getAllTransactionSold(start, length, status, provider1, name1, dateDebut, dateFin);
 
             out.print("{\n \n"
                     + "  \"recordsTotal\": " + count + ",\n"
@@ -60,19 +67,16 @@ public class ListTransactionTopUp extends HttpServlet {
                     + "" + "\"data\": [");
             int i = 0;
             for (Object object : l) {
-                TransactionTopup topup = (TransactionTopup) object;
+                TransactionSolde sold = (TransactionSolde) object;
                 out.print("[");
-                out.print("\"" + topup.getIdtransacttopup() +"__"+topup.getProviderClient().getTraderByIdclient().getTraderFname() + "\",");
-                out.print("\"" + topup.getSimClient() + "\",");
-                out.print("\"" + topup.getSimOffer().getOfferInfo().getOfferDesc() + "\",");
-                out.print("\"" + topup.getNewSolde() + "\",");
-                out.print("\"" + topup.getTransactAmount() + "\",");
-                out.print("\"" + topup.getRealTransactAmount() + "\",");
-                out.print("\"" + topup.getTransactDate().toString() + "\",");
-                out.print("\"" + topup.getStatusInfo().getStatusInfoDesc() + "\",");
-                out.print("\"" + topup.getTransactionType().getTransactionTypeDesc() + "\",");
-                out.print("\"" + topup.getSentMessage() + "\",");
-                out.print("\"<i>" + topup.getRecievedMessage().replaceAll("\"", "'").replaceAll("[\r\n]+", "")+ "</i>\"");
+                out.print("\"" + sold.getProviderClient().getTraderByIdprovider().getTraderFname() + "\",");
+                out.print("\"" + sold.getProviderClient().getTraderByIdclient().getTraderFname() + "\",");
+                out.print("\"" + sold.getOldSolde()+ "\",");
+                out.print("\"" + sold.getNewSolde() + "\",");
+                out.print("\"" + sold.getTransactAmount() + "\",");
+                out.print("\"" + sold.getTransactDate().toString() + "\",");
+                out.print("\"" + sold.getStatusInfo().getStatusInfoDesc() + "\",");
+                out.print("\"" + sold.getUserInfo().getUsername()+ "\"");
                 out.print("]");
                 if (i < l.size() - 1) {
                     out.print(",");

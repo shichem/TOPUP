@@ -1389,9 +1389,9 @@ public class dbhelper {
             System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 2");
 
             session.getTransaction().begin();
-            if (((amount < 0) && (Math.abs(amount) > affectation.getSolde()))
-                    || (amount + affectation.getLimitTransact() > affectation.getLimitTransact() && affectation.getLimitTransact() != -1)
-                    || (amount > operator.getTransactLimit() && operator.getTransactLimit() != -1)) {
+          if (((amount < 0) && (Math.abs(amount) > affectation.getSolde()))
+                    || (amount + affectation.getSolde() > affectation.getLimitTransact() && affectation.getLimitTransact() != -1)) {
+
                 System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 3");
 
                 transactSolde.setStatusInfo(interrompueST);

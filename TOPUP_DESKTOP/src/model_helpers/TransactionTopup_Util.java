@@ -35,7 +35,7 @@ public class TransactionTopup_Util {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List resultList = new ArrayList();
         try {
-            Query q = session.createQuery("FROM TransactionTopup where providerClient.traderByIdclient.traderFname like '%"+name+"%' and statusInfo.statusInfoDesc like '%"+Status+"%' and transactionType.transactionTypeDesc like '%"+type+"%' "
+            Query q = session.createQuery("FROM TransactionTopup where  providerClient.traderByIdclient.traderFname like '%"+name+"%' and statusInfo.statusInfoDesc like '%"+Status+"%' and transactionType.transactionTypeDesc like '%"+type+"%' "
                     +dateWhere
                     + " and flag=0" ).setFirstResult(start).setMaxResults(length);
             resultList = q.list();

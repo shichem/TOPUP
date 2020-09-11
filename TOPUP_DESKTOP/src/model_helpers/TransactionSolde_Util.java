@@ -1,5 +1,6 @@
 package model_helpers;
 
+import java.util.ArrayList;
 import java.util.List;
 import model_db.ProviderClient;
 import model_db.StatusInfo;
@@ -8,6 +9,8 @@ import model_db.TransactionSolde;
 import model_util.HibernateUtil;
 import model_util.hqlQueriesHelper;
 import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -117,4 +120,26 @@ public class TransactionSolde_Util {
         hqlQueriesHelper.executeUpdateHQLQuery_WithPreparedSession(adt, session);
     }
 
+    
+    public List getAllTransactionSold(Integer start, Integer length,String Status,String provider , String name ,String dateDebut,String dateFin) {
+     String dateWhere = "";
+        if(dateDebut!=""){
+            dateWhere ="and transactDate BETWEEN  ' "+dateDebut +" 00:00:00.0'";
+        }
+         if(dateFin!=""){
+         dateWhere +=" and '"+dateFin+" 00:00:00.0'";
+        }
+         System.out.println("model_helpers.TransactionTopup_Util.getAllTransactionTopup()===>>"+dateWhere);
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List resultList = new ArrayList();
+        try {
+            Query q = session.createQuery("FROM TransactionSolde where providerClient.traderByIdclient.traderFname like '%"+name+"%' and statusInfo.statusInfoDesc like '%"+Status+"%' and providerClient.traderByIdprovider.traderFname like '%"+provider+"%' "
+                    +dateWhere
+                    + " and flag=0" ).setFirstResult(start).setMaxResults(length);
+            resultList = q.list();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
+        return resultList;
+    }
 }
