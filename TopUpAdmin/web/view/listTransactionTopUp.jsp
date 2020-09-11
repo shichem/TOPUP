@@ -107,7 +107,7 @@
                 <div class="row">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Information sur Client  
+                            Recherche   
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -163,6 +163,12 @@
 
                                     <label>date fin</label>
                                     <input type="date" id="dateFin" value="dateFin" class="form-control"/>
+                                </div>
+                                <div class="col-lg-6" class="form-group">
+
+                                    <label style="    color: green;">Slod  reussie :</label><label id ="sold"style="    color: green;"></label>
+                                    </br>
+                                    <label style="    color: red;">Slod  litig :</label><label id ="soldLitig" style="    color: red;"></label>
                                 </div>
                                 <div class="col-lg-12" >
                                     <div style="float:right">
@@ -222,8 +228,7 @@
 
                 jQuery.fn.DataTable.Api.register('buttons.exportData()', function (options) {
 
-                    alert("test");
-                    var jsonResult  = $.ajax({
+                    var jsonResult = $.ajax({
                         url: '../ListTransactionTopUpAllExportExcl',
                         type: 'GET',
 
@@ -444,10 +449,49 @@
             }
             );
 
+            $.ajax({
+                url: '../SoldTopUp',
+                type: 'GET',
 
+                data: {
+                    // Read values
+                    status: $('#statusStation :selected').val(),
+                    type: $('#type :selected').val(),
+                    name: $('#treader').val(),
+                    dateDebut: $('#dateDebut').val(),
+                    dateFin: $('#dateFin').val()
+
+                },
+                success: function (result) {
+                    //Do nothing                    
+                    $('#sold').text(result.sumValid);
+                    $('#soldLitig').text(result.sumLitig);
+                },
+                                       async: false
+
+            });
             function rechercher() {
                 $('#example').DataTable().draw();
+                $.ajax({
+                url: '../SoldTopUp',
+                type: 'GET',
 
+                data: {
+                    // Read values
+                    status: $('#statusStation :selected').val(),
+                    type: $('#type :selected').val(),
+                    name: $('#treader').val(),
+                    dateDebut: $('#dateDebut').val(),
+                    dateFin: $('#dateFin').val()
+
+                },
+                success: function (result) {
+                    //Do nothing                    
+                    $('#sold').text(result.sumValid);
+                    $('#soldLitig').text(result.sumLitig);
+                }
+
+            });
             }
 
         </script>

@@ -45,6 +45,33 @@ public class TransactionTopup_Util {
         return resultList;
     }
 
+    
+    public double SumSold(String Status, String type, String name, String dateDebut, String dateFin) {
+     String dateWhere = "";
+        if(dateDebut!=""){
+            dateWhere ="and transactDate BETWEEN  ' "+dateDebut +" 00:00:00.0'";
+        }
+         if(dateFin!=""){
+         dateWhere +=" and '"+dateFin+" 00:00:00.0'";
+        }
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List resultList = new ArrayList();
+        try {
+            Query q = session.createQuery("SELECT  SUM(transactAmount) FROM TransactionTopup where  providerClient.traderByIdclient.traderFname like '%"+name+"%' and statusInfo.statusInfoDesc like '%"+Status+"%' and transactionType.transactionTypeDesc like '%"+type+"%' "
+                    +dateWhere
+                    + " and flag=0" );
+            resultList = q.list();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
+
+          if (resultList.get(0)==null) {
+            return 0;
+        } else {
+            return (double) resultList.get(0);
+        }
+    }
     public Integer getAllTransactionTopup() {
         Session session = HibernateUtil.getSessionFactory().openSession();
 

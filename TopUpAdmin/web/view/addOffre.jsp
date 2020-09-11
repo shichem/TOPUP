@@ -84,7 +84,7 @@
                                                 <input id="fname"  name="fname" required="" class="form-control" placeholder="Enter offre desc ">
                                             </div>
 
-                                           
+
                                             <div class="col-lg-12" class="form-group">
                                                 <input name="mant_iden" type="checkbox">
                                                 <span class="checkmark">Montant indefini</span>
@@ -116,7 +116,7 @@
                                                 <%                                                       List listSim = new SimInfo_Util().getAllSimInfo("");
                                                 %>
 
-                                                <select multiple name="Number" required="" class="form-control"> 
+                                                <select multiple name="Number" id="Number" required="" class="form-control"> 
                                                     <%
                                                         for (int i = 0; i < listSim.size(); i++) {
                                                             SimInfo get = (SimInfo) listSim.get(i);
@@ -155,12 +155,12 @@
         <script src="./data/data_graph.js"></script>
         <script>
             $(document).ready(function () {
-                 
+
                 $('input[type=checkbox][name=mant_iden]').change(function () {
                     if ($(this).is(':checked')) {
                         $("#tmaontant").prop("disabled", true);
                         $("#dmaontant").prop("disabled", true);
-                        
+
                         $("#tmaontant").prop("required", false);
 
                         $("#dmaontant").prop("required", false);
@@ -168,12 +168,25 @@
                     } else {
                         $("#tmaontant").prop("disabled", false);
                         $("#dmaontant").prop("disabled", false);
-                            $("#tmaontant").prop("required", true);
+                        $("#tmaontant").prop("required", true);
 
                         $("#dmaontant").prop("required", true);
 
-                        
+
                     }
+                });
+
+                $("#operateur").change(function () {
+
+                    var operatorID = $("#operateur").val();
+                    $.ajax({
+                        url: "../SimByOperator?OpeatorId=" + operatorID,
+                        success: function (data) {
+                            // alert(data);
+                            $("#Number").empty();
+                            $("#Number").append(data);
+                        }
+                    });
                 });
             });
         </script>

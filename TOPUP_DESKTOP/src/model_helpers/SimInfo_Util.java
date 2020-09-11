@@ -86,7 +86,13 @@ public class SimInfo_Util {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0 and simType = " + simType.getIdsimType(), suffix);
 
     }
+    
+     public List getSimInfo_by_operator( Integer operator) {
+                 Session session = HibernateUtil.getSessionFactory().openSession();
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0 and operator.idoperator = " + operator, "");
 
+    }
+    
     public List getSimInfo_by_simnumberLike(Session session, String simnumber, String suffix) {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0 and simnumber LIKE '%" + simnumber + "%'", suffix);
     }

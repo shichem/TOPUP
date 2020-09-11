@@ -107,11 +107,11 @@
                 <div class="row">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Information sur Client  
+                            Recherche 
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                 <div class="col-lg-12" class="form-group">
+                                <div class="col-lg-12" class="form-group">
                                     <label>Provider</label>
                                     <div class="autocomplete" >
                                         <input id="provider" type="text" required="" name="provider" class=" form-control"  placeholder="nom du client " autocomplete="off">
@@ -143,7 +143,7 @@
 
                                     </select>
                                 </div>
-                                
+
                                 <div class="col-lg-6" class="form-group">
 
                                     <label>date fin</label>
@@ -153,6 +153,15 @@
 
                                     <label>date fin</label>
                                     <input type="date" id="dateFin" value="dateFin" class="form-control"/>
+                                </div>
+                                        <div class="col-lg-6" class="form-group">
+                                            
+                                        </div>
+                                <div class="col-lg-12" class="form-group">
+
+                                    <label style="    color: green;">Slod  reussie :</label><label id ="sold"style="    color: green;"></label>
+                                    </br>
+                                    <label style="    color: red;">Slod  litig :</label><label id ="soldLitig" style="    color: red;"></label>
                                 </div>
                                 <div class="col-lg-12" >
                                     <div style="float:right">
@@ -175,14 +184,14 @@
                                 <th>Date Transaction  </th>
                                 <th>Status Transaction  </th>
                                 <th>User  </th>
-                                
+
                             </tr>
                         </thead>
                         <tbody>                      
                         </tbody>
                         <tfoot>
                             <tr>
-                             <th>provider</th>
+                                <th>provider</th>
                                 <th>Client</th>
                                 <th>Old sold</th>
                                 <th>New sold</th>
@@ -207,9 +216,8 @@
 
                 jQuery.fn.DataTable.Api.register('buttons.exportData()', function (options) {
 
-                    alert("test");
                     var jsonResult = $.ajax({
-                        url: '../ListTransactionTopUpAllExportExcl',
+                        url: '../ListTransactionSoldAllExportExcl',
                         type: 'GET',
 
                         data: {
@@ -436,7 +444,48 @@
             );
 
 
+            $.ajax({
+                url: '../SoldTransaction',
+                type: 'GET',
+
+                data: {
+                    // Read values
+                    provider: $('#provider').val(),
+                    name: $('#treader').val(),
+                    dateDebut: $('#dateDebut').val(),
+                    dateFin: $('#dateFin').val()
+
+                },
+                success: function (result) {
+                    //Do nothing                    
+                    $('#sold').text(result.sumValid);
+                    $('#soldLitig').text(result.sumLitig);
+                },
+
+            });
+
             function rechercher() {
+                $.ajax({
+                    url: '../SoldTransaction',
+                    type: 'GET',
+
+                    data: {
+                        // Read values
+                        provider: $('#provider').val(),
+                        name: $('#treader').val(),
+                        dateDebut: $('#dateDebut').val(),
+                        dateFin: $('#dateFin').val()
+
+
+                    },
+                    success: function (result) {
+                        //Do nothing                    
+                        $('#sold').text(result.sumValid);
+                        $('#soldLitig').text(result.sumLitig);
+                    }
+
+                });
+
                 $('#example').DataTable().draw();
 
             }

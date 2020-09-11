@@ -144,11 +144,11 @@
                                             <div class="col-lg-12" class="form-group">
                                                 <label>Sim</label>
                                                 <%         
-                                                     List listSim = new SimInfo_Util().getAllSimInfo("");
+                                                     List listSim = new SimInfo_Util().getSimInfo_by_operator(offerInfo.getOperator().getIdoperator());
                                                     List<SimOffer> listSim1 = new ArrayList<SimOffer> (offerInfo.getSimOffers());
                                                 %>
 
-                                                <select multiple required="" class="form-control"> 
+                                                <select multiple  name="Number" id="Number" required="" class="form-control"> 
                                                     <%
                                                         for (int i = 0; i < listSim.size(); i++) {
                                                             SimInfo get = (SimInfo) listSim.get(i);
@@ -194,6 +194,20 @@
         <script src="./data/data_graph.js"></script>
         <script>
             $(document).ready(function () {
+                
+                
+                $("#operateur").change(function () {
+
+                    var operatorID = $("#operateur").val();
+                    $.ajax({
+                        url: "../SimByOperator?OpeatorId=" + operatorID,
+                        success: function (data) {
+                            // alert(data);
+                            $("#Number").empty();
+                            $("#Number").append(data);
+                        }
+                    });
+                });
                 $('input[type=checkbox][name=mant_iden]').change(function () {
                     if ($(this).is(':checked')) {
                         $("#tmaontant").prop("disabled", true);
