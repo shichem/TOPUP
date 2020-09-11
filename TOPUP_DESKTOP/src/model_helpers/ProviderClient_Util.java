@@ -58,6 +58,21 @@ public class ProviderClient_Util {
 
     } 
     
+      public List<ProviderClient> getAllTrader_ForProvider( ) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+       // UserInfo user = new UserInfo_Util().getUserInfo_by_id(session, userID, "");
+        List<ProviderClient> resultList = new ArrayList<ProviderClient>();
+        try {
+            Query q = session.createQuery("FROM ProviderClient  where flag=0 ");
+            resultList = q.list();//q.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
+        
+        return resultList;
+
+    } 
      public List<ProviderClient> getAllTrader_ForProvider(int providerId) {
         Session session = HibernateUtil.getSessionFactory().openSession();        
         List<ProviderClient> resultList = new ArrayList<ProviderClient>();
