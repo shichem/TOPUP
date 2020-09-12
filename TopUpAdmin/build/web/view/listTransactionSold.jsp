@@ -160,8 +160,7 @@
                                 <div class="col-lg-12" class="form-group">
 
                                     <label style="    color: green;">Slod  reussie :</label><label id ="sold"style="    color: green;"></label>
-                                    </br>
-                                    <label style="    color: red;">Slod  litig :</label><label id ="soldLitig" style="    color: red;"></label>
+                                    
                                 </div>
                                 <div class="col-lg-12" >
                                     <div style="float:right">
@@ -450,6 +449,7 @@
 
                 data: {
                     // Read values
+                    status: $('#statusStation :selected').val(),
                     provider: $('#provider').val(),
                     name: $('#treader').val(),
                     dateDebut: $('#dateDebut').val(),
@@ -459,7 +459,7 @@
                 success: function (result) {
                     //Do nothing                    
                     $('#sold').text(result.sumValid);
-                    $('#soldLitig').text(result.sumLitig);
+                   // $('#soldLitig').text(result.sumLitig);
                 },
 
             });
@@ -471,6 +471,7 @@
 
                     data: {
                         // Read values
+                        status: $('#statusStation :selected').val(),
                         provider: $('#provider').val(),
                         name: $('#treader').val(),
                         dateDebut: $('#dateDebut').val(),
@@ -481,7 +482,7 @@
                     success: function (result) {
                         //Do nothing                    
                         $('#sold').text(result.sumValid);
-                        $('#soldLitig').text(result.sumLitig);
+                       // $('#soldLitig').text(result.sumLitig);
                     }
 
                 });

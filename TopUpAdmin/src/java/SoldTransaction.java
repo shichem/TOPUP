@@ -37,7 +37,7 @@ public class SoldTransaction extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
 
-            String type = request.getParameter("type");
+            String status = request.getParameter("status");
             String name = request.getParameter("name");
             String dateDebut = request.getParameter("dateDebut");
             String provider = request.getParameter("provider");
@@ -54,9 +54,19 @@ public class SoldTransaction extends HttpServlet {
             }
           
             TransactionSolde_Util solde_Util = new TransactionSolde_Util();
-            double sumValid = solde_Util.transactionSold(staticVars.status_TCT_Reussie,provider1,name1,dateDebut,dateFin);
-            double sumLitig = solde_Util.transactionSold( staticVars.status_TCT_AVerifier,provider1,name1,dateDebut,dateFin);
+            double sumValid = 0;
+            double sumLitig = 0;
+            if (status == "") {
+                sumValid = solde_Util.transactionSold(staticVars.status_TCT_Reussie,provider1,name1,dateDebut,dateFin);
+                sumLitig = solde_Util.transactionSold( staticVars.status_TCT_AVerifier,provider1,name1,dateDebut,dateFin);
+            } else if (status.equals(staticVars.status_TCT_Reussie)) {
+                sumValid = solde_Util.transactionSold(staticVars.status_TCT_Reussie,provider1,name1,dateDebut,dateFin);
 
+            } else if (status.equals(staticVars.status_TCT_AVerifier)) {
+                sumLitig = solde_Util.transactionSold( staticVars.status_TCT_AVerifier,provider1,name1,dateDebut,dateFin);
+
+            }
+            
             out.println("{\"sumValid\" :" + sumValid + ",\"sumLitig\": " + sumLitig + "}");
         }
     }

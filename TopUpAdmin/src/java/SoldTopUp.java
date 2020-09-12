@@ -36,7 +36,7 @@ public class SoldTopUp extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
 
-            
+            String status = request.getParameter("status");
             String type = request.getParameter("type");
             String name = request.getParameter("name");
             String dateDebut = request.getParameter("dateDebut");
@@ -44,12 +44,21 @@ public class SoldTopUp extends HttpServlet {
             String name1 = "";
             if (name != "") {
 //                String[] arrOfStr = name.split("-", 5);
- //               name1 = arrOfStr[1].toString();
+                //               name1 = arrOfStr[1].toString();
             }
             TransactionTopup_Util topup_Util = new TransactionTopup_Util();
-            double sumValid = topup_Util.SumSold(staticVars.status_TCT_Reussie, type, name1, dateDebut, dateFin);
-            double sumLitig = topup_Util.SumSold( staticVars.status_TCT_AVerifier, type, name1, dateDebut, dateFin);
+            double sumValid = 0;
+            double sumLitig = 0;
+            if (status == "") {
+                sumValid = topup_Util.SumSold(staticVars.status_TCT_Reussie, type, name1, dateDebut, dateFin);
+                sumLitig = topup_Util.SumSold(staticVars.status_TCT_AVerifier, type, name1, dateDebut, dateFin);
+            } else if (status.equals(staticVars.status_TCT_Reussie)) {
+                sumValid = topup_Util.SumSold(staticVars.status_TCT_Reussie, type, name1, dateDebut, dateFin);
 
+            } else if (status.equals(staticVars.status_TCT_AVerifier)) {
+                sumLitig = topup_Util.SumSold(staticVars.status_TCT_AVerifier, type, name1, dateDebut, dateFin);
+
+            }
             out.println("{\"sumValid\" :" + sumValid + ",\"sumLitig\": " + sumLitig + "}");
         }
     }
