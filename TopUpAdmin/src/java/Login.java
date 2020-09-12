@@ -37,17 +37,23 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           String userName = request.getParameter("username");
-    String password = request.getParameter("password");
-        userUI user = new dbhelper().checkAUthentification(userName, password);
-         if (user != null) {
-             HttpSession session=request.getSession();  
-        session.setAttribute("username",user.getActualUser().getUsername());
-        session.setAttribute("Id",user.getActualUser().getIduserInfo());
-           response.sendRedirect("view/dashboard.jsp");
-         }else{
-            response.sendRedirect("login.jsp?erreur");
-         }
+            String userName = request.getParameter("username");
+            String password = request.getParameter("password");
+            userUI user = new dbhelper().checkAUthentification(userName, password);
+            if (user != null) {
+                if (user.getActualUser().getUserCategory().getUserCategoryDesc().equals(staticVars.userCategory_Administrateur)) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("username", user.getActualUser().getUsername());
+                    session.setAttribute("Id", user.getActualUser().getIduserInfo());
+                    session.setAttribute("role", user.getActualUser().getUserCategory().getUserCategoryDesc());
+                    response.sendRedirect("view/dashboard.jsp");
+                } else {
+                    response.sendRedirect("login.jsp?erreur");
+
+                }
+            } else {
+                response.sendRedirect("login.jsp?erreur");
+            }
         }
     }
 

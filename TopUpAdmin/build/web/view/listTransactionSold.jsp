@@ -143,7 +143,16 @@
 
                                     </select>
                                 </div>
-
+                                <div class="col-lg-6" class="form-group">
+                                    
+                                    <label>Type</label>
+                                    <select id="type" name="type" required="" class="form-control">
+                                        <option value="">Selection Type du transction  </option>
+                                        <option value="TopUp">TopUp  </option>
+                                        <option value="alimantion">Alimentation de solde  </option>
+                                        <option value="debit">Debit de solde  </option>
+                                    </select>
+                                </div>
                                 <div class="col-lg-6" class="form-group">
 
                                     <label>date fin</label>
@@ -154,13 +163,13 @@
                                     <label>date fin</label>
                                     <input type="date" id="dateFin" value="dateFin" class="form-control"/>
                                 </div>
-                                        <div class="col-lg-6" class="form-group">
-                                            
-                                        </div>
+                                <div class="col-lg-6" class="form-group">
+
+                                </div>
                                 <div class="col-lg-12" class="form-group">
 
                                     <label style="    color: green;">Slod  reussie :</label><label id ="sold"style="    color: green;"></label>
-                                    
+
                                 </div>
                                 <div class="col-lg-12" >
                                     <div style="float:right">
@@ -222,6 +231,7 @@
                         data: {
                             // Read values
                             status: $('#statusStation :selected').val(),
+                            type : $('#type :selected').val(),
                             provider: $('#provider').val(),
                             name: $('#treader').val(),
                             dateDebut: $('#dateDebut').val(),
@@ -254,12 +264,14 @@
                         'data': function (data) {
                             // Read values
                             var status = $('#statusStation :selected').val();
+                            var type = $('#type :selected').val();
                             var provider = $('#provider').val();
                             var name = $('#treader').val();
                             var dateDebut = $('#dateDebut').val();
                             var dateFin = $('#dateFin').val();
                             // Append to data
                             data.status = status;
+                            data.type =type;
                             data.provider = provider;
                             data.name = name;
                             data.dateDebut = dateDebut;
@@ -450,6 +462,7 @@
                 data: {
                     // Read values
                     status: $('#statusStation :selected').val(),
+                    type :$('#type :selected').val(),
                     provider: $('#provider').val(),
                     name: $('#treader').val(),
                     dateDebut: $('#dateDebut').val(),
@@ -459,7 +472,7 @@
                 success: function (result) {
                     //Do nothing                    
                     $('#sold').text(result.sumValid);
-                   // $('#soldLitig').text(result.sumLitig);
+                    // $('#soldLitig').text(result.sumLitig);
                 },
 
             });
@@ -472,6 +485,7 @@
                     data: {
                         // Read values
                         status: $('#statusStation :selected').val(),
+                        type  : $('#type :selected').val(),
                         provider: $('#provider').val(),
                         name: $('#treader').val(),
                         dateDebut: $('#dateDebut').val(),
@@ -482,7 +496,7 @@
                     success: function (result) {
                         //Do nothing                    
                         $('#sold').text(result.sumValid);
-                       // $('#soldLitig').text(result.sumLitig);
+                        // $('#soldLitig').text(result.sumLitig);
                     }
 
                 });

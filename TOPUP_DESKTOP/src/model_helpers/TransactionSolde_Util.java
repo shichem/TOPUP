@@ -121,7 +121,7 @@ public class TransactionSolde_Util {
     }
 
     
-    public List getAllTransactionSold(Integer start, Integer length,String Status,String provider , String name ,String dateDebut,String dateFin) {
+    public List getAllTransactionSold(Integer start, Integer length,String Status, String type , String provider , String name ,String dateDebut,String dateFin) {
      String dateWhere = "";
         if(dateDebut!=""){
             dateWhere ="and transactDate BETWEEN  ' "+dateDebut +" 00:00:00.0'";
@@ -129,13 +129,23 @@ public class TransactionSolde_Util {
          if(dateFin!=""){
          dateWhere +=" and '"+dateFin+" 00:00:00.0'";
         }
+          String wheretype ="";
+         if(type.equals("TopUp")){
+             wheretype =" and userInfo.trader.idtrader = providerClient.traderByIdclient.idtrader ";
+         }else if(type.equals("alimantion")){
+                          wheretype =" and userInfo.trader.idtrader != providerClient.traderByIdclient.idtrader and  transactAmount>0";
+
+         }else if (type.equals("debit")){
+                          wheretype =" and userInfo.trader.idtrader != providerClient.traderByIdclient.idtrader and  transactAmount<0";
+
+         }
          System.out.println("model_helpers.TransactionTopup_Util.getAllTransactionTopup()===>>"+dateWhere);
         Session session = HibernateUtil.getSessionFactory().openSession();
         List resultList = new ArrayList();
         try {
             Query q = session.createQuery("FROM TransactionSolde where providerClient.traderByIdclient.traderFname like '%"+name+"%' and statusInfo.statusInfoDesc like '%"+Status+"%' and providerClient.traderByIdprovider.traderFname like '%"+provider+"%' "
                     +dateWhere
-                    + " and flag=0" ).setFirstResult(start).setMaxResults(length);
+                    + " and flag=0 "+wheretype ).setFirstResult(start).setMaxResults(length);
             resultList = q.list();
         } catch (HibernateException he) {
             he.printStackTrace();

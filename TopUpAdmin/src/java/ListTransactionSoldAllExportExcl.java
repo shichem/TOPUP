@@ -57,7 +57,7 @@ public class ListTransactionSoldAllExportExcl extends HttpServlet {
             }
             TransactionSolde_Util solde_Util = new TransactionSolde_Util();
             int count = solde_Util.getAllTransactionSolde();
-              List l = solde_Util.getAllTransactionSold(0, count,status,provider1,name1,dateDebut,dateFin);
+              List l = solde_Util.getAllTransactionSold(0, count,status,type,provider1,name1,dateDebut,dateFin);
          
 
              out.print("{\n \n"

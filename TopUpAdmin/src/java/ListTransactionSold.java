@@ -58,8 +58,8 @@ public class ListTransactionSold extends HttpServlet {
             }
             TransactionSolde_Util solde_Util = new TransactionSolde_Util();
             int count = solde_Util.getAllTransactionSolde();
-            int filtreCount = solde_Util.getAllTransactionSold(0, count,status,provider1,name1,dateDebut,dateFin).size();
-            List l = solde_Util.getAllTransactionSold(start, length, status, provider1, name1, dateDebut, dateFin);
+            int filtreCount = solde_Util.getAllTransactionSold(0, count,status,type,provider1,name1,dateDebut,dateFin).size();
+            List l = solde_Util.getAllTransactionSold(start, length, status,type, provider1, name1, dateDebut, dateFin);
 
             out.print("{\n \n"
                     + "  \"recordsTotal\": " + count + ",\n"
