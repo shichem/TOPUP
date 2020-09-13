@@ -123,11 +123,11 @@ public class TransactionSolde_Util {
     
     public List getAllTransactionSold(Integer start, Integer length,String Status, String type , String provider , String name ,String dateDebut,String dateFin) {
      String dateWhere = "";
-        if(dateDebut!=""){
-            dateWhere ="and transactDate BETWEEN  ' "+dateDebut +" 00:00:00.0'";
+       if(dateDebut!=""){
+            dateWhere ="and transact_date >=  '"+dateDebut +" 00:00:00' ";
         }
          if(dateFin!=""){
-         dateWhere +=" and '"+dateFin+" 00:00:00.0'";
+         dateWhere +=" and transact_date <= '"+dateFin+" 23:59:00'";
         }
           String wheretype ="";
          if(type.equals("TopUp")){
@@ -156,10 +156,10 @@ public class TransactionSolde_Util {
      public double transactionSold(String Status,String provider , String name ,String dateDebut,String dateFin) {
      String dateWhere = "";
         if(dateDebut!=""){
-            dateWhere ="and transactDate BETWEEN  ' "+dateDebut +" 00:00:00.0'";
+            dateWhere ="and transact_date >=  '"+dateDebut +" 00:00:00'";
         }
          if(dateFin!=""){
-         dateWhere +=" and '"+dateFin+" 00:00:00.0'";
+         dateWhere +=" and transact_date <= '"+dateFin+" 23:59:00'";
         }
          System.out.println("model_helpers.TransactionTopup_Util.getAllTransactionTopup()===>>"+dateWhere);
         Session session = HibernateUtil.getSessionFactory().openSession();

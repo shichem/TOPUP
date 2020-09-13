@@ -26,10 +26,10 @@ public class TransactionTopup_Util {
     public List getAllTransactionTopup(Integer start, Integer length,String Status,String type , String name ,String dateDebut,String dateFin) {
      String dateWhere = "";
         if(dateDebut!=""){
-            dateWhere ="and transactDate BETWEEN  ' "+dateDebut +" 00:00:00.0'";
+            dateWhere ="and transact_date >=  '"+dateDebut +" 00:00:00'";
         }
          if(dateFin!=""){
-         dateWhere +=" and '"+dateFin+" 00:00:00.0'";
+         dateWhere +=" and transact_date <= '"+dateFin+" 23:59:00'";
         }
          System.out.println("model_helpers.TransactionTopup_Util.getAllTransactionTopup()===>>"+dateWhere);
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -48,11 +48,11 @@ public class TransactionTopup_Util {
     
     public double SumSold(String Status, String type, String name, String dateDebut, String dateFin) {
      String dateWhere = "";
-        if(dateDebut!=""){
-            dateWhere ="and transactDate BETWEEN  ' "+dateDebut +" 00:00:00.0'";
+         if(dateDebut!=""){
+            dateWhere ="and `transact_date` >=  '"+dateDebut +" 00:00:00'";
         }
          if(dateFin!=""){
-         dateWhere +=" and '"+dateFin+" 00:00:00.0'";
+         dateWhere +=" and transact_date <= '"+dateFin+" 23:59:00'";
         }
 
         Session session = HibernateUtil.getSessionFactory().openSession();
