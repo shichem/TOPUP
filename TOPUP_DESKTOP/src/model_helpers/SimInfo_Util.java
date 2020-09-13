@@ -30,6 +30,17 @@ public class SimInfo_Util {
         }
 
     }
+      public Integer countSimInfoByStatus(String status) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0 and statusInfo.statusInfoDesc ='"+status+"'", "");
+
+        if (list.isEmpty()) {
+            return 0;
+        } else {
+            return list.size();
+        }
+
+    }
      public Double getLastSoldByOperatorEstimed(String op) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, " SELECT SUM(lastEstimatedSolde)  FROM SimInfo where flag=0 and operator.operatorDesc ='"+op+"'", "");

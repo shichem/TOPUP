@@ -11,17 +11,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model_db.SimInfo;
-import model_helpers.SimInfo_Util;
-import model_util.HibernateUtil;
-import org.hibernate.Session;
 
 /**
  *
  * @author GarandaTech
  */
-@WebServlet(urlPatterns = {"/DesactiveSim"})
-public class DesactivateSim extends HttpServlet {
+@WebServlet(urlPatterns = {"/RefreshSim"})
+public class RefreshSim extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,23 +31,13 @@ public class DesactivateSim extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Session session = HibernateUtil.getSessionFactory().openSession();
         try (PrintWriter out = response.getWriter()) {
-            session.getTransaction().begin();
             /* TODO output your page here. You may use following sample code. */
-            String offreID = request.getParameter("id");
-            SimInfo_Util info_Util = new SimInfo_Util();
-            SimInfo offerInfo = (SimInfo) info_Util.getSimInfo_by_id(session, Integer.parseInt(offreID), "");
+            response.sendRedirect("view/listSim.jsp");
 
-            offerInfo.setFlag(1);
-            info_Util.updateSimInfo(offerInfo, session);
-            session.getTransaction().commit();
-            session.close();
-            response.sendRedirect("view/listSim.jsp?del");
         } catch (Exception e) {
-            session.getTransaction().rollback();
-            session.close();
-            response.sendRedirect("view/listsim.jsp?erreur");
+            response.sendRedirect("./erreur.jsp");
+
         }
     }
 

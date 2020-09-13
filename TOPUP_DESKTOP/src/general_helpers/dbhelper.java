@@ -142,7 +142,7 @@ public class dbhelper {
             if (!simList.isEmpty()) {
                 this.updateSimParametres(session, (SimInfo) simList.get(0), elementAt);
             }
-        }
+        }   
         return simUIVector;
     }
 
