@@ -37,7 +37,7 @@ public class TransactionTopup_Util {
         try {
             Query q = session.createQuery("FROM TransactionTopup where  providerClient.traderByIdclient.traderFname like '%"+name+"%' and statusInfo.statusInfoDesc like '%"+Status+"%' and transactionType.transactionTypeDesc like '%"+type+"%' "
                     +dateWhere
-                    + " and flag=0" ).setFirstResult(start).setMaxResults(length);
+                    + " and flag=0 order by idtransacttopup" ).setFirstResult(start).setMaxResults(length);
             resultList = q.list();
         } catch (HibernateException he) {
             he.printStackTrace();

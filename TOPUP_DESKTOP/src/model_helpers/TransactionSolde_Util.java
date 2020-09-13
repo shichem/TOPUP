@@ -145,7 +145,7 @@ public class TransactionSolde_Util {
         try {
             Query q = session.createQuery("FROM TransactionSolde where providerClient.traderByIdclient.traderFname like '%"+name+"%' and statusInfo.statusInfoDesc like '%"+Status+"%' and providerClient.traderByIdprovider.traderFname like '%"+provider+"%' "
                     +dateWhere
-                    + " and flag=0 "+wheretype ).setFirstResult(start).setMaxResults(length);
+                    + " and flag=0 "+wheretype+" order by idtransactsolde " ).setFirstResult(start).setMaxResults(length);
             resultList = q.list();
         } catch (HibernateException he) {
             he.printStackTrace();

@@ -59,7 +59,7 @@ public class ListTransactionTopUpAllExportExcl extends HttpServlet {
             for (Object object : l) {
                 TransactionTopup topup = (TransactionTopup) object;
                 out.print("[");
-                out.print("\"" + topup.getIdtransacttopup() +"__"+topup.getProviderClient().getTraderByIdclient().getTraderFname() + "\",");
+                out.print("\"" + topup.getProviderClient().getTraderByIdclient().getTraderFname() + "\",");
                 out.print("\"" + topup.getSimClient() + "\",");
                 out.print("\"" + topup.getSimOffer().getOfferInfo().getOfferDesc() + "\",");
                 out.print("\"" + topup.getNewSolde() + "\",");
