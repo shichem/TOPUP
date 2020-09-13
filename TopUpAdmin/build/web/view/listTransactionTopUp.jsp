@@ -183,15 +183,15 @@
                     <table id="example" class="display nowrap table dtr-inline collapsed" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Client</th>
+                                 <th>Client</th>
                                 <th>SimClient</th>
                                 <th>Offer</th>
-                                <th>New sold</th>
-                                <th>Transaction Amount</th>
-                                <th>Real Transaction Amount</th>
-                                <th>Date Transaction  </th>
                                 <th>Status Transaction  </th>
                                 <th>Type Transaction  </th>
+                                <th>Date Transaction  </th>
+                                <th>New sold</th>
+                                <th>Transaction Amount</th>
+                                <th>Real Transaction Amount</th>                                                      
                                 <th>Sent Message  </th>
                                 <th>Recived Message  </th>
                             </tr>
@@ -203,12 +203,12 @@
                                 <th>Client</th>
                                 <th>SimClient</th>
                                 <th>Offer</th>
-                                <th>New sold</th>
-                                <th>Transaction Amount</th>
-                                <th>Real Transaction Amount</th>
-                                <th>Date Transaction  </th>
                                 <th>Status Transaction  </th>
                                 <th>Type Transaction  </th>
+                                <th>Date Transaction  </th>
+                                <th>New sold</th>
+                                <th>Transaction Amount</th>
+                                <th>Real Transaction Amount</th>                                                      
                                 <th>Sent Message  </th>
                                 <th>Recived Message  </th>
                             </tr>

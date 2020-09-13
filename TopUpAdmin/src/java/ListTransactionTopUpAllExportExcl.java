@@ -58,18 +58,18 @@ public class ListTransactionTopUpAllExportExcl extends HttpServlet {
             int i = 0;
             for (Object object : l) {
                 TransactionTopup topup = (TransactionTopup) object;
-                out.print("[");
+               out.print("[");
                 out.print("\"" + topup.getProviderClient().getTraderByIdclient().getTraderFname() + "\",");
                 out.print("\"" + topup.getSimClient() + "\",");
                 out.print("\"" + topup.getSimOffer().getOfferInfo().getOfferDesc() + "\",");
+                out.print("\"" + topup.getStatusInfo().getStatusInfoDesc() + "\",");
+                out.print("\"" + topup.getTransactionType().getTransactionTypeDesc() + "\",");
+                out.print("\"" + topup.getTransactDate().toString() + "\",");
                 out.print("\"" + topup.getNewSolde() + "\",");
                 out.print("\"" + topup.getTransactAmount() + "\",");
                 out.print("\"" + topup.getRealTransactAmount() + "\",");
-                out.print("\"" + topup.getTransactDate().toString() + "\",");
-                out.print("\"" + topup.getStatusInfo().getStatusInfoDesc() + "\",");
-                out.print("\"" + topup.getTransactionType().getTransactionTypeDesc() + "\",");
                 out.print("\"" + topup.getSentMessage() + "\",");
-                out.print("\"<i>" + topup.getRecievedMessage().replaceAll("\"", "'").replaceAll("[\r\n]+", "")+ "</i>\"");
+                out.print("\"<i>" + topup.getRecievedMessage().replaceAll("\"", "'").replaceAll("[\r\n]+", "") + "</i>\"");
                 out.print("]");
                 if (i < l.size() - 1) {
                     out.print(",");

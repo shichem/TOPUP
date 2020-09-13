@@ -41,18 +41,18 @@ public class ListTransactionTopUp extends HttpServlet {
             String status = request.getParameter("status");
             String type = request.getParameter("type");
             String name = request.getParameter("name");
-            String dateDebut =request.getParameter("dateDebut");
-            String dateFin =request.getParameter("dateFin");
+            String dateDebut = request.getParameter("dateDebut");
+            String dateFin = request.getParameter("dateFin");
             String name1 = "";
-            if(name !=""){
-                 String[] arrOfStr = name.split("-", 5);
-            name1= arrOfStr[1].toString();
-            } 
+            if (name != "") {
+                String[] arrOfStr = name.split("-", 5);
+                name1 = arrOfStr[1].toString();
+            }
             TransactionTopup_Util topup_Util = new TransactionTopup_Util();
             int count = topup_Util.getAllTransactionTopup();
-            int filtreCount = topup_Util.getAllTransactionTopup(0, count,status,type,name1,dateDebut,dateFin).size();
+            int filtreCount = topup_Util.getAllTransactionTopup(0, count, status, type, name1, dateDebut, dateFin).size();
 
-            List l = topup_Util.getAllTransactionTopup(start, length,status,type,name1,dateDebut,dateFin);
+            List l = topup_Util.getAllTransactionTopup(start, length, status, type, name1, dateDebut, dateFin);
 
             out.print("{\n \n"
                     + "  \"recordsTotal\": " + count + ",\n"
@@ -65,14 +65,15 @@ public class ListTransactionTopUp extends HttpServlet {
                 out.print("\"" + topup.getProviderClient().getTraderByIdclient().getTraderFname() + "\",");
                 out.print("\"" + topup.getSimClient() + "\",");
                 out.print("\"" + topup.getSimOffer().getOfferInfo().getOfferDesc() + "\",");
+                out.print("\"" + topup.getStatusInfo().getStatusInfoDesc() + "\",");
+                out.print("\"" + topup.getTransactionType().getTransactionTypeDesc() + "\",");
+                out.print("\"" + topup.getTransactDate().toString() + "\",");
+
                 out.print("\"" + topup.getNewSolde() + "\",");
                 out.print("\"" + topup.getTransactAmount() + "\",");
                 out.print("\"" + topup.getRealTransactAmount() + "\",");
-                out.print("\"" + topup.getTransactDate().toString() + "\",");
-                out.print("\"" + topup.getStatusInfo().getStatusInfoDesc() + "\",");
-                out.print("\"" + topup.getTransactionType().getTransactionTypeDesc() + "\",");
                 out.print("\"" + topup.getSentMessage() + "\",");
-                out.print("\"<i>" + topup.getRecievedMessage().replaceAll("\"", "'").replaceAll("[\r\n]+", "")+ "</i>\"");
+                out.print("\"<i>" + topup.getRecievedMessage().replaceAll("\"", "'").replaceAll("[\r\n]+", "") + "</i>\"");
                 out.print("]");
                 if (i < l.size() - 1) {
                     out.print(",");
