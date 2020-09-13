@@ -144,7 +144,7 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-6" class="form-group">
-                                    
+
                                     <label>Type</label>
                                     <select id="type" name="type" required="" class="form-control">
                                         <option value="">Selection Type du transction  </option>
@@ -231,7 +231,7 @@
                         data: {
                             // Read values
                             status: $('#statusStation :selected').val(),
-                            type : $('#type :selected').val(),
+                            type: $('#type :selected').val(),
                             provider: $('#provider').val(),
                             name: $('#treader').val(),
                             dateDebut: $('#dateDebut').val(),
@@ -271,7 +271,7 @@
                             var dateFin = $('#dateFin').val();
                             // Append to data
                             data.status = status;
-                            data.type =type;
+                            data.type = type;
                             data.provider = provider;
                             data.name = name;
                             data.dateDebut = dateDebut;
@@ -288,6 +288,7 @@
                         {
                             extend: 'excel',
                             text: '<span class="fa fa-file-excel-o"></span> Excel Export',
+                            title: 'TransactionSold',
                             exportOptions: {
                                 modifier: {
                                     search: 'applied',
@@ -462,7 +463,7 @@
                 data: {
                     // Read values
                     status: $('#statusStation :selected').val(),
-                    type :$('#type :selected').val(),
+                    type: $('#type :selected').val(),
                     provider: $('#provider').val(),
                     name: $('#treader').val(),
                     dateDebut: $('#dateDebut').val(),
@@ -485,7 +486,7 @@
                     data: {
                         // Read values
                         status: $('#statusStation :selected').val(),
-                        type  : $('#type :selected').val(),
+                        type: $('#type :selected').val(),
                         provider: $('#provider').val(),
                         name: $('#treader').val(),
                         dateDebut: $('#dateDebut').val(),
