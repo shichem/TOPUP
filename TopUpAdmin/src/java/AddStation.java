@@ -79,10 +79,14 @@ public class AddStation extends HttpServlet {
             int respeonse = helper.addStation(session, user, trader,status, stationType, trader.getTraderCompany(), trader.getTraderCompany(), tsn1, tsn2, "", profile, stationName,userName,password);
             session.getTransaction().commit();
             session.close();
+            String gro ="";
+            if(trader.getTraderCategory().getTraderCategoryDesc().equals(staticVars.traderCategory_Grossiste)){
+            gro="Gro";
+            }
             if (respeonse == staticVars.onGoingProcessOK) {
-                response.sendRedirect("view/listStation.jsp?add");
+                response.sendRedirect("view/listStation"+gro+".jsp?add");
             } else {
-                response.sendRedirect("view/addStation.jsp?erreur");
+                response.sendRedirect("view/addStation"+gro+".jsp?erreur");
             }
 
         } catch (Exception e) {

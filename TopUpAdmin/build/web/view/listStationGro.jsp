@@ -29,7 +29,7 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">List Station  <%=staticVars.traderCategory_Detaillant %></h1>
+                        <h1 class="page-header">List Station   <%=staticVars.traderCategory_Grossiste %></h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -69,7 +69,7 @@
                         </thead>
                         <tbody>
                             <%                                station_Util stationType_Util = new station_Util();
-                                List listStation = stationType_Util.getAllStationByTraderCategory(staticVars.traderCategory_Detaillant,"");
+                                List listStation = stationType_Util.getAllStationByTraderCategory(staticVars.traderCategory_Grossiste,"");
                                 System.out.println("className.methodName()" + listStation.size());
                                 for (int i = 0; i < listStation.size(); i++) {
                                     Station station = (Station) listStation.get(i);
@@ -127,7 +127,7 @@
                                         function desctiveStation(id) {
                                             var r = confirm("vous voulez désactiver la station");
                                             if (r == true) {
-                                                window.location.href = "../DesactivateStation?id=" + id;
+                                                window.location.href = "../DesactivateStationGro?id=" + id;
                                             } else {
 
                                             }

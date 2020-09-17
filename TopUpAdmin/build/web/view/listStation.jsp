@@ -1,4 +1,5 @@
 
+<%@page import="custom_vars.staticVars"%>
 <%@page import="model_db.Station"%>
 <%@page import="java.util.List"%>
 <%@page import="model_helpers.station_Util"%>
@@ -28,7 +29,7 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">List Station</h1>
+                        <h1 class="page-header">List Station  <%=staticVars.traderCategory_Detaillant %></h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -68,7 +69,7 @@
                         </thead>
                         <tbody>
                             <%                                station_Util stationType_Util = new station_Util();
-                                List listStation = stationType_Util.getAllStation("");
+                                List listStation = stationType_Util.getAllStationByTraderCategory(staticVars.traderCategory_Detaillant,"");
                                 System.out.println("className.methodName()" + listStation.size());
                                 for (int i = 0; i < listStation.size(); i++) {
                                     Station station = (Station) listStation.get(i);

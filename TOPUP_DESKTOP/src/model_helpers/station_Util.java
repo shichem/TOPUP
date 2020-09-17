@@ -26,6 +26,13 @@ public class station_Util {
 
     }
      
+       public List getAllStationByTraderCategory( String category,String suffix) {
+                 Session session  =  HibernateUtil.getSessionFactory().openSession();
+
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM Station where flag=0 and trader.traderCategory.traderCategoryDesc like '%"+category+"%'", suffix);
+
+    } 
+     
     public Station getStation_by_id(Session session, int id, String suffix) {
         List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM Station where flag=0 and idstation = " + id, suffix);
         if (list.isEmpty()) {

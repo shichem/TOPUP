@@ -4,6 +4,7 @@
     Author     : macbookpro
 --%>
 
+<%@page import="custom_vars.staticVars"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
    <div class="navbar-default sidebar" role="navigation">
@@ -42,7 +43,12 @@
                                     <a href="./addStation.jsp"><i class="fa fa-user fa-fw"></i>Ajouter Station</a>
                                 </li>
                                 <li>
-                                    <a href="./listStation.jsp"><i class="fa fa-list fa-fw"></i>List Station</a>
+                                    <a href="./listStation.jsp"><i class="fa fa-list fa-fw"></i>List Station <%=staticVars.traderCategory_Detaillant %></a>
+                                    
+                                </li>
+                                <li>
+                                    <a href="./listStationGro.jsp"><i class="fa fa-list fa-fw"></i>List Station <%=staticVars.traderCategory_Grossiste %></a>
+                                    
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

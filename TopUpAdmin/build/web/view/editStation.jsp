@@ -111,7 +111,7 @@
                                     <div class="col-lg-12">
                                         <form role="form" action="../EditStation" method="POST">
                                             <input type="hidden" name="id" id="id" value="<%= stationId%>" /> 
-
+                                            <input type="hidden" name="treaderID" id="treaderID" value="<%=station.getTrader().getIdtrader()%>"/>
                                             <div class="col-lg-12" class="form-group">
                                                 <label>Client</label>
                                                 <div class="autocomplete" >
