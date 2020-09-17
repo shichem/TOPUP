@@ -43,6 +43,9 @@ public class ListTransactionTopUp extends HttpServlet {
             String name = request.getParameter("name");
             String dateDebut = request.getParameter("dateDebut");
             String dateFin = request.getParameter("dateFin");
+            String operator = request.getParameter("operator");
+            String offer = request.getParameter("offer");
+            String sim = request.getParameter("sim");
             String name1 = "";
             if (name != "") {
                 String[] arrOfStr = name.split("-", 5);
@@ -50,9 +53,9 @@ public class ListTransactionTopUp extends HttpServlet {
             }
             TransactionTopup_Util topup_Util = new TransactionTopup_Util();
             int count = topup_Util.getAllTransactionTopup();
-            int filtreCount = topup_Util.getAllTransactionTopup(0, count, status, type, name1, dateDebut, dateFin).size();
+            int filtreCount = topup_Util.getAllTransactionTopup(0, count, status, type, name1, dateDebut, dateFin,operator,offer,sim).size();
 
-            List l = topup_Util.getAllTransactionTopup(start, length, status, type, name1, dateDebut, dateFin);
+            List l = topup_Util.getAllTransactionTopup(start, length, status, type, name1, dateDebut, dateFin,operator,offer,sim);
 
             out.print("{\n \n"
                     + "  \"recordsTotal\": " + count + ",\n"

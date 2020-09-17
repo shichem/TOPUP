@@ -23,7 +23,7 @@ public class TransactionTopup_Util {
 
     }
 
-    public List getAllTransactionTopup(Integer start, Integer length,String Status,String type , String name ,String dateDebut,String dateFin) {
+    public List getAllTransactionTopup(Integer start, Integer length,String Status,String type , String name ,String dateDebut,String dateFin,String operator,String offer ,String sim ) {
      String dateWhere = "";
         if(dateDebut!=""){
             dateWhere ="and transact_date >=  '"+dateDebut +" 00:00:00'";
@@ -37,7 +37,7 @@ public class TransactionTopup_Util {
         try {
             Query q = session.createQuery("FROM TransactionTopup where  providerClient.traderByIdclient.traderFname like '%"+name+"%' and statusInfo.statusInfoDesc like '%"+Status+"%' and transactionType.transactionTypeDesc like '%"+type+"%' "
                     +dateWhere
-                    + " and flag=0 order by idtransacttopup" ).setFirstResult(start).setMaxResults(length);
+                    + " and flag=0  and simOffer.simInfo.simnumber like'%"+sim+"%' and simOffer.simInfo.operator.operatorDesc like'%"+operator+"%'  and simOffer.offerInfo.offerDesc like'%"+offer+"%'  order by idtransacttopup" ).setFirstResult(start).setMaxResults(length);
             resultList = q.list();
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -46,7 +46,7 @@ public class TransactionTopup_Util {
     }
 
     
-    public double SumSold(String Status, String type, String name, String dateDebut, String dateFin) {
+    public double SumSold(String Status, String type, String name, String dateDebut, String dateFin,String operator,String offer ,String sim) {
      String dateWhere = "";
          if(dateDebut!=""){
             dateWhere ="and `transact_date` >=  '"+dateDebut +" 00:00:00'";
@@ -60,7 +60,7 @@ public class TransactionTopup_Util {
         try {
             Query q = session.createQuery("SELECT  SUM(transactAmount) FROM TransactionTopup where  providerClient.traderByIdclient.traderFname like '%"+name+"%' and statusInfo.statusInfoDesc like '%"+Status+"%' and transactionType.transactionTypeDesc like '%"+type+"%' "
                     +dateWhere
-                    + " and flag=0" );
+                    + " and flag=0 and simOffer.simInfo.simnumber like'%"+sim+"%' and simOffer.simInfo.operator.operatorDesc like'%"+operator+"%'  and simOffer.offerInfo.offerDesc like'%"+offer+"%' " );
             resultList = q.list();
         } catch (HibernateException he) {
             he.printStackTrace();
