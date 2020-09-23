@@ -122,13 +122,18 @@
                                                 <input id="telephone2" name="telephone2"  value="<%=trader.getTel2()%>" class="form-control" placeholder="Enter telephone client">
                                             </div>
                                             <%                                                List tistType = new TraderType_Util().getAllTraderType("");
+                                            String readonly="";
+                                                if(trader.getTraderCategory().getTraderCategoryDesc().equals(staticVars.traderCategory_Grossiste)){
+                                                    readonly="readonly=''";
+                                                }
                                             %>
                                             <div class="col-lg-6" class="form-group">
                                                 <label>client type</label>
-                                                <select  required="" id="type" name="type" class="form-control">
+                                                <select  required="" id="type" name="type" class="form-control" <%=readonly%>>
                                                     <option value="">Select le type du client </option>
 
                                                     <%
+                                                        
                                                         for (int i = 0; i < tistType.size(); i++) {
                                                             TraderType get = (TraderType) tistType.get(i);
                                                             String select = "";
@@ -156,7 +161,7 @@
                                             %>
                                             <div  class="col-lg-6" class="form-group">
                                                 <label>client category</label>
-                                                <select required="" id="catgory" name="catgory" class="form-control">
+                                                <select required="" id="catgory" name="catgory" class="form-control" readonly=" ">
                                                     <option value="">Select un category client </option>
 
                                                     <%
@@ -178,11 +183,15 @@
 
                                             <%
                                                 List possibleParents = new Trader_Util().getTrader_by_trader_grossiste("");
+                                                String readonly1="";
+                                                if(trader.getTraderCategory().getTraderCategoryDesc().equals(staticVars.traderCategory_Grossiste)){
+                                                    readonly1="readonly=''";
+                                                }
                                             %>
                                             <div class="col-lg-6" class="form-group">
                                                 <label>Fournisseur</label>
 
-                                                <select  id="fourn" name="fourn" class="form-control">
+                                                <select  id="fourn" name="fourn" class="form-control" <%=readonly1%>>
                                                     <option value="">Select un fournisseur </option>
 
                                                     <%

@@ -1,4 +1,6 @@
 
+<%@page import="model_helpers.UserInfo_Util"%>
+<%@page import="model_db.UserInfo"%>
 <%@page import="model_helpers.ServerProfile_Util"%>
 <%@page import="model_db.ServerProfile"%>
 <%@page import="model_helpers.StationType_Util"%>
@@ -38,7 +40,7 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Ajouter client</h1>
+                        <h1 class="page-header">Ajouter grossiste</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -50,7 +52,7 @@
                 <% } %>
                 <div class="row">
                     <div class="col-lg-12">
-                        <form role="form" action="../AddClient" method="POST" >
+                        <form role="form" action="../AddGrossiste" method="POST" >
 
                             <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -105,14 +107,18 @@
                                             %>
                                             <div class="col-lg-6" class="form-group">
                                                 <label>client type</label>
-                                                <select  required="" id="type" name="type" class="form-control">
+                                                <select  required="" id="type" name="type" class="form-control" readonly="">
                                                     <option value="">Select le type du client </option>
 
                                                     <%
                                                         for (int i = 0; i < tistType.size(); i++) {
                                                             TraderType get = (TraderType) tistType.get(i);
+                                                            String select = "";
+                                                            if (get.getTraderTypeDesc().equals(staticVars.traderType_Application)) {
+                                                                select = "selected='selected'";
+                                                            }
                                                     %>
-                                                    <option value="<%=get.getIdtraderType()%>"><%=get.getTraderTypeDesc()%></option>
+                                                    <option value="<%=get.getIdtraderType()%>" <%=select%> ><%=get.getTraderTypeDesc()%></option>
                                                     <%
                                                         }
                                                     %>
@@ -133,14 +139,20 @@
                                             %>
                                             <div  class="col-lg-6" class="form-group">
                                                 <label>client category</label>
-                                                <select required="" id="catgory" name="catgory" class="form-control">
+                                                <select required="" id="catgory" name="catgory" class="form-control" readonly="">
                                                     <option value="">Select un category client </option>
 
                                                     <%
                                                         for (int i = 0; i < listcategory.size(); i++) {
                                                             TraderCategory get = (TraderCategory) listcategory.get(i);
+                                                            String select = "";
+                                                            if (get.getTraderCategoryDesc().equals(staticVars.traderCategory_Grossiste)) {
+                                                                select = "selected='selected'";
+                                                            }
+
                                                     %>
-                                                    <option value="<%=get.getIdtraderCategory()%>"><%=get.getTraderCategoryDesc()%></option>
+                                                    <option value="<%=get.getIdtraderCategory()%>"   <%=select%> > <%= get.getTraderCategoryDesc()%></option>
+
                                                     <%
                                                         }
                                                     %>
@@ -152,13 +164,21 @@
                                             <div class="col-lg-6" class="form-group">
                                                 <label>Fournisseur</label>
 
-                                                <select  id="fourn" name="fourn" class="form-control">
+                                                <select  id="fourn" name="fourn" class="form-control" readonly="">
                                                     <option value="">Select un fournisseur </option>
 
-                                                    <%                                for (int i = 0; i < possibleParents.size(); i++) {
+                                                    <%
+                                                        Integer userID = Integer.parseInt(session.getAttribute("Id").toString());
+                                                        UserInfo user = new UserInfo_Util().getUserInfo_by_id( userID, "");
+
+                                                        for (int i = 0; i < possibleParents.size(); i++) {
                                                             Trader get = (Trader) possibleParents.get(i);
+                                                             String select = "";
+                                                            if (get.getIdtrader()==user.getTrader().getIdtrader()) {
+                                                                select = "selected='selected'";
+                                                            }
                                                     %>
-                                                    <option value="<%=get.getIdtrader()%>"><%=get.getTraderCompany()%></option>
+                                                    <option value="<%=get.getIdtrader()%>" <%=select%>  ><%=get.getTraderCompany()%></option>
                                                     <%
                                                         }
                                                     %>

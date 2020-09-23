@@ -38,7 +38,7 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Ajouter client</h1>
+                        <h1 class="page-header">Ajouter detaillant</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -131,16 +131,23 @@
 
                                             <%                                                List listcategory = new TraderCategory_Util().getAllTraderCategory("");
                                             %>
-                                            <div  class="col-lg-6" class="form-group">
+                                       <div  class="col-lg-6" class="form-group">
                                                 <label>client category</label>
-                                                <select required="" id="catgory" name="catgory" class="form-control">
+                                                <select required="" id="catgory" name="catgory" class="form-control" readonly="" >
                                                     <option value="">Select un category client </option>
 
                                                     <%
                                                         for (int i = 0; i < listcategory.size(); i++) {
                                                             TraderCategory get = (TraderCategory) listcategory.get(i);
+                                                            String select = "";
+                                                            if ( get.getTraderCategoryDesc().equals(staticVars.traderCategory_Detaillant ))
+                                                            {
+                                                                select = "selected='selected'";
+                                                            }
+
                                                     %>
-                                                    <option value="<%=get.getIdtraderCategory()%>"><%=get.getTraderCategoryDesc()%></option>
+                                                    <option value="<%=get.getIdtraderCategory()%>"   <%=select%> > <%= get.getTraderCategoryDesc()%></option>
+
                                                     <%
                                                         }
                                                     %>

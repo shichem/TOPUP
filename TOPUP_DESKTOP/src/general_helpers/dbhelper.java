@@ -142,7 +142,7 @@ public class dbhelper {
             if (!simList.isEmpty()) {
                 this.updateSimParametres(session, (SimInfo) simList.get(0), elementAt);
             }
-        }   
+        }
         return simUIVector;
     }
 
@@ -903,6 +903,7 @@ public class dbhelper {
             String typeStation, String serverProfile) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
+            System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink() step 1");
             session.getTransaction().begin();
             Trader_Util traderutil = new Trader_Util();
 
@@ -911,16 +912,20 @@ public class dbhelper {
                 session.close();
                 return staticVars.TraderAlreadyExists;
             }
-
+            System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink() step 2");
+            System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink() userId"+userID);
             UserInfo user = new UserInfo_Util().getUserInfo_by_id(session, userID, "");
             Trader parent = new Trader_Util().getTradfer_by_id(session, Integer.parseInt(providerTrader), "");
-
+            System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink() step 2----");
+            System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink() traderCategory==>"+traderCategory);
             Trader trader2add = new Trader(new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_ENT_Actif, ""),
                     new TraderCategory_Util().getTraderCategory_by_id(session, Integer.parseInt(traderCategory), ""),
                     new TraderType_Util().geTraderType_by_id(session, Integer.parseInt(traderType), ""),
                     user, user, traderFname, traderLname, traderCompany, simnumber, adresse, commune, wilaya, email1, email2, tel1, tel2);
 
             trader2add.setFlag(0);
+            System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink() step 3");
+
             traderutil.addTrader(trader2add, session);
             System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink()" + parent.getTraderCompany());
             for (int i = 0; i < operators.size(); i++) {
@@ -929,15 +934,17 @@ public class dbhelper {
             }
             System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink()traderType =>" + traderType);
             int rep = 1;
-            if (traderType.equals("1")) {
-                StationType stationType = (StationType) new StationType_Util().getStationType_by_id(session, Integer.parseInt(typeStation), "");
-                ServerProfile profile = (ServerProfile) new ServerProfile_Util().getStationType_by_id(session, Integer.parseInt(serverProfile), "");
+            if (traderCategory.equals("2")) {
+                if (traderType.equals("1")) {
+                    StationType stationType = (StationType) new StationType_Util().getStationType_by_id(session, Integer.parseInt(typeStation), "");
+                    ServerProfile profile = (ServerProfile) new ServerProfile_Util().getStationType_by_id(session, Integer.parseInt(serverProfile), "");
 
-                rep = this.addStation(session, user, trader2add, stationType, trader2add.getTraderCompany(), trader2add.getTraderCompany(), sn1, sn2, "", profile);
-                if (rep == staticVars.unknownError) {
-                    throw new Exception();
+                    rep = this.addStation(session, user, trader2add, stationType, trader2add.getTraderCompany(), trader2add.getTraderCompany(), sn1, sn2, "", profile);
+                    if (rep == staticVars.unknownError) {
+                        throw new Exception();
+                    }
+
                 }
-
             }
             session.getTransaction().commit();
             session.close();
@@ -1101,13 +1108,13 @@ public class dbhelper {
             Station station = new Station(stationType,
                     new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_ENT_Actif, ""),
                     trader, userInfo, stationBrand, stationReference, stationSn1, stationSn2, appversion);
-            station.setStationName(trader.getTraderFname()+"-"+stationType.getStationTypeDesc());
+            station.setStationName(trader.getTraderFname() + "-" + stationType.getStationTypeDesc());
             station.setServerProfile(profile);
             station.setDefaultPassword("admin");
             station.setDefaultUsername("admin");
             station.setFlag(0);
             stationUtil.addStation(station, session);
-            
+
             return staticVars.onGoingProcessOK;
         } catch (Exception e) {
             System.out.println("general_helpers.dbhelper.addStation()" + e.getMessage());
@@ -1116,7 +1123,7 @@ public class dbhelper {
         }
     }
 
-    public int addStation(Session session, UserInfo userInfo, Trader trader,StatusInfo infoStatus , StationType stationType, String stationBrand, String stationReference, String stationSn1, String stationSn2, String appversion, ServerProfile profile,String name,String username,String password) {
+    public int addStation(Session session, UserInfo userInfo, Trader trader, StatusInfo infoStatus, StationType stationType, String stationBrand, String stationReference, String stationSn1, String stationSn2, String appversion, ServerProfile profile, String name, String username, String password) {
         try {
             station_Util stationUtil = new station_Util();
             Station station = new Station(stationType, infoStatus,
@@ -1127,7 +1134,7 @@ public class dbhelper {
             station.setDefaultUsername(username);
             station.setFlag(0);
             stationUtil.addStation(station, session);
-            
+
             return staticVars.onGoingProcessOK;
         } catch (Exception e) {
             System.out.println("general_helpers.dbhelper.addStation()" + e.getMessage());
@@ -1135,6 +1142,7 @@ public class dbhelper {
             return staticVars.unknownError;
         }
     }
+
     public int addStation(UserInfo userInfo, Trader trader, String stationType, String stationBrand, String stationReference, String stationSn1, String stationSn2, String appversion) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -1389,7 +1397,7 @@ public class dbhelper {
             System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 2");
 
             session.getTransaction().begin();
-          if (((amount < 0) && (Math.abs(amount) > affectation.getSolde()))
+            if (((amount < 0) && (Math.abs(amount) > affectation.getSolde()))
                     || (amount + affectation.getSolde() > affectation.getLimitTransact() && affectation.getLimitTransact() != -1)) {
 
                 System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 3");
@@ -1416,7 +1424,7 @@ public class dbhelper {
         }
     }
 
-      public int updateVirtualBalanceProvider(int userID,int providerID, int clientID, int operatorID, double amount) {
+    public int updateVirtualBalanceProvider(int userID, int providerID, int clientID, int operatorID, double amount) {
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         try {
@@ -1440,16 +1448,16 @@ public class dbhelper {
             System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
             TransactionSolde transactSolde = new TransactionSolde(affectation, enCoursST, user, affectation.getSolde(), newBalance, amount, new Date());
             new TransactionSolde_Util().addTransactionSolde(transactSolde, session);
-              System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
+            System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
             TransactionSolde transactSoldeProvi = new TransactionSolde(affectationProv, enCoursST, user, affectationProv.getSolde(), newBalanceProv, amount, new Date());
             new TransactionSolde_Util().addTransactionSolde(transactSolde, session);
-             session.getTransaction().commit();
+            session.getTransaction().commit();
             System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 2");
 
             session.getTransaction().begin();
-              if (((amount < 0) && (Math.abs(amount) > affectation.getSolde()))
+            if (((amount < 0) && (Math.abs(amount) > affectation.getSolde()))
                     || (amount + affectation.getLimitTransact() > affectation.getLimitTransact() && affectation.getLimitTransact() != -1)
-                    || (amount > operator.getTransactLimit() && operator.getTransactLimit() != -1)){
+                    || (amount > operator.getTransactLimit() && operator.getTransactLimit() != -1)) {
                 System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 3");
 
                 transactSolde.setStatusInfo(interrompueST);
@@ -1458,7 +1466,7 @@ public class dbhelper {
                 return staticVars.LimitExceeded;
             } else {
                 affectationProv.setSolde(newBalanceProv);
-                System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 4");               
+                System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 4");
                 affectation.setSolde(newBalance);
                 transactSolde.setStatusInfo(termineST);
                 session.getTransaction().commit();
@@ -1991,27 +1999,27 @@ public class dbhelper {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
-                 OfferInfo_Util OfferUtil = new OfferInfo_Util();
-           /* if (OfferUtil.getOfferInfo_by_offerDesc(session, offerDesc, "").size() > 0) {
+            OfferInfo_Util OfferUtil = new OfferInfo_Util();
+            /* if (OfferUtil.getOfferInfo_by_offerDesc(session, offerDesc, "").size() > 0) {
                 return staticVars.OfferAlreadyExists;
             }*/
-             UserInfo userInfo = new UserInfo_Util().getUserInfo_by_id(session, userID, "");
+            UserInfo userInfo = new UserInfo_Util().getUserInfo_by_id(session, userID, "");
             OfferType offerType = new OfferType_Util().getOfferType_by_id(session, offerTypeID, "");
             Operator operator = new Operator_Util().getOperator_by_id(session, operatorID, "");
-            OfferInfo offer = OfferUtil.getOfferInfo_by_id(session,OfferInfo, "");
+            OfferInfo offer = OfferUtil.getOfferInfo_by_id(session, OfferInfo, "");
             offer.setOfferType(offerType);
             offer.setOperator(operator);
             //offer.setUserInfoByIduserInfoUpdate(userInfo);
             offer.setOfferDesc(offerDesc);
             offer.setRealValue(realValue);
-            offer.setTransferedValue(transfertValue);                    
+            offer.setTransferedValue(transfertValue);
             offer.setIsStatic(0);
             offer.setPrenumber(prenumber);
             offer.setPostnumber(postnumber);
             offer.setPostPinCode(postpincode);
             OfferUtil.updateOfferInfo(offer, session);
             //SimOffer_Util offer_Util = new SimOffer_Util();
-           // offer_Util.deleteOfferInfo(session, OfferInfo, "");
+            // offer_Util.deleteOfferInfo(session, OfferInfo, "");
             System.out.println("general_helpers.dbhelper.addOffer()in for+ ===" + number.length);
             /*for (int i = 0; i < number.length; i++) {
                 System.out.println("general_helpers.dbhelper.addOffer()in for");
@@ -2027,7 +2035,7 @@ public class dbhelper {
             session.close();
             return staticVars.onGoingProcessOK;
         } catch (HibernateException e) {
-            System.out.println("helpers.dbhelper.addOffer() : UNKNOWN ERROR==>"+e.getMessage() );
+            System.out.println("helpers.dbhelper.addOffer() : UNKNOWN ERROR==>" + e.getMessage());
             session.getTransaction().rollback();
             session.close();
             return staticVars.unknownError;

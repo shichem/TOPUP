@@ -48,7 +48,7 @@ public class DesactivateStationGro extends HttpServlet {
             info_Util.updateStation(station, session);
             session.getTransaction().commit();
             session.close();
-            response.sendRedirect("view/listStationGro.jsp?del");
+            response.sendRedirect("view/listStationGro .jsp?del");
         } catch (Exception e) {
             session.getTransaction().rollback();
             session.close();
