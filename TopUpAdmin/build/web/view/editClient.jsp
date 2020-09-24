@@ -270,8 +270,46 @@
 
 
                 });
+                $("#company").keypress(function () {
+                    //  alert("The text has been changed.");
+                    $.ajax({
+                        url: '../FindTraderRs',
+                        type: 'post',
+                        data: {
+                            // Read values             
+                            find: $('#company').val()
+                        },
+                        success: function (result) {
+                            //Do nothing                    
+                            if (result == "1") {
+                                alert("raison sociale existe")
+                            }
+                            // $('#soldLitig').text(result.sumLitig);
+                        }
+
+                    });
+
+                });
                 $("#company").change(function () {
-                    //alert("The text has been changed.");
+                    //  alert("The text has been changed.");
+                    $.ajax({
+                        url: '../FindTraderRs',
+                        type: 'post',
+                        data: {
+                            // Read values             
+                            find: $('#company').val()
+                        },
+                        success: function (result) {
+                            //Do nothing                  
+                            if (result == "1") {
+                                alert("raison sociale existe");
+                                $('#company').val("")
+                            }
+                            // $('#soldLitig').text(result.sumLitig);
+                        }
+
+                    });
+
                 });
             });
 

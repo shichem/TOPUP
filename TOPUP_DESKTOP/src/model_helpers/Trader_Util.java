@@ -112,7 +112,12 @@ public class Trader_Util {
                 + "and traderCompany = '" + traderCompany + "'",
                 suffix);
     }
-
+    public List getTrader_by_traderCompany( String traderCompany, String suffix) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM Trader where flag=0 "
+                + "and traderCompany = '" + traderCompany + "'",
+                suffix);
+    }
     public List getTrader_by_traderFname(String traderFname, String suffix) {
         Session session = HibernateUtil.getSessionFactory().openSession();
 
