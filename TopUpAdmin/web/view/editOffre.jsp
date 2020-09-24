@@ -1,3 +1,5 @@
+<%@page import="model_db.SimType"%>
+<%@page import="model_helpers.SimType_Util"%>
 <%@page import="model_db.SimOffer"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model_helpers.OfferType_Util"%>
@@ -140,11 +142,11 @@
                                                 <label>Apers  code pin</label>
                                                 <input id="posteNumberPin" name="posteNumberPin"  value="<%= offerInfo.getPostPinCode()%>"  class="form-control" placeholder="Apers code pin">
                                             </div>
-
+                                                     
                                             <div class="col-lg-12" class="form-group">
                                                 <label>Sim</label>
                                                 <%         
-                                                     List listSim = new SimInfo_Util().getSimInfo_by_operator(offerInfo.getOperator().getIdoperator());
+                                                     List listSim = new SimInfo_Util().getSimInfo_by_operator(offerInfo.getOperator().getIdoperator(),"");
                                                     List<SimOffer> listSim1 = new ArrayList<SimOffer> (offerInfo.getSimOffers());
                                                 %>
 

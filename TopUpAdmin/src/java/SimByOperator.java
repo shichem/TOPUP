@@ -40,8 +40,10 @@ public class SimByOperator extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
 
             String OpeatorId = request.getParameter("OpeatorId");
+                        String simType = request.getParameter("simtype");
+
             SimInfo_Util simInfo  = new SimInfo_Util();
-          List listSim =  simInfo.getSimInfo_by_operator( Integer.parseInt(OpeatorId));
+          List listSim =  simInfo.getSimInfo_by_operator( Integer.parseInt(OpeatorId),simType);
           
             for (Object object : listSim) {
                 SimInfo info = (SimInfo)object;

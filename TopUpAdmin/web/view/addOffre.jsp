@@ -1,3 +1,5 @@
+<%@page import="model_db.SimType"%>
+<%@page import="model_helpers.SimType_Util"%>
 <%@page import="java.util.List"%>
 <%@page import="model_db.OfferType"%>
 <%@page import="model_db.Operator"%>
@@ -110,7 +112,23 @@
                                                 <label>Apers  code pin</label>
                                                 <input id="posteNumberPin" name="posteNumberPin"  class="form-control" placeholder="Apers code pin">
                                             </div>
-
+                                            <div class="col-lg-6" class="form-group">
+                                                <label>Type Sim </label>
+                                                <%
+                                                    List tistTypeSim = new SimType_Util().getAllSimType("");
+                                                %>
+                                                <select id="simtype" name="simtype" required="" class="form-control">
+                                                    <option value="">Select le type du Offer </option>
+                                                    <%
+                                                        for (int i = 0; i < tistTypeSim.size(); i++) {
+                                                            SimType get = (SimType) tistTypeSim.get(i);
+                                                    %>
+                                                    <option value="<%=get.getSimTypeDesc()%>"><%=get.getSimTypeDesc()%></option>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </select>
+                                            </div>
                                             <div class="col-lg-12" class="form-group">
                                                 <label>Sim</label>
                                                 <%                                                       List listSim = new SimInfo_Util().getAllSimInfo("");
@@ -179,8 +197,22 @@
                 $("#operateur").change(function () {
 
                     var operatorID = $("#operateur").val();
+                    var simtype = $("#simtype").val();
                     $.ajax({
-                        url: "../SimByOperator?OpeatorId=" + operatorID,
+                        url: "../SimByOperator?OpeatorId=" + operatorID+"&simtype="+simtype,
+                        success: function (data) {
+                            // alert(data);
+                            $("#Number").empty();
+                            $("#Number").append(data);
+                        }
+                    });
+                });
+                
+                $("#simtype").change(function () {
+                    var operatorID = $("#operateur").val();
+                    var simtype = $("#simtype").val();
+                    $.ajax({
+                        url: "../SimByOperator?OpeatorId=" + operatorID+"&simtype="+simtype,
                         success: function (data) {
                             // alert(data);
                             $("#Number").empty();
