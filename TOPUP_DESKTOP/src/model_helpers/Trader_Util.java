@@ -163,5 +163,30 @@ public class Trader_Util {
     public void updateTrader(Trader adt, Session session) {
         hqlQueriesHelper.executeUpdateHQLQuery_WithPreparedSession(adt, session);
     }
+    
+  
+    public Integer countTraderByCatgory(String traderCatgory) {
+        Session globalSession = HibernateUtil.getSessionFactory().openSession();
 
+         List list  = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(globalSession, "FROM Trader where flag=0 "
+                 + "and traderCategory.traderCategoryDesc LIKE '%"+traderCatgory+"%'", "");
+
+      if (list.isEmpty()) {
+            return 0;
+        } else {
+            return list.size();
+        }
+    }
+  public Integer countTraderByType(String traderType) {
+        Session globalSession = HibernateUtil.getSessionFactory().openSession();
+
+         List list  = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(globalSession, "FROM Trader where flag=0 "
+                 + "and traderType.traderTypeDesc LIKE '%"+traderType+"%'", "");
+
+      if (list.isEmpty()) {
+            return 0;
+        } else {
+            return list.size();
+        }
+    }
 }

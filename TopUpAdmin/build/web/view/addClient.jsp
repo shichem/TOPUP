@@ -131,7 +131,7 @@
 
                                             <%                                                List listcategory = new TraderCategory_Util().getAllTraderCategory("");
                                             %>
-                                       <div  class="col-lg-6" class="form-group">
+                                            <div  class="col-lg-6" class="form-group">
                                                 <label>client category</label>
                                                 <select required="" id="catgory" name="catgory" class="form-control" readonly="" >
                                                     <option value="">Select un category client </option>
@@ -140,8 +140,7 @@
                                                         for (int i = 0; i < listcategory.size(); i++) {
                                                             TraderCategory get = (TraderCategory) listcategory.get(i);
                                                             String select = "";
-                                                            if ( get.getTraderCategoryDesc().equals(staticVars.traderCategory_Detaillant ))
-                                                            {
+                                                            if (get.getTraderCategoryDesc().equals(staticVars.traderCategory_Detaillant)) {
                                                                 select = "selected='selected'";
                                                             }
 
@@ -296,48 +295,47 @@
                 $("#company").keypress(function () {
                     //  alert("The text has been changed.");
                     $.ajax({
-                    url: '../FindTraderRs',
-                    type: 'post',
-                    data: {
-                        // Read values             
-                        find: $('#company').val()
-                    },
-                    success: function (result) {
-                        //Do nothing                    
-                         if(result=="1"){
-                            alert("raison sociale existe")
-                        } 
-                        // $('#soldLitig').text(result.sumLitig);
-                    }
+                        url: '../FindTraderRs',
+                        type: 'post',
+                        data: {
+                            // Read values             
+                            find: $('#company').val()
+                        },
+                        success: function (result) {
+                            //Do nothing                    
+                            if (result == "1") {
+                                alert("raison sociale existe")
+                            }
+                            // $('#soldLitig').text(result.sumLitig);
+                        }
+
+                    });
 
                 });
-
-                });
-                 $("#company").change(function () {
+                $("#company").change(function () {
                     //  alert("The text has been changed.");
                     $.ajax({
-                    url: '../FindTraderRs',
-                    type: 'post',
-                    data: {
-                        // Read values             
-                        find: $('#company').val()
-                    },
-                    success: function (result) {
-                        //Do nothing                  
-                        if(result=="1"){
-                            alert("raison sociale existe");
-                                                            $('#company').val("")
-; 
+                        url: '../FindTraderRs',
+                        type: 'post',
+                        data: {
+                            // Read values             
+                            find: $('#company').val()
+                        },
+                        success: function (result) {
+                            //Do nothing                  
+                            if (result == "1") {
+                                alert("raison sociale existe");
+                                $('#company').val("");
 
-                        }  
-                        // $('#soldLitig').text(result.sumLitig);
-                    }
+                            }
+                            // $('#soldLitig').text(result.sumLitig);
+                        }
 
-                });
+                    });
 
                 });
             });
-            
+
         </script>
 
     </body>
