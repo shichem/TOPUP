@@ -101,6 +101,9 @@
                                 <td><%=client.getLimitTransact()%></td>
 
                                 <td>
+                                    <a onclick="addSold(<%= client.getIdproviderClient() %>)"  href="#" data-id="<%= client.getIdproviderClient()%>" id="modal_provider-<%= client.getIdproviderClient() %>" data-toggle="tooltip" data-placement="left" title="ajout sold "> <i class="fa fa-credit-card fa-fw"></i><span>Ajout sold </span></a> /
+                                    <a onclick="debitSold(<%= client.getIdproviderClient() %>)" href="#" data-id="<%= client.getIdproviderClient()%>" id="debit-sold-<%= client.getIdproviderClient()%>" data-toggle="tooltip" data-placement="left" title="debit sold "> <i class="fa fa-eraser fa-fw"></i><span>Debit sold </span></a> /
+                                    <a onclick="desctiveClient(<%=client.getIdproviderClient()%>)" href="#" data-toggle="tooltip" data-placement="left" title="desactive Client"> <i class="fa fa-trash fa-fw"></i><span>Desactive </span></a>                       
                                 </td>
 
                             </tr>
@@ -128,7 +131,7 @@
             <div class="modal fade" id="add_credit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form  action="../AddSold" method="POST">
+                        <form  action="../AddSoldClientProvider" method="POST">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLongTitle">Ajouter sold </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -154,7 +157,7 @@
             <div class="modal fade" id="debit_credit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form  action="../DebitSold" method="POST">
+                        <form  action="../DebitSoldClientProvider" method="POST">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLongTitle">Debit sold </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -204,7 +207,7 @@
                                         function desctiveClient(id) {
                                             var r = confirm("vous voulez désactiver le client");
                                             if (r == true) {
-                                                window.location.href = "../desactiveClient?id=" + id;
+                                                window.location.href = "../DesctivateProvider?id=" + id;
                                             } else {
 
                                             }
@@ -213,40 +216,23 @@
                                             var clientId = id;
 
                                             $.ajax({
-                                                url: "../OperatorForTrader?id=" + clientId,
+                                                url: "../OperatorForProviderClient?id=" + clientId,
                                                 success: function (data) {
                                                     // alert(data);
                                                     $("#providerdiv").empty();
                                                     $("#providerdiv").append(data);
                                                     $("#providerdivDebit").empty();
                                                     $("#add_credit").modal('show');
-                                                    $("#amount_DJEZZY").change(function () {
-                                                        $('#new_DJEZZY').text("")
-                                                        if ($("#amount_DJEZZY").val().length != 0) {
-                                                            var old = parseFloat($('#label_DJEZZY').text());
-                                                            $('#new_DJEZZY').text(old + parseFloat($("#amount_DJEZZY").val()));
-                                                            $("#new_DJEZZY").css("color", "green");
+                                                    $("#amount").change(function () {
+                                                        $('#new').text("")
+                                                        if ($("#amount").val().length != 0) {
+                                                            var old = parseFloat($('#label').text());
+                                                            $('#new').text(old + parseFloat($("#amount").val()));
+                                                            $("#new").css("color", "green");
                                                         }
 
                                                     });
-                                                    $("#amount_MOBILIS").change(function () {
-                                                        $('#new_MOBILIS').text("")
-                                                        if ($("#amount_MOBILIS").val().length != 0) {
-                                                            var old = parseFloat($('#label_MOBILIS').text());
-                                                            $('#new_MOBILIS').text(old + parseFloat($("#amount_MOBILIS").val()));
-                                                            $("#new_MOBILIS").css("color", "green");
-                                                        }
-
-                                                    });
-                                                    $("#amount_OOREDOO").change(function () {
-                                                        $('#new_OOREDOO').text("")
-                                                        if ($("#amount_OOREDOO").val().length != 0) {
-                                                            var old = parseFloat($('#label_OOREDOO').text());
-                                                            $('#new_OOREDOO').text(old + parseFloat($("#amount_OOREDOO").val()));
-                                                            $("#new_OOREDOO").css("color", "green");
-                                                        }
-
-                                                    });
+                                                    
                                                 }
                                             });
 
@@ -256,40 +242,22 @@
 
                                             var clientId = id;
                                             $.ajax({
-                                                url: "../OperatorForTrader?id=" + clientId,
+                                                url: "../OperatorForProviderClient?id=" + clientId,
                                                 success: function (data) {
                                                     // alert(data);
                                                     $("#providerdiv").empty();
                                                     $("#providerdivDebit").empty();
                                                     $("#providerdivDebit").append(data);
                                                     $("#debit_credit").modal('show');
-                                                    $("#amount_DJEZZY").change(function () {
-                                                        $('#new_DJEZZY').text("")
-                                                        if ($("#amount_DJEZZY").val().length != 0) {
-                                                            var old = parseFloat($('#label_DJEZZY').text());
-                                                            $('#new_DJEZZY').text(old - parseFloat($("#amount_DJEZZY").val()));
-                                                            $("#new_DJEZZY").css("color", "red");
+                                                    $("#amount").change(function () {
+                                                        $('#new').text("")
+                                                        if ($("#amount").val().length != 0) {
+                                                            var old = parseFloat($('#label').text());
+                                                            $('#new').text(old - parseFloat($("#amount").val()));
+                                                            $("#new").css("color", "red");
                                                         }
                                                     });
-                                                    $("#amount_MOBILIS").change(function () {
-                                                        $('#new_MOBILIS').text("")
-                                                        if ($("#amount_MOBILIS").val().length != 0) {
-                                                            var old = parseFloat($('#label_MOBILIS').text());
-                                                            $('#new_MOBILIS').text(old - parseFloat($("#amount_MOBILIS").val()));
-                                                            $("#new_MOBILIS").css("color", "red");
-                                                        }
-
-                                                    });
-                                                    $("#amount_OOREDOO").change(function () {
-                                                        $('#new_OOREDOO').text("")
-                                                        if ($("#amount_OOREDOO").val().length != 0) {
-                                                            var old = parseFloat($('#label_OOREDOO').text());
-                                                            $('#new_OOREDOO').text(old - parseFloat($("#amount_OOREDOO").val()));
-                                                            $("#new_OOREDOO").css("color", "red");
-                                                        }
-
-
-                                                    });
+                                                    
                                                 }
                                             });
                                         }

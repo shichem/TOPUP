@@ -1459,7 +1459,6 @@ public class dbhelper {
                     || (amount + affectation.getLimitTransact() > affectation.getLimitTransact() && affectation.getLimitTransact() != -1)
                     || (amount > operator.getTransactLimit() && operator.getTransactLimit() != -1)) {
                 System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 3");
-
                 transactSolde.setStatusInfo(interrompueST);
                 session.getTransaction().commit();
                 session.close();
@@ -1469,6 +1468,7 @@ public class dbhelper {
                 System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 4");
                 affectation.setSolde(newBalance);
                 transactSolde.setStatusInfo(termineST);
+                //new ProviderClient_Util().updateProviderClient(affectationProv, session);
                 session.getTransaction().commit();
                 session.close();
                 return staticVars.onGoingProcessOK;

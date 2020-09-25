@@ -35,4 +35,9 @@
     <![endif]-->
 
 </head>
-
+<%
+    if (session.getAttribute("username") != null) {
+    } else {
+        response.sendRedirect("../login.jsp");
+    }
+%>

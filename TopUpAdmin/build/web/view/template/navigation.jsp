@@ -19,11 +19,9 @@
             </div>
             <!-- /.navbar-header -->
             <%
-                String User = "";
+                String UserName = "";
                 if (session.getAttribute("username") != null) {
-                    User = session.getAttribute("username").toString();
-                } else {
-                    response.sendRedirect("../login.jsp");
+                    UserName = session.getAttribute("username").toString();
                 }
             %>
             <ul class="nav navbar-top-links navbar-right">
@@ -36,7 +34,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                       
             
-                         <strong><%=User%></strong> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                         <strong><%=UserName%></strong> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
