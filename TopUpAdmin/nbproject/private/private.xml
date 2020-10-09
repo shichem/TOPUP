@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/TOPUP/TopUpAdmin/web/view/listProviderClient.jsp</file>
-            <file>file:/F:/TOPUP/TopUpAdmin/src/java/OperatorForProviderClient.java</file>
-            <file>file:/F:/TOPUP/TopUpAdmin/src/java/AddSoldClientProvider.java</file>
-            <file>file:/F:/TOPUP/TopUpAdmin/src/java/OperatorForTrader.java</file>
+            <file>file:/F:/TOPUP/TopUpAdmin/web/view/addGrossiste.jsp</file>
+            <file>file:/F:/TOPUP/TopUpAdmin/web/view/template/menu.jsp</file>
+            <file>file:/F:/TOPUP/TopUpAdmin/src/java/AddGrossiste.java</file>
+            <file>file:/F:/TOPUP/TopUpAdmin/web/view/listTransactionSold.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -14,9 +14,9 @@
                         <li>
                             <a href="dashboard.jsp"><i class="fas fa-tachometer-alt fa-fw"></i> Dashboard</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="#"><i class="fa fa-users fa-fw"></i> Gestion des clients<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
+                            <ul class="nav nav-second-level ">
                                 <li>
                                     <a href="./addClient.jsp"><i class="fa fa-user fa-fw"></i>Ajouter detaillant</a>
                                 </li>
@@ -29,17 +29,17 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                          <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i> Gestion des Providers clients<span class="fa arrow"></span></a>
+                          <li class="active">
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Gestion Affection<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                               
                                 <li>
-                                    <a href="./listProviderClient.jsp"><i class="fa fa-list fa-fw"></i>List Provider client</a>
+                                    <a href="./listProviderClient.jsp"><i class="fa fa-list fa-fw"></i>List grossiste client</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="#"><i class="fa fa-laptop fa-fw"></i> Gestion des Station<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -56,7 +56,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                         <li>
+                         <li class="active">
                             <a href="#"><i class="fa fa-cubes fa-fw"></i> Gestion des offres <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -68,7 +68,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                           <li>
+                           <li class="active">
                             <a href="#"><i class="fa fa-sim-card fa-fw"></i> Gestion SIM <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                <!--  <li>
@@ -81,8 +81,8 @@
                             <!-- /.nav-second-level -->
                         </li>
                         
-                        <li>
-                            <a href="#"><i class="fa fa-exchange-alt fa-fw"></i> Transaction  <span class="fa arrow"></span></a>
+                        <li class="active">
+                            <a><i class="fa fa-exchange-alt fa-fw"></i> Transaction  <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="./listTransactionSold.jsp"><i class="fa fa-list fa-fw"></i>Sold</a>

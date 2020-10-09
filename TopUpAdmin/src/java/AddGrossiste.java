@@ -84,7 +84,7 @@ public class AddGrossiste extends HttpServlet {
                if(respeonse == staticVars.onGoingProcessOK){
               response.sendRedirect("view/listClient.jsp?add");
          }else{
-            response.sendRedirect("view/AddGrossiste.jsp?erreur");
+            response.sendRedirect("view/addGrossiste.jsp?erreur");
          }
             } catch (Exception e) {
                 e.printStackTrace();

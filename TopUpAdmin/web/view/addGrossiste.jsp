@@ -75,7 +75,7 @@
                                             </div>
                                             <div class="col-lg-6" class="form-group">
                                                 <label>Adresse</label>
-                                                <input  required="" id="adresse" name="adresse" class="form-control" placeholder="Ente  adresse  du client">
+                                                <input  required="" id="adresse" name="adresse" maxlength="45" class="form-control" placeholder="Ente  adresse  du client">
                                             </div>
 
                                             <div class="col-lg-6" class="form-group">
@@ -105,7 +105,7 @@
                                             </div>
                                             <%                                                List tistType = new TraderType_Util().getAllTraderType("");
                                             %>
-                                            <div class="col-lg-6" class="form-group">
+                                            <div  hidden="" class="col-lg-6" class="form-group">
                                                 <label>client type</label>
                                                 <select  required="" id="type" name="type" class="form-control" readonly="">
                                                     <option value="">Select le type du client </option>
@@ -127,7 +127,7 @@
 
 
 
-                                            <div class="col-lg-6" id="simNB" hidden="" class="form-group">
+                                            <div  class="col-lg-6" id="simNB" hidden="" class="form-group">
                                                 <label>Sim number</label>
                                                 <input  id="simNumber" name="simNumber" class="form-control" placeholder="Ente sim number ">
                                             </div>
@@ -137,7 +137,7 @@
 
                                             <%                                                List listcategory = new TraderCategory_Util().getAllTraderCategory("");
                                             %>
-                                            <div  class="col-lg-6" class="form-group">
+                                            <div  hidden="" class="col-lg-6" class="form-group">
                                                 <label>client category</label>
                                                 <select required="" id="catgory" name="catgory" class="form-control" readonly="">
                                                     <option value="">Select un category client </option>
@@ -161,7 +161,7 @@
                                             <%
                                                 List possibleParents = new Trader_Util().getTrader_by_trader_grossiste("");
                                             %>
-                                            <div class="col-lg-6" class="form-group">
+                                            <div hidden="" class="col-lg-6" class="form-group">
                                                 <label>Fournisseur</label>
 
                                                 <select  id="fourn" name="fourn" class="form-control" readonly="">

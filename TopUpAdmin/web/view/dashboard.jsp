@@ -33,183 +33,218 @@
                 </div>
                 <!-- /.row -->
                 <div class="row">
+                    <div class=" col-md-3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Transaction
+                            </div>
+                            <div class="panel-body">    
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <i class="glyphicon glyphicon-transfer fa-5x"></i>
+                                                </div>
+                                                <%                                        Integer count = new TransactionSolde_Util().getAllTransactionSolde();
+                                                %>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge"><%= count%></div>
+                                                    <div>Number transaction Sold </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <i class="glyphicon glyphicon-transfer fa-5x"></i>
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge"><%= new TransactionTopup_Util().getAllTransactionTopup()%></div>
+                                                    <div>Number transaction TopUp </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <div class="col-lg-3 col-md-6">
+                        </div> 
+                    </div> 
+
+
+                    <div class=" col-md-3">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="glyphicon glyphicon-transfer fa-5x"></i>
-                                    </div>
-                                    <%                                        Integer count = new TransactionSolde_Util().getAllTransactionSolde();
-                                    %>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge"><%= count%></div>
-                                        <div>Number transaction Sold </div>
-                                    </div>
-                                </div>
+                                Mobilis
                             </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
+                            <div class="panel-body">                                
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <img src="./template/mobilis.svg" width="130" height="70">                                
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge"><%= new TransactionTopup_Util().getAllTransactionTopupByOperator("MOBILIS")%></div>
+                                                    <div>Number transaction TopUp </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <img src="./template/mobilis.svg" width="130" height="70">                                
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge"><%= new SimInfo_Util().getAllSimInfoByOperator("MOBILIS")%></div>
+                                                    <div>Number Sim</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div></div></div>
+                    <div class=" col-md-3">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="glyphicon glyphicon-transfer fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge"><%= new TransactionTopup_Util().getAllTransactionTopup()%></div>
-                                        <div>Number transaction TopUp </div>
-                                    </div>
-                                </div>
+                                Djezzy
                             </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
+                            <div class="panel-body">    
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">                                
+                                                    <img src="./template/logo.svg" width="60" height="70">                                
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge"><%= new TransactionTopup_Util().getAllTransactionTopupByOperator("DJEZZY")%></div>
+                                                    <div>Number transaction TopUp </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">                                
+                                                    <img src="./template/logo.svg" width="60" height="70">                                
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge"><%= new SimInfo_Util().getAllSimInfoByOperator("DJEZZY")%></div>
+                                                    <div>Number Sim </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div></div></div>
+                    <div class=" col-md-3">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <img src="./template/mobilis.svg" width="130" height="70">                                
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge"><%= new TransactionTopup_Util().getAllTransactionTopupByOperator("MOBILIS")%></div>
-                                        <div>Number transaction TopUp </div>
-                                    </div>
-                                </div>
+                                Ooredoo
                             </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">                                
-                                        <img src="./template/logo.svg" width="60" height="70">                                
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge"><%= new TransactionTopup_Util().getAllTransactionTopupByOperator("DJEZZY")%></div>
-                                        <div>Number transaction TopUp </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-default ">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <img src="./template/ooredoo.svg" width="130" height="70">                                      </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge"><%= new TransactionTopup_Util().getAllTransactionTopupByOperator("OOREDOO")%></div>
-                                        <div>Number transaction TopUp  </div>
+                            <div class="panel-body">    
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="panel panel-default ">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <img src="./template/ooredoo.svg" width="130" height="70">                                      </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge"><%= new TransactionTopup_Util().getAllTransactionTopupByOperator("OOREDOO")%></div>
+                                                    <div>Number transaction TopUp  </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <img src="./template/mobilis.svg" width="130" height="70">                                
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge"><%= new SimInfo_Util().getAllSimInfoByOperator("MOBILIS")%></div>
-                                        <div>Number Sim</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">                                
-                                        <img src="./template/logo.svg" width="60" height="70">                                
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge"><%= new SimInfo_Util().getAllSimInfoByOperator("DJEZZY")%></div>
-                                        <div>Number Sim </div>
+
+
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="panel panel-default ">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <img src="./template/ooredoo.svg" width="130" height="70">                                      </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge"><%= new SimInfo_Util().getAllSimInfoByOperator("OOREDOO")%></div>
+                                                    <div>Number Sim </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-default ">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <img src="./template/ooredoo.svg" width="130" height="70">                                      </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge"><%= new SimInfo_Util().getAllSimInfoByOperator("OOREDOO")%></div>
-                                        <div>Number Sim </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                            </div></div></div> 
                 </div>
                 <!-- /.row -->
                 <div class="row">
@@ -254,16 +289,16 @@
                             </div>
                         </div>
                     </div>
-                                        <div class="col-lg-6">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    Transaction par offer
-                                                </div>
-                                                <div class="panel-body">
-                                                    <div id="morris-bar-chart"></div>
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Transaction par offer
+                            </div>
+                            <div class="panel-body">
+                                <div id="morris-bar-chart"></div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- /.col-lg-6 -->
                 </div>
                 <!-- /.row -->
@@ -317,16 +352,16 @@
                 $(function () {
 
                     var data = [<%  List list = new TransactionTopup_Util().getAllTransactionTopupGroupTransactionSim();
-                List list1 = new TransactionTopup_Util().getAllTransactionTopupGroupTransactionSim1();
-                for (int i = 0; i < list.size(); i++) {
-                    int   j =1;
-                   out.println("{label: '" + (String) list1.get(i) + "',data: " + list.get(i).toString() + "}");
+                        List list1 = new TransactionTopup_Util().getAllTransactionTopupGroupTransactionSim1();
+                        for (int i = 0; i < list.size(); i++) {
+                            int j = 1;
+                            out.println("{label: '" + (String) list1.get(i) + "',data: " + list.get(i).toString() + "}");
 
-                if ((j ) < list.size()) {
-                    out.print(",");
-                }
-                j++;
-            }
+                            if ((j) < list.size()) {
+                                out.print(",");
+                            }
+                            j++;
+                        }
 
             %>
                     ]
@@ -352,28 +387,28 @@
 
                 });
 
-    Morris.Bar({
-        element: 'morris-bar-chart',
-        data: [
-                    <%  List listY = new TransactionTopup_Util().getAllTransactionTopupGroupByOffer();
+                Morris.Bar({
+                    element: 'morris-bar-chart',
+                    data: [
+            <%  List listY = new TransactionTopup_Util().getAllTransactionTopupGroupByOffer();
                 List list1a = new TransactionTopup_Util().getAllTransactionTopupGroupByOffer1();
                 for (int i = 0; i < listY.size(); i++) {
-                    int   j =1;
-                   out.println("{y :'" + (String) list1a.get(i) + "',a :" + listY.get(i).toString() + "}");
+                    int j = 1;
+                    out.println("{y :'" + (String) list1a.get(i) + "',a :" + listY.get(i).toString() + "}");
 
-                if ((j ) < listY.size()) {
-                    out.print(",");
+                    if ((j) < listY.size()) {
+                        out.print(",");
+                    }
+                    j++;
                 }
-                j++;
-            }
 
             %>],
-        xkey: 'y',
-        ykeys: ['a'],
-        labels: ['Transaction' ],
-        hideHover: 'auto',
-        resize: true
-    });
+                    xkey: 'y',
+                    ykeys: ['a'],
+                    labels: ['Transaction'],
+                    hideHover: 'auto',
+                    resize: true
+                });
             });
 
         </script>

@@ -73,7 +73,7 @@
                                             </div>
                                             <div class="col-lg-6" class="form-group">
                                                 <label>Adresse</label>
-                                                <input  required="" id="adresse" name="adresse" class="form-control" placeholder="Ente  adresse  du client">
+                                                <input  required="" id="adresse" name="adresse" class="form-control"  maxlength="45" placeholder="Ente  adresse  du client">
                                             </div>
 
                                             <div class="col-lg-6" class="form-group">
@@ -131,7 +131,7 @@
 
                                             <%                                                List listcategory = new TraderCategory_Util().getAllTraderCategory("");
                                             %>
-                                            <div  class="col-lg-6" class="form-group">
+                                            <div hidden="" class="col-lg-6" class="form-group">
                                                 <label>client category</label>
                                                 <select required="" id="catgory" name="catgory" class="form-control" readonly="" >
                                                     <option value="">Select un category client </option>

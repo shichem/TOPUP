@@ -20,7 +20,7 @@ import model_helpers.ProviderClient_Util;
  *
  * @author GarandaTech
  */
-@WebServlet(urlPatterns = {"/DebitSoldClientProvider"})
+    @WebServlet(urlPatterns = {"/DebitSoldClientProvider"})
 public class DebitSoldClientProvider extends HttpServlet {
 
     /**
