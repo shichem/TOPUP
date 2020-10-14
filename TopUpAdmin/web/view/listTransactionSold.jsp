@@ -111,71 +111,95 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-12" class="form-group">
-                                    <label>Provider</label>
-                                    <div class="autocomplete" >
-                                        <input id="provider" type="text" required="" name="provider" class=" form-control"  placeholder="nom du client " autocomplete="off">
+                                <div class="col-lg-8">
+                                    <div class="col-lg-12" class="form-group">
+                                        <label>Provider</label>
+                                        <div class="autocomplete" >
+                                            <input id="provider" type="text" required="" name="provider" class=" form-control"  placeholder="nom du client " autocomplete="off">
+                                        </div>
+
                                     </div>
+                                    <div class="col-lg-12" class="form-group">
+                                        <label>Client</label>
+                                        <div class="autocomplete" >
+                                            <input id="treader" type="text" required="" name="trader" class=" form-control"  placeholder="nom du client " autocomplete="off">
+                                        </div>
 
-                                </div>
-                                <div class="col-lg-12" class="form-group">
-                                    <label>Client</label>
-                                    <div class="autocomplete" >
-                                        <input id="treader" type="text" required="" name="trader" class=" form-control"  placeholder="nom du client " autocomplete="off">
                                     </div>
-
-                                </div>
-                                <div class="col-lg-6" class="form-group">
-                                    <%
-                                        List listStatus = new StatusInfo_Util().getStatusInfo_by_statusInfoDesc_Like("TCT", "");
-                                    %>
-                                    <label>status</label>
-                                    <select id="statusStation" name="statusStationId" required="" class="form-control">
-                                        <option value="">Selection status du transction  </option>
-
-                                        <%                                for (int i = 0; i < listStatus.size(); i++) {
-                                                StatusInfo get = (StatusInfo) listStatus.get(i);
-                                        %>
-                                        <option value="<%=get.getStatusInfoDesc()%>"><%=get.getStatusInfoDesc()%></option>
+                                    <div class="col-lg-6" class="form-group">
                                         <%
-                                            }
+                                            List listStatus = new StatusInfo_Util().getStatusInfo_by_statusInfoDesc_Like("TCT", "");
                                         %>
+                                        <label>status</label>
+                                        <select id="statusStation" name="statusStationId" required="" class="form-control">
+                                            <option value="">Selection status du transction  </option>
 
-                                    </select>
+                                            <%                                for (int i = 0; i < listStatus.size(); i++) {
+                                                    StatusInfo get = (StatusInfo) listStatus.get(i);
+                                            %>
+                                            <option value="<%=get.getStatusInfoDesc()%>"><%=get.getStatusInfoDesc()%></option>
+                                            <%
+                                                }
+                                            %>
+
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6" class="form-group">
+
+                                        <label>Type</label>
+                                        <select id="type" name="type" required="" class="form-control">
+                                            <option value="">Selection Type du transction  </option>
+                                            <option value="TopUp">TopUp  </option>
+                                            <option value="alimantion">Alimentation de solde  </option>
+                                            <option value="debit">Debit de solde  </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6" class="form-group">
+
+                                        <label>date fin</label>
+                                        <input type="date" id="dateDebut" value="dateDebut" class="form-control"/>
+                                    </div>
+                                    <div class="col-lg-6" class="form-group">
+
+                                        <label>date fin</label>
+                                        <input type="date" id="dateFin" value="dateFin" class="form-control"/>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Min sold intervalle</label>
+                                        <input type="number" id="minSold" value="maxSold" class="form-control"/>
+                                        <div hidden="">
+                                            <p>
+                                                <label for="amount">Sold intervalle  </label>
+                                                <input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold;" />
+                                            </p>
+                                            <div id="slider-range" ></div>  
+                                            <input type="text" id="minSold1"  value="" />
+                                            <input type="text" id="maxSold1"  value="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Max sold intervalle</label>
+                                        <input type="number" id="maxSold" value="maxSold" class="form-control"/>
+                                    </div>
+                                    <div class="col-lg-6" class="form-group">
+
+                                    </div>
+                                    <div class="col-lg-12" class="form-group">
+
+                                        <label style="    color: green;">Slod  reussie :</label><label id ="sold"style="    color: green;"></label>
+
+                                    </div>
+                                    <div class="col-lg-12" >
+                                        <div style="float:right">
+                                            <br/>
+                                            <button type="btn" class="btn btn-success"  onclick="rechercher()" >Rechercher</button>
+
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-6" class="form-group">
-
-                                    <label>Type</label>
-                                    <select id="type" name="type" required="" class="form-control">
-                                        <option value="">Selection Type du transction  </option>
-                                        <option value="TopUp">TopUp  </option>
-                                        <option value="alimantion">Alimentation de solde  </option>
-                                        <option value="debit">Debit de solde  </option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-6" class="form-group">
-
-                                    <label>date fin</label>
-                                    <input type="date" id="dateDebut" value="dateDebut" class="form-control"/>
-                                </div>
-                                <div class="col-lg-6" class="form-group">
-
-                                    <label>date fin</label>
-                                    <input type="date" id="dateFin" value="dateFin" class="form-control"/>
-                                </div>
-                                <div class="col-lg-6" class="form-group">
-
-                                </div>
-                                <div class="col-lg-12" class="form-group">
-
-                                    <label style="    color: green;">Slod  reussie :</label><label id ="sold"style="    color: green;"></label>
-
-                                </div>
-                                <div class="col-lg-12" >
-                                    <div style="float:right">
-                                        <br/>
-                                        <button type="btn" class="btn btn-success"  onclick="rechercher()" >Rechercher</button>
-
+                                <div class="col-lg-4">
+                                    <div class="flot-chart">
+                                        <div class="flot-chart-content" id="flot-pie-chart-status"></div>
                                     </div>
                                 </div>
                             </div>
@@ -235,7 +259,9 @@
                             provider: $('#provider').val(),
                             name: $('#treader').val(),
                             dateDebut: $('#dateDebut').val(),
-                            dateFin: $('#dateFin').val()
+                            dateFin: $('#dateFin').val(),
+                            minSold: $("#minSold").val(),
+                            maxSold: $("#maxSold").val()
 
                         },
                         success: function (result) {
@@ -269,6 +295,10 @@
                             var name = $('#treader').val();
                             var dateDebut = $('#dateDebut').val();
                             var dateFin = $('#dateFin').val();
+                            var minSold = $("#minSold").val();
+
+                            var maxSold = $("#maxSold").val();
+
                             // Append to data
                             data.status = status;
                             data.type = type;
@@ -276,6 +306,8 @@
                             data.name = name;
                             data.dateDebut = dateDebut;
                             data.dateFin = dateFin;
+                            data.minSold = minSold;
+                            data.maxSold = maxSold;
 
                         }
                     },
@@ -467,7 +499,9 @@
                     provider: $('#provider').val(),
                     name: $('#treader').val(),
                     dateDebut: $('#dateDebut').val(),
-                    dateFin: $('#dateFin').val()
+                    dateFin: $('#dateFin').val(),
+                    minSold: $("#minSold").val(),
+                    maxSold: $("#maxSold").val()
 
                 },
                 success: function (result) {
@@ -490,7 +524,9 @@
                         provider: $('#provider').val(),
                         name: $('#treader').val(),
                         dateDebut: $('#dateDebut').val(),
-                        dateFin: $('#dateFin').val()
+                        dateFin: $('#dateFin').val(),
+                        minSold: $("#minSold").val(),
+                        maxSold: $("#maxSold").val()
 
 
                     },
@@ -503,9 +539,74 @@
                 });
 
                 $('#example').DataTable().draw();
+                $.ajax({
+                    url: '../NombertrasntactionSoldByStatus',
+                    type: 'GET',
+                    data: {
+                        // Read values
+
+                             status: $('#statusStation :selected').val(),
+                        type: $('#type :selected').val(),
+                        provider: $('#provider').val(),
+                        name: $('#treader').val(),
+                        dateDebut: $('#dateDebut').val(),
+                        dateFin: $('#dateFin').val(),
+                        minSold: $("#minSold").val(),
+                        maxSold: $("#maxSold").val()
+
+                    },
+                    success: function (responseText) {
+                        //Do nothing                    
+                        // dataStatusT = parseresult;
+                        console.log(responseText);
+                        var plotObj = $.plot($("#flot-pie-chart-status"), JSON.parse(responseText), option);
+                        plotObj.draw();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+
+                });
 
             }
+    // chart  bar 
 
+            var dataStatusT = [<%  List listLable = new TransactionSolde_Util().getAllTransactionTopupGroupTransactionBySatusLabel("", "");
+                List list1Count = new TransactionSolde_Util().getAllTransactionTopupGroupTransactionBySatusCount("", "");
+                for (int i = 0; i < listLable.size(); i++) {
+                    int j = 1;
+                    out.println("{label: '" + (String) listLable.get(i) + ": " + list1Count.get(i).toString() + "',data: " + list1Count.get(i).toString() + "}");
+
+                    if (i < listLable.size() - 1) {
+                        out.print(",");
+                    }
+
+                }
+
+            %>
+            ]
+            var option = {
+                series: {
+                    pie: {
+                        show: true,
+                        radius: 3 / 4,
+                    }
+                },
+                grid: {
+                    hoverable: true
+                },
+                tooltip: true,
+                tooltipOpts: {
+                    content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+                    shifts: {
+                        x: 20,
+                        y: 0
+                    },
+                    defaultTheme: true
+                }
+            };
+            var plotObj = $.plot($("#flot-pie-chart-status"), dataStatusT, option);
         </script>
     </body>
 

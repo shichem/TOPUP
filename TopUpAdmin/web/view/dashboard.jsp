@@ -96,7 +96,29 @@
                             <div class="panel-heading">
                                 Mobilis
                             </div>
-                            <div class="panel-body">                                
+                            <div class="panel-body">     
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <img src="./template/mobilis.svg" width="130" height="70">                                
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge"><%=staticVars.globalSoldeMobilis%></div>
+                                                    <div>Sold Mobilis </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
@@ -148,7 +170,30 @@
                             <div class="panel-heading">
                                 Djezzy
                             </div>
-                            <div class="panel-body">    
+                            <div class="panel-body"> 
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">                                
+                                                    <img src="./template/logo.svg" width="60" height="70">                                
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge"></div>
+                                                    <div class="huge"><%=staticVars.globalSoldeDjezzy%></div>
+                                                    <div>Sold Djezzy</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
@@ -199,7 +244,28 @@
                             <div class="panel-heading">
                                 Ooredoo
                             </div>
-                            <div class="panel-body">    
+                            <div class="panel-body"> 
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="panel panel-default ">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <img src="./template/ooredoo.svg" width="130" height="70">                                      </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge"><%=staticVars.globalSoldeOoredoo%></div>
+                                                    <div>Sold Ooredoo  </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="panel panel-default ">
                                         <div class="panel-heading">
@@ -279,7 +345,33 @@
                     <div class="col-lg-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Transaction par Sim 
+                                Transaction sold par status  
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div class="flot-chart-content" id="flot-pie-chart-sold"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Transaction  Topup par status  
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div class="flot-chart-content" id="flot-pie-chart-status"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Transaction Topup par Sim 
                             </div>
 
                             <div class="panel-body">
@@ -292,7 +384,7 @@
                     <div class="col-lg-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Transaction par offer
+                                Transaction topUp par offer
                             </div>
                             <div class="panel-body">
                                 <div id="morris-bar-chart"></div>
@@ -355,7 +447,7 @@
                         List list1 = new TransactionTopup_Util().getAllTransactionTopupGroupTransactionSim1();
                         for (int i = 0; i < list.size(); i++) {
                             int j = 1;
-                            out.println("{label: '" + (String) list1.get(i) + "',data: " + list.get(i).toString() + "}");
+                            out.println("{label: '" + (String) list1.get(i) + ": " + list.get(i).toString() + "',data: " + list.get(i).toString() + "}");
 
                             if ((j) < list.size()) {
                                 out.print(",");
@@ -386,7 +478,75 @@
                     });
 
                 });
+                //
+                var dataStatusT = [<%  List listLable = new TransactionTopup_Util().getAllTransactionTopupGroupTransactionBySatusLabel("", "");
+                    List list1Count = new TransactionTopup_Util().getAllTransactionTopupGroupTransactionBySatusCount("", "");
+                    for (int i = 0; i < listLable.size(); i++) {
+                        int j = 1;
+                        out.println("{label: '" + (String) listLable.get(i) + ": " + list1Count.get(i).toString() + "',data: " + list1Count.get(i).toString() + "}");
 
+                        if ((j) < listLable.size()) {
+                            out.print(",");
+                        }
+                        j++;
+                    }
+
+            %>
+                ]
+                var plotObj = $.plot($("#flot-pie-chart-status"), dataStatusT, {
+                    series: {
+                        pie: {
+                            show: true
+                        }
+                    },
+                    grid: {
+                        hoverable: true
+                    },
+                    tooltip: true,
+                    tooltipOpts: {
+                        content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+                        shifts: {
+                            x: 20,
+                            y: 0
+                        },
+                        defaultTheme: true
+                    }
+                });
+                //
+                 var dataStatusSold = [<%  List listLableSold = new TransactionSolde_Util().getAllTransactionTopupGroupTransactionBySatusLabel("", "");
+                    List list1CountSold = new TransactionSolde_Util().getAllTransactionTopupGroupTransactionBySatusCount("", "");
+                    for (int i = 0; i < listLableSold.size(); i++) {
+                        int j = 1;
+                        out.println("{label: '" + (String) listLableSold.get(i) + ": " + list1CountSold.get(i).toString() + "',data: " + list1CountSold.get(i).toString() + "}");
+
+                        if ((j) < listLableSold.size()) {
+                            out.print(",");
+                        }
+                        j++;
+                    }
+
+            %>
+                ]
+                var plotObjSold = $.plot($("#flot-pie-chart-sold"), dataStatusSold, {
+                    series: {
+                        pie: {
+                            show: true
+                        }
+                    },
+                    grid: {
+                        hoverable: true
+                    },
+                    tooltip: true,
+                    tooltipOpts: {
+                        content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+                        shifts: {
+                            x: 20,
+                            y: 0
+                        },
+                        defaultTheme: true
+                    }
+                });
+                //
                 Morris.Bar({
                     element: 'morris-bar-chart',
                     data: [

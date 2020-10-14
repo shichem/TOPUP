@@ -122,13 +122,20 @@ public class TransactionSolde_Util {
         hqlQueriesHelper.executeUpdateHQLQuery_WithPreparedSession(adt, session);
     }
 
-    public List getAllTransactionSold(Integer start, Integer length, String Status, String type, String provider, String name, String dateDebut, String dateFin) {
+    public List getAllTransactionSold(Integer start, Integer length, String Status, String type, String provider, String name, String dateDebut, String dateFin, String minSold, String maxSold) {
         String dateWhere = "";
+        String interavaleSold = "";
         if (dateDebut != "") {
             dateWhere = "and transact_date >=  '" + dateDebut + " 00:00:00' ";
         }
         if (dateFin != "") {
             dateWhere += " and transact_date <= '" + dateFin + " 23:59:00'";
+        }
+        if (minSold != "") {
+            interavaleSold += " and transactAmount >=" + minSold;
+        }
+        if (maxSold != "") {
+            interavaleSold += " and transactAmount <=" + maxSold;
         }
         String wheretype = "";
         if (type.equals("TopUp")) {
@@ -145,7 +152,7 @@ public class TransactionSolde_Util {
         List resultList = new ArrayList();
         try {
             Query q = session.createQuery("FROM TransactionSolde where providerClient.traderByIdclient.traderFname like '%" + name + "%' and statusInfo.statusInfoDesc like '%" + Status + "%' and providerClient.traderByIdprovider.traderFname like '%" + provider + "%' "
-                    + dateWhere
+                    + dateWhere + " " + interavaleSold
                     + " and flag=0 " + wheretype + " order by idtransactsolde ").setFirstResult(start).setMaxResults(length);
             resultList = q.list();
         } catch (HibernateException he) {
@@ -154,13 +161,20 @@ public class TransactionSolde_Util {
         return resultList;
     }
 
-    public double transactionSold(String Status, String type, String provider, String name, String dateDebut, String dateFin) {
+    public double transactionSold(String Status, String type, String provider, String name, String dateDebut, String dateFin, String minSold, String maxSold) {
         String dateWhere = "";
+        String interavaleSold = "";
         if (dateDebut != "") {
             dateWhere = "and transact_date >=  '" + dateDebut + " 00:00:00'";
         }
         if (dateFin != "") {
             dateWhere += " and transact_date <= '" + dateFin + " 23:59:00'";
+        }
+        if (minSold != "") {
+            interavaleSold += " and transactAmount >=" + minSold;
+        }
+        if (maxSold != "") {
+            interavaleSold += " and transactAmount <=" + maxSold;
         }
         String wheretype = "";
         if (type.equals("TopUp")) {
@@ -177,8 +191,8 @@ public class TransactionSolde_Util {
         List resultList = new ArrayList();
         try {
             Query q = session.createQuery("SELECT SUM(transactAmount) FROM TransactionSolde where providerClient.traderByIdclient.traderFname like '%" + name + "%' and statusInfo.statusInfoDesc like '%" + Status + "%' and providerClient.traderByIdprovider.traderFname like '%" + provider + "%' "
-                    + dateWhere
-                    + " and flag=0 "+wheretype);
+                    + dateWhere + " " + interavaleSold
+                    + " and flag=0 " + wheretype);
             resultList = q.list();
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -188,5 +202,109 @@ public class TransactionSolde_Util {
         } else {
             return (double) resultList.get(0);
         }
+    }
+
+    public List getAllTransactionTopupGroupTransactionBySatusLabel(String Status, String type, String provider, String name, String dateDebut, String dateFin, String minSold, String maxSold) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        String dateWhere = "";
+        String interavaleSold = "";
+        if (dateDebut != "") {
+            dateWhere = "and transact_date >=  '" + dateDebut + " 00:00:00'";
+        }
+        if (dateFin != "") {
+            dateWhere += " and transact_date <= '" + dateFin + " 23:59:00'";
+        }
+        if (minSold != "") {
+            interavaleSold += " and transactAmount >=" + minSold;
+        }
+        if (maxSold != "") {
+            interavaleSold += " and transactAmount <=" + maxSold;
+        }
+        String wheretype = "";
+        if (type.equals("TopUp")) {
+            wheretype = " and userInfo.trader.idtrader = providerClient.traderByIdclient.idtrader ";
+        } else if (type.equals("alimantion")) {
+            wheretype = " and userInfo.trader.idtrader != providerClient.traderByIdclient.idtrader and  transactAmount>0";
+
+        } else if (type.equals("debit")) {
+            wheretype = " and userInfo.trader.idtrader != providerClient.traderByIdclient.idtrader and  transactAmount<0";
+
+        }
+        List list = new ArrayList();
+        list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "SELECT statusInfo.statusInfoDesc  FROM TransactionSolde where providerClient.traderByIdclient.traderFname like '%" + name + "%' and statusInfo.statusInfoDesc like '%" + Status + "%' and providerClient.traderByIdprovider.traderFname like '%" + provider + "%' "
+                + dateWhere + " " + interavaleSold
+                + " and flag=0 " + wheretype + " group by statusInfo.statusInfoDesc", "");
+
+        return list;
+
+    }
+
+    public List getAllTransactionTopupGroupTransactionBySatusCount(String Status, String type, String provider, String name, String dateDebut, String dateFin, String minSold, String maxSold) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        String dateWhere = "";
+        String interavaleSold = "";
+        if (dateDebut != "") {
+            dateWhere = "and transact_date >=  '" + dateDebut + " 00:00:00'";
+        }
+        if (dateFin != "") {
+            dateWhere += " and transact_date <= '" + dateFin + " 23:59:00'";
+        }
+        if (minSold != "") {
+            interavaleSold += " and transactAmount >=" + minSold;
+        }
+        if (maxSold != "") {
+            interavaleSold += " and transactAmount <=" + maxSold;
+        }
+        String wheretype = "";
+        if (type.equals("TopUp")) {
+            wheretype = " and userInfo.trader.idtrader = providerClient.traderByIdclient.idtrader ";
+        } else if (type.equals("alimantion")) {
+            wheretype = " and userInfo.trader.idtrader != providerClient.traderByIdclient.idtrader and  transactAmount>0";
+
+        } else if (type.equals("debit")) {
+            wheretype = " and userInfo.trader.idtrader != providerClient.traderByIdclient.idtrader and  transactAmount<0";
+
+        }
+        List list = new ArrayList();
+        list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "SELECT Count(*)   FROM TransactionSolde where providerClient.traderByIdclient.traderFname like '%" + name + "%' and statusInfo.statusInfoDesc like '%" + Status + "%' and providerClient.traderByIdprovider.traderFname like '%" + provider + "%' "
+                + dateWhere + " " + interavaleSold
+                + " and flag=0 " + wheretype + " group by statusInfo.statusInfoDesc", "");
+
+        return list;
+
+    }
+
+    public List getAllTransactionTopupGroupTransactionBySatusLabel(String dateDebut, String dateFin) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        String dateWhere = "";
+
+        if (dateDebut != "") {
+            dateWhere = "and transact_date >=  '" + dateDebut + " 00:00:00'";
+        }
+        if (dateFin != "") {
+            dateWhere += " and transact_date <= '" + dateFin + " 23:59:00'";
+        }
+        List list = new ArrayList();
+        list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "SELECT statusInfo.statusInfoDesc  FROM TransactionSolde where flag=0 " + dateWhere + " group by statusInfo.statusInfoDesc", "");
+
+        return list;
+
+    }
+
+    public List getAllTransactionTopupGroupTransactionBySatusCount(String dateDebut, String dateFin) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        String dateWhere = "";
+
+        if (dateDebut != "") {
+            dateWhere = "and transact_date >=  '" + dateDebut + " 00:00:00'";
+        }
+        if (dateFin != "") {
+            dateWhere += " and transact_date <= '" + dateFin + " 23:59:00'";
+        }
+        List list = new ArrayList();
+        list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "SELECT Count(*)   FROM TransactionSolde where flag=0 " + dateWhere + " group by statusInfo.statusInfoDesc", "");
+
+        return list;
+
     }
 }

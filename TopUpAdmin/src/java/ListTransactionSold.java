@@ -46,6 +46,8 @@ public class ListTransactionSold extends HttpServlet {
             String dateDebut = request.getParameter("dateDebut");
             String provider = request.getParameter("provider");
             String dateFin = request.getParameter("dateFin");
+             String minSold =request.getParameter("minSold");
+            String maxSold =request.getParameter("maxSold");
             String name1 = "";
             if (name != "") {
                 String[] arrOfStr = name.split("-", 5);
@@ -58,8 +60,8 @@ public class ListTransactionSold extends HttpServlet {
             }
             TransactionSolde_Util solde_Util = new TransactionSolde_Util();
             int count = solde_Util.getAllTransactionSolde();
-            int filtreCount = solde_Util.getAllTransactionSold(0, count,status,type,provider1,name1,dateDebut,dateFin).size();
-            List l = solde_Util.getAllTransactionSold(start, length, status,type, provider1, name1, dateDebut, dateFin);
+            int filtreCount = solde_Util.getAllTransactionSold(0, count,status,type,provider1,name1,dateDebut,dateFin,minSold,maxSold).size();
+            List l = solde_Util.getAllTransactionSold(start, length, status,type, provider1, name1, dateDebut, dateFin,minSold,maxSold);
 
             out.print("{\n \n"
                     + "  \"recordsTotal\": " + count + ",\n"

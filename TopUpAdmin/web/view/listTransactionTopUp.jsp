@@ -1,4 +1,6 @@
 
+<%@page import="model_helpers.TransactionTopup_Util"%>
+<%@page import="model_helpers.TransactionTopup_Util"%>
 <%@page import="model_db.Operator"%>
 <%@page import="model_helpers.Operator_Util"%>
 <%@page import="model_db.SimInfo"%>
@@ -29,6 +31,9 @@
 
     <%@include file="template/head.jsp" %>
     <style>
+
+
+
         .autocomplete {
             /*the container must be positioned relative:*/
             position: relative;
@@ -109,14 +114,63 @@
                     Erreur dans mis a jour du Offer contact admin 
                 </div>
                 <% }%>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <img src="./template/mobilis.svg" width="130" height="70">                                
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><span id="MOBILIS">0 DA</span></div>
+                                        <div>Sold Mobilis </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">                                
+                                        <img src="./template/logo.svg" width="60" height="70">                                
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><span id="DJEZZY">0 DA</span></div>
+                                        <div>Sold Djezzy</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="panel panel-default ">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <img src="./template/ooredoo.svg" width="130" height="70">                                      </div>
+                                    <div class="col-xs-9 text-right">
+
+                                        <div class="huge"><span id="OOREDOO">0 DA</span></div>
+                                        <div>Sold Ooredoo  </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Recherche   
                         </div>
                         <div class="panel-body">
-                            <div class="row">
+                            <div class="col-lg-8">
                                 <div class="col-lg-12" class="form-group">
                                     <label>Client</label>
                                     <div class="autocomplete" >
@@ -230,18 +284,41 @@
                                     <label>date fin</label>
                                     <input type="date" id="dateFin" value="dateFin" class="form-control"/>
                                 </div>
+                                <div class="col-lg-6">
+                                    <label>Min sold intervalle</label>
+                                    <input type="number" id="minSold" value="maxSold" class="form-control"/>
+                                    <div hidden="">
+                                        <p>
+                                            <label for="amount">Sold intervalle  </label>
+                                            <input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold;" />
+                                        </p>
+                                        <div id="slider-range" ></div>  
+                                        <input type="text" id="minSold1"  value="" />
+                                        <input type="text" id="maxSold1"  value="" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Max sold intervalle</label>
+                                    <input type="number" id="maxSold" value="maxSold" class="form-control"/>
+                                </div>
                                 <div class="col-lg-6" class="form-group">
 
                                     <label style="    color: green;">Slod  reussie :</label><label id ="sold"style="    color: green;"></label>
                                     </br>
                                     <label style="    color: red;">Slod  litig :</label><label id ="soldLitig" style="    color: red;"></label>
                                 </div>
+
                                 <div class="col-lg-12" >
                                     <div style="float:right">
                                         <br/>
                                         <button type="btn" class="btn btn-success"  onclick="rechercher()" >Rechercher</button>
 
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="flot-chart">
+                                    <div class="flot-chart-content" id="flot-pie-chart-status"></div>
                                 </div>
                             </div>
                         </div>
@@ -290,7 +367,25 @@
         <%@include file="template/script.jsp" %>
         <!-- data -->
         <script>
+            $(function () {
+
+                $("#slider-range").slider({
+                    range: true,
+                    min: 0,
+                    max: 99999,
+                    values: [0, 999999],
+                    slide: function (event, ui) {
+                        $("#amount").val("DA" + ui.values[ 0 ] + " - DA" + ui.values[ 1 ]);
+                        $("#minSold").val(ui.values[ 0 ]);
+                        $("#maxSold").val(ui.values[ 1 ]);
+                    }
+                });
+                $("#amount").val("DA" + $("#slider-range").slider("values", 0) +
+                        " - DA" + $("#slider-range").slider("values", 1));
+
+            });
             $(document).ready(function () {
+
 
                 jQuery.fn.DataTable.Api.register('buttons.exportData()', function (options) {
 
@@ -306,8 +401,9 @@
                             dateFin: $('#dateFin').val(),
                             operator: $('#operator :selected').val(),
                             offer: $('#offer :selected').val(),
-                            sim: $('#sim :selected').val()
-
+                            sim: $('#sim :selected').val(),
+                            minSold: $("#minSold").val(),
+                            maxSold: $("#maxSold").val()
                         },
                         success: function (result) {
                             //Do nothing
@@ -339,6 +435,9 @@
                             var operator = $('#operator :selected').val();
                             var offer = $('#offer :selected').val();
                             var sim = $('#sim :selected').val();
+                            var minSold = $("#minSold").val();
+                            var maxSold = $("#maxSold").val();
+
 
                             // Append to data
                             data.status = status;
@@ -349,6 +448,8 @@
                             data.sim = sim;
                             data.offer = offer;
                             data.operator = operator;
+                            data.minSold = minSold;
+                            data.maxSold = maxSold;
                         }
                     },
                     lengthMenu: [[10, 25, 100, -1], [10, 25, 100, "All"]],
@@ -521,7 +622,9 @@
                     dateFin: $('#dateFin').val(),
                     operator: $('#operator :selected').val(),
                     offer: $('#offer :selected').val(),
-                    sim: $('#sim :selected').val()
+                    sim: $('#sim :selected').val(),
+                    minSold: $("#minSold").val(),
+                    maxSold: $("#maxSold").val()
 
                 },
                 success: function (result) {
@@ -546,18 +649,157 @@
                         dateFin: $('#dateFin').val(),
                         operator: $('#operator :selected').val(),
                         offer: $('#offer :selected').val(),
-                        sim: $('#sim :selected').val()
+                        sim: $('#sim :selected').val(),
+                        minSold: $("#minSold").val(),
+                        maxSold: $("#maxSold").val()
 
                     },
                     success: function (result) {
                         //Do nothing                    
                         $('#sold').text(result.sumValid);
                         $('#soldLitig').text(result.sumLitig);
+
                     }
 
                 });
-            }
+                $.ajax({
+                    url: '../NombertrasntactionByStatus',
+                    type: 'GET',
+                    data: {
+                        // Read values
 
+                        status: $('#statusStation :selected').val(),
+                    type: $('#type :selected').val(),
+                    name: $('#treader').val(),
+                    dateDebut: $('#dateDebut').val(),
+                    dateFin: $('#dateFin').val(),
+                    operator: $('#operator :selected').val(),
+                    offer: $('#offer :selected').val(),
+                    sim: $('#sim :selected').val(),
+                    minSold: $("#minSold").val(),
+                    maxSold: $("#maxSold").val()
+
+                    },
+                    success: function (responseText) {
+                        //Do nothing                    
+                        // dataStatusT = parseresult;
+                        console.log(responseText);
+                        var plotObj = $.plot($("#flot-pie-chart-status"), JSON.parse(responseText), option);
+                        plotObj.draw();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                    }
+
+                });
+                   $.ajax({
+                url: '../SoldByOperartor',
+                type: 'GET',
+                data: {
+                    // Read values
+
+                  status: $('#statusStation :selected').val(),
+                    type: $('#type :selected').val(),
+                    name: $('#treader').val(),
+                    dateDebut: $('#dateDebut').val(),
+                    dateFin: $('#dateFin').val(),
+                    operator: $('#operator :selected').val(),
+                    offer: $('#offer :selected').val(),
+                    sim: $('#sim :selected').val(),
+                    minSold: $("#minSold").val(),
+                    maxSold: $("#maxSold").val()
+
+                },
+                success: function (result) {
+                    //Do nothing 
+                      $("#MOBILIS").text("0 DA");
+                        $("#DJEZZY").text("0 DA");
+                        $("#OOREDOO").text("0 DA");
+                        
+                    for (let i = 0; i < result.length; i++) {
+                       $("#"+result[i].label).text(result[i].data +" DA")
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+
+            });
+
+            }
+            // chart  bar 
+
+            var dataStatusT = [<%  List listLable = new TransactionTopup_Util().getAllTransactionTopupGroupTransactionBySatusLabel("", "");
+                List list1Count = new TransactionTopup_Util().getAllTransactionTopupGroupTransactionBySatusCount("", "");
+                for (int i = 0; i < listLable.size(); i++) {
+                    int j = 1;
+                    out.println("{label: '" + (String) listLable.get(i) + ": " + list1Count.get(i).toString() + "',data: " + list1Count.get(i).toString() + "}");
+
+                    if (i < listLable.size() - 1) {
+                        out.print(",");
+                    }
+
+                }
+
+            %>
+            ]
+            var option = {
+                series: {
+                    pie: {
+                        show: true,
+                        radius: 3 / 4,
+                    }
+                },
+                grid: {
+                    hoverable: true
+                },
+                tooltip: true,
+                tooltipOpts: {
+                    content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+                    shifts: {
+                        x: 20,
+                        y: 0
+                    },
+                    defaultTheme: true
+                }
+            };
+            var plotObj = $.plot($("#flot-pie-chart-status"), dataStatusT, option);
+            //
+
+            $.ajax({
+                url: '../SoldByOperartor',
+                type: 'GET',
+                data: {
+                    // Read values
+
+                     status: $('#statusStation :selected').val(),
+                    type: $('#type :selected').val(),
+                    name: $('#treader').val(),
+                    dateDebut: $('#dateDebut').val(),
+                    dateFin: $('#dateFin').val(),
+                    operator: $('#operator :selected').val(),
+                    offer: $('#offer :selected').val(),
+                    sim: $('#sim :selected').val(),
+                    minSold: $("#minSold").val(),
+                    maxSold: $("#maxSold").val()
+                },
+                success: function (result) {
+                    //Do nothing 
+                     $("#MOBILIS").text("0 DA");
+                        $("#DJEZZY").text("0 DA");
+                        $("#OOREDOO").text("0 DA");
+                    for (let i = 0; i < result.length; i++) {
+                       $("#"+result[i].label).text(result[i].data +" DA")
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+
+            });
         </script>
     </body>
 

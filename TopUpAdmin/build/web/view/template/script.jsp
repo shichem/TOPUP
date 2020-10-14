@@ -6,6 +6,7 @@
 
 <!-- jQuery -->
 <script src="../lib/vendor/jquery/jquery.min.js"></script>
+<script src="../lib/vendor/jquery/jquery-ui.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="../lib/vendor/bootstrap/js/bootstrap.min.js"></script>
