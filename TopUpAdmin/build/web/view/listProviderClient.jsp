@@ -76,7 +76,7 @@
                     <table id="example" border="0" class="display nowrap table dtr-inline collapsed" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Provider</th>
+                                <th>Grossiste</th>
                                 <th>Client</th>
                                 <th>Operator</th>
                                 <th>Solde</th>
@@ -114,7 +114,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Provider</th>
+                                <th>Grossiste</th>
                                 <th>Client</th>
                                 <th>Operator</th>
                                 <th>Solde</th>
@@ -191,7 +191,8 @@
 
 
 
-                                            $('#example').dataTable({
+                                             $('#example').dataTable({
+                                                 responsive: true
                                             });
 
 

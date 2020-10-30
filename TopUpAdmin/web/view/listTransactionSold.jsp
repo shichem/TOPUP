@@ -113,9 +113,9 @@
                             <div class="row">
                                 <div class="col-lg-8">
                                     <div class="col-lg-12" class="form-group">
-                                        <label>Provider</label>
+                                        <label>Grossiste</label>
                                         <div class="autocomplete" >
-                                            <input id="provider" type="text" required="" name="provider" class=" form-control"  placeholder="nom du client " autocomplete="off">
+                                            <input id="provider" type="text" required="" name="provider" class=" form-control"  placeholder="nom du grossiste " autocomplete="off">
                                         </div>
 
                                     </div>
@@ -208,11 +208,11 @@
                     <table id="example" class="display nowrap table dtr-inline collapsed" style="width:100%">
                         <thead>
                             <tr>
-                                <th>provider</th>
+                                <th>Grossiste</th>
                                 <th>Client</th>
-                                <th>Old sold</th>
+                                <th>Transaction Montant</th>
                                 <th>New sold</th>
-                                <th>Transaction Amount</th>
+                                <th>Old sold</th>
                                 <th>Date Transaction  </th>
                                 <th>Status Transaction  </th>
                                 <th>User  </th>
@@ -223,11 +223,11 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>provider</th>
+                                <th>Grossiste</th>
                                 <th>Client</th>
-                                <th>Old sold</th>
-                                <th>New sold</th>
                                 <th>Transaction Amount</th>
+                                <th>New sold</th>
+                                <th>Old sold</th>
                                 <th>Date Transaction  </th>
                                 <th>Status Transaction  </th>
                                 <th>User  </th>
@@ -545,7 +545,7 @@
                     data: {
                         // Read values
 
-                             status: $('#statusStation :selected').val(),
+                        status: $('#statusStation :selected').val(),
                         type: $('#type :selected').val(),
                         provider: $('#provider').val(),
                         name: $('#treader').val(),
@@ -570,7 +570,7 @@
                 });
 
             }
-    // chart  bar 
+            // chart  bar 
 
             var dataStatusT = [<%  List listLable = new TransactionSolde_Util().getAllTransactionTopupGroupTransactionBySatusLabel("", "");
                 List list1Count = new TransactionSolde_Util().getAllTransactionTopupGroupTransactionBySatusCount("", "");

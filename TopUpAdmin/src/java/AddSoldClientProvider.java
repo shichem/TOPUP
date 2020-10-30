@@ -47,9 +47,9 @@ public class AddSoldClientProvider extends HttpServlet {
                 String amount = request.getParameter("amount");                                
                 dbhelper db = new dbhelper(); 
                 db.updateVirtualBalanceProvider(userID, client.getTraderByIdprovider().getIdtrader(), client.getTraderByIdclient().getIdtrader(), client.getOperator().getIdoperator(),Double.parseDouble(amount));              
-                response.sendRedirect("view/listProviderClient.jsp?id=15&succesSold");
+                response.sendRedirect("view/listProviderClient.jsp?succesSold");
             } catch (Exception e) {
-                response.sendRedirect("view/listProviderClient.jsp?id=15&erreur");
+                response.sendRedirect("view/listProviderClient.jsp?erreur");
             }
         }
     }

@@ -83,7 +83,8 @@ public class Trader_Util {
         Session session = HibernateUtil.getSessionFactory().openSession();
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM Trader where flag=0 "
                 + "and traderType = 1"
-                + " and traderCategory = 1",
+                + " and (traderCategory = 1"
+                 + " or traderCategory = 3)",
                 suffix);
 
     }

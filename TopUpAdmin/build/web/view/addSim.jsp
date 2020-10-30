@@ -1,4 +1,8 @@
 
+<%@page import="model_db.Operator"%>
+<%@page import="model_helpers.Operator_Util"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
 <%-- 
     Document   : dashboard
     Created on : Mar 24, 2019, 3:06:28 PM
@@ -49,18 +53,28 @@
                                             </div>
 
                                             <div class="col-lg-6" class="form-group">
-                                                <label>Operateur</label>
-                                                 <select id="operateur" name="operateur" class="form-control">
-                                                    <option value="1">Djezzy</option>
-                                                    <option value="2">Mobilis</option>
-                                                    <option value="3">Ooredoo</option>
-                                                    
+                                                <%                                                  
+                                                    List listOperator = new Operator_Util().getAllOperator("");
+                                                %>
+                                                <label>Operator </label>
+                                                <select id="operator" name="operator" required="" class="form-control">
+                                                    <option value="">Selection un operator  </option>
+
+                                                    <%
+                                                        for (int i = 0; i < listOperator.size(); i++) {
+                                                            Operator get = (Operator) listOperator.get(i);
+                                                    %>
+                                                    <option value="<%=get.getOperatorDesc()%>"><%=get.getOperatorDesc()%></option>
+                                                    <%
+                                                        }
+                                                    %>
+
                                                 </select>
                                             </div>
                                             <div class="col-lg-6" class="form-group">
                                                 <label>Type</label>
                                                 <select id="type" name="type" class="form-control">
-                                                   
+
                                                 </select>
                                             </div>
                                             <div class="col-lg-6" class="form-group">

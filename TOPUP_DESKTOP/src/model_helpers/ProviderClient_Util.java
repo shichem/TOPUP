@@ -90,6 +90,24 @@ public class ProviderClient_Util {
         return collect;
 
     } 
+     
+     public List<ProviderClient> getAllProvider_ForClient(int Clientid) {
+        Session session = HibernateUtil.getSessionFactory().openSession();        
+        List<ProviderClient> resultList = new ArrayList<ProviderClient>();
+        try {
+            Query q = session.createQuery("FROM ProviderClient  where flag=0 and traderByIdclient.idtrader = " + Clientid);
+            resultList = q.list();//q.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
+        System.out.println("model_helpers.ProviderClient_Util.getAllTrader_ForProvider()size+++" + resultList.size());
+        List<ProviderClient> collect = resultList.stream()
+                
+                .collect(Collectors.toList());
+        return collect;
+
+    } 
 
     public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) 
     {

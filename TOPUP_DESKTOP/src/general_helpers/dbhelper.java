@@ -88,7 +88,7 @@ public class dbhelper {
         List<UserInfo> userInfoList = new UserInfo_Util().getUserInfo_by_username_password(staticVars.globalSession, username, password, "");
         if (!userInfoList.isEmpty()) {
             user_ui = new userUI((UserInfo) userInfoList.get(0), this.loadOperatorsData(staticVars.globalSession), this.loadTypesStatusData(staticVars.globalSession));
-            user_ui.setSimUIVestor(this.loadSimsPortsData(staticVars.globalSession, proc_fct.getAvailableSimUI_FromSimBox()));
+            //user_ui.setSimUIVestor(this.loadSimsPortsData(staticVars.globalSession, proc_fct.getAvailableSimUI_FromSimBox()));
         }
 
         globalSession.getTransaction().commit();
@@ -109,6 +109,46 @@ public class dbhelper {
 
     public Vector<simUI> loadSimsPortsData(Session session, Vector<simUI> simUIVector) {
 
+        Operator_Util operatorUtil = new Operator_Util();
+        Operator actualOperator;
+
+        String deactivateAllSimsSQL = "UPDATE sim_info SET sim_info.idstatus_info = "
+                + "(SELECT status_info.idstatus_info FROM status_info WHERE status_info.status_info_desc = '" + staticVars.status_ENT_Inactif + "')"
+                + "WHERE sim_info.idstatus_info = "
+                + "(SELECT status_info.idstatus_info FROM status_info WHERE status_info.status_info_desc = '" + staticVars.status_ENT_Actif + "')";
+        session.createSQLQuery(deactivateAllSimsSQL);
+        staticVars.globalSolde = 0.0;
+        staticVars.globalSoldeDjezzy = 0.0;
+        staticVars.globalSoldeMobilis = 0.0;
+        staticVars.globalSoldeOoredoo = 0.0;
+        for (int i = 0; i < simUIVector.size(); i++) {
+            simUI elementAt = simUIVector.elementAt(i);
+            String operatorName = elementAt.getOperatorName();
+            System.out.println();
+            actualOperator = (Operator) operatorUtil.getOperator_by_operatorDesc(session, elementAt.getOperatorName(), "").get(0);
+            switch (operatorName) {
+                case "Djezzy":
+                    staticVars.globalSoldeDjezzy += elementAt.getActualSolde();
+                    break;
+                case "Mobilis":
+                    staticVars.globalSoldeMobilis += elementAt.getActualSolde();
+                    break;
+                case "Ooredoo":
+                    staticVars.globalSoldeOoredoo += elementAt.getActualSolde();
+                    break;
+            }
+            staticVars.globalSolde += elementAt.getActualSolde();
+            List simList = new SimInfo_Util().getSimInfo_by_operator_simnumber(session, actualOperator, elementAt.getSimNumber(), "");
+            if (!simList.isEmpty()) {
+                this.updateSimParametres(session, (SimInfo) simList.get(0), elementAt);
+            }
+        }
+        return simUIVector;
+    }
+
+    public Vector<simUI> loadSimsPortsData() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+       Vector<simUI> simUIVector = proc_fct.getAvailableSimUI_FromSimBox();
         Operator_Util operatorUtil = new Operator_Util();
         Operator actualOperator;
 
@@ -913,11 +953,11 @@ public class dbhelper {
                 return staticVars.TraderAlreadyExists;
             }
             System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink() step 2");
-            System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink() userId"+userID);
+            System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink() userId" + userID);
             UserInfo user = new UserInfo_Util().getUserInfo_by_id(session, userID, "");
             Trader parent = new Trader_Util().getTradfer_by_id(session, Integer.parseInt(providerTrader), "");
             System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink() step 2----");
-            System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink() traderCategory==>"+traderCategory);
+            System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink() traderCategory==>" + traderCategory);
             Trader trader2add = new Trader(new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_ENT_Actif, ""),
                     new TraderCategory_Util().getTraderCategory_by_id(session, Integer.parseInt(traderCategory), ""),
                     new TraderType_Util().geTraderType_by_id(session, Integer.parseInt(traderType), ""),
@@ -934,7 +974,7 @@ public class dbhelper {
             }
             System.out.println("general_helpers.dbhelper.addTrader_forActualUser_AndLink()traderType =>" + traderType);
             int rep = 1;
-            if (traderCategory.equals("2")) {
+            if (!traderCategory.equals("3")) {
                 if (traderType.equals("1")) {
                     StationType stationType = (StationType) new StationType_Util().getStationType_by_id(session, Integer.parseInt(typeStation), "");
                     ServerProfile profile = (ServerProfile) new ServerProfile_Util().getStationType_by_id(session, Integer.parseInt(serverProfile), "");
@@ -1433,8 +1473,10 @@ public class dbhelper {
             UserInfo user = new UserInfo_Util().getUserInfo_by_id(session, userID, "");
             Trader client = new Trader_Util().getTradfer_by_id(session, clientID, "");
             Operator operator = new Operator_Util().getOperator_by_id(session, operatorID, "");
+            System.out.println("general_helpers.dbhelper.updateVirtualBalanceProvider() operator" + operator.getOperatorDesc());
             Trader providerTrader = new Trader_Util().getTradfer_by_id(session, providerID, "");
-            ProviderClient affectationProv = new ProviderClient_Util().getProviderClient_by_provider_client_operator(session, user.getTrader(), providerTrader, operator, "");
+            System.out.println("general_helpers.dbhelper.updateVirtualBalanceProvider() prov" + providerTrader.getTraderFname());
+            ProviderClient affectationProv = new ProviderClient_Util().getProviderClient_by_provider_client_operator(session, providerTrader, client, operator, "");
             ProviderClient affectation = new ProviderClient_Util().getProviderClient_by_provider_client_operator(session, providerTrader, client, operator, "");
             System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
             StatusInfo enCoursST = new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_TCT_EnInstance, "");
@@ -1443,12 +1485,14 @@ public class dbhelper {
             System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
             StatusInfo interrompueST = new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_TCT_Annule, "");
             double newBalance = affectation.getSolde() + amount;
+            System.out.println("general_helpers.dbhelper.updateVirtualBalanceProvider() etap 1---2" + affectationProv);
             double newBalanceProv = affectationProv.getSolde() - amount;
+            System.out.println("general_helpers.dbhelper.updateVirtualBalanceProvider() etap 1---2");
 
-            System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
+            System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1--3");
             TransactionSolde transactSolde = new TransactionSolde(affectation, enCoursST, user, affectation.getSolde(), newBalance, amount, new Date());
             new TransactionSolde_Util().addTransactionSolde(transactSolde, session);
-            System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1");
+            System.out.println("general_helpers.dbhelper.updateVirtualBalance() etap 1---4");
             TransactionSolde transactSoldeProvi = new TransactionSolde(affectationProv, enCoursST, user, affectationProv.getSolde(), newBalanceProv, amount, new Date());
             new TransactionSolde_Util().addTransactionSolde(transactSolde, session);
             session.getTransaction().commit();

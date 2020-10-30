@@ -115,7 +115,9 @@
         <script src="./data/data_graph.js"></script>
         <script>
                                         $(document).ready(function () {
-                                            var table = $('#example').DataTable();
+                                            var table =  $('#example').dataTable({
+                                                 responsive: true
+                                            });
 
                                             $('#example tbody').on('click', 'tr', function () {
                                                 var data = table.row(this).data();

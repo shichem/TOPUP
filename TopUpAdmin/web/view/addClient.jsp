@@ -1,4 +1,6 @@
 
+<%@page import="model_helpers.UserInfo_Util"%>
+<%@page import="model_db.UserInfo"%>
 <%@page import="model_helpers.ServerProfile_Util"%>
 <%@page import="model_db.ServerProfile"%>
 <%@page import="model_helpers.StationType_Util"%>
@@ -38,7 +40,7 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Ajouter detaillant</h1>
+                        <h1 class="page-header">Ajouter <%= staticVars.traderCategory_Detaillant%></h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -89,18 +91,12 @@
                                                 <label>email 1</label>
                                                 <input id="email1" type="email" name="email1" class="form-control" placeholder="Enter email client">
                                             </div>
-                                            <div class="col-lg-6" class="form-group">
-                                                <label>email 2</label>
-                                                <input id="email2" type="email"  name="email2" class="form-control" placeholder="Enter email client">
-                                            </div>
+
                                             <div class="col-lg-6" class="form-group">
                                                 <label>telephone  1</label>
                                                 <input  required=""  id="telephone1" name="telephone1" class="form-control" placeholder="Enter telephone client">
                                             </div>
-                                            <div class="col-lg-6" class="form-group">
-                                                <label>telephone 2</label>
-                                                <input id="telephone2" name="telephone2" class="form-control" placeholder="Enter telephone client">
-                                            </div>
+
                                             <%                                                List tistType = new TraderType_Util().getAllTraderType("");
                                             %>
                                             <div class="col-lg-6" class="form-group">
@@ -131,9 +127,9 @@
 
                                             <%                                                List listcategory = new TraderCategory_Util().getAllTraderCategory("");
                                             %>
-                                            <div hidden="" class="col-lg-6" class="form-group">
-                                                <label>client category</label>
-                                                <select required="" id="catgory" name="catgory" class="form-control" readonly="" >
+                                            <div  class="col-lg-6" class="form-group" hidden="">
+                                                <label>client category </label>
+                                                <select required="" id="catgory" name="catgory" class="form-control"  >
                                                     <option value="">Select un category client </option>
 
                                                     <%
@@ -150,6 +146,7 @@
                                                     <%
                                                         }
                                                     %>
+
                                                 </select>
                                             </div>
                                             <%
@@ -161,10 +158,18 @@
                                                 <select  id="fourn" name="fourn" class="form-control">
                                                     <option value="">Select un fournisseur </option>
 
-                                                    <%                                for (int i = 0; i < possibleParents.size(); i++) {
+                                                    <%
+                                                        Integer userID = Integer.parseInt(session.getAttribute("Id").toString());
+                                                        UserInfo user = new UserInfo_Util().getUserInfo_by_id(userID, "");
+
+                                                        for (int i = 0; i < possibleParents.size(); i++) {
                                                             Trader get = (Trader) possibleParents.get(i);
+                                                            String select = "";
+                                                            if (get.getIdtrader() == user.getTrader().getIdtrader()) {
+                                                                select = "selected='selected'";
+                                                            }
                                                     %>
-                                                    <option value="<%=get.getIdtrader()%>"><%=get.getTraderCompany()%></option>
+                                                    <option value="<%=get.getIdtrader()%>" <%=select%>  ><%=get.getTraderCompany()%></option>
                                                     <%
                                                         }
                                                     %>
@@ -256,6 +261,12 @@
         <script src="./data/data_graph.js"></script>
         <script>
             $(document).ready(function () {
+
+                $("form").submit(function () {
+                Notiflix.Loading.Standard();
+                });
+
+
                 $("#type").change(function () {
                     if ($("#type").val() == "2") {
                         $("#submit2").hide();

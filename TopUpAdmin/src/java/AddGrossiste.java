@@ -54,9 +54,9 @@ public class AddGrossiste extends HttpServlet {
                 String twilaya = request.getParameter("wilaya");
                 String tcommune = request.getParameter("commune");
                 String temail1 = request.getParameter("email1");
-                String temail2 = request.getParameter("email2");
+                String temail2 = "";
                 String ttel1 = request.getParameter("telephone1");
-                String ttel2 = request.getParameter("telephone2");
+                String ttel2 = "";
                 String tsn1 = request.getParameter("sn1");
                 String tsn2 = request.getParameter("sn2");
                 String ttypeStation = request.getParameter("typeStationId");
@@ -84,13 +84,12 @@ public class AddGrossiste extends HttpServlet {
                if(respeonse == staticVars.onGoingProcessOK){
               response.sendRedirect("view/listClient.jsp?add");
          }else{
-            response.sendRedirect("view/addGrossiste.jsp?erreur");
+            response.sendRedirect("view/addSGrossiste.jsp?erreur");
          }
             } catch (Exception e) {
                 e.printStackTrace();
 
             }
-            out.print("test");
         }
     }
 

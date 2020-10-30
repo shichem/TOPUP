@@ -41,3 +41,7 @@
 <script type="text/javascript" src="../lib/datatable/pdfmake.min.js"></script>
 <script type="text/javascript" src="../lib/datatable/vfs_fonts.js"></script>
 <script type="text/javascript" src="../lib/datatable/buttons.html5.min.js"></script>
+<script type="text/javascript" src="../lib/notiflix/notiflix-2.4.0.min.js"></script>
+<script type="text/javascript" src="../lib/notiflix/notiflix-aio-2.4.0.min.js"></script>
+
+

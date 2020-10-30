@@ -171,6 +171,26 @@
                         </div>
                         <div class="panel-body">
                             <div class="col-lg-8">
+                                <div class="col-lg-6" class="form-group">
+
+                                    <label>date fin</label>
+                                    <input type="date" id="dateDebut" value="" class="form-control"/>
+                                </div>
+                                <div class="col-lg-6" class="form-group">
+
+                                    <label>date fin</label>
+                                    <input type="date" id="dateFin" value="" class="form-control"/>
+                                </div>
+                                <div class="col-lg-6" class="form-group">
+
+                                    <label>date fin</label>
+                                    <input type="time" id="timeDebut" step="1" value="" class="form-control"/>
+                                </div>
+                                <div class="col-lg-6" class="form-group">
+
+                                    <label>date fin</label>
+                                    <input type="time" id="timeFin" step="1" value="" class="form-control"/>
+                                </div>
                                 <div class="col-lg-12" class="form-group">
                                     <label>Client</label>
                                     <div class="autocomplete" >
@@ -274,16 +294,7 @@
 
                                     </select>
                                 </div>
-                                <div class="col-lg-6" class="form-group">
-
-                                    <label>date fin</label>
-                                    <input type="date" id="dateDebut" value="dateDebut" class="form-control"/>
-                                </div>
-                                <div class="col-lg-6" class="form-group">
-
-                                    <label>date fin</label>
-                                    <input type="date" id="dateFin" value="dateFin" class="form-control"/>
-                                </div>
+                                
                                 <div class="col-lg-6">
                                     <label>Min sold intervalle</label>
                                     <input type="number" id="minSold" value="maxSold" class="form-control"/>
@@ -307,7 +318,7 @@
                                     </br>
                                     <label style="    color: red;">Slod  litig :</label><label id ="soldLitig" style="    color: red;"></label>
                                 </div>
-
+                               
                                 <div class="col-lg-12" >
                                     <div style="float:right">
                                         <br/>
@@ -333,8 +344,8 @@
                                 <th>Type Transaction  </th>
                                 <th>Date Transaction  </th>
                                 <th>New sold</th>
-                                <th>Transaction Amount</th>
-                                <th>Real Transaction Amount</th>                                                      
+                                <th>Transaction Montant</th>
+                                <th>Real Transaction Montant</th>                                                      
                                 <th>Sent Message  </th>
                                 <th>Recived Message  </th>
                             </tr>
@@ -350,8 +361,8 @@
                                 <th>Type Transaction  </th>
                                 <th>Date Transaction  </th>
                                 <th>New sold</th>
-                                <th>Transaction Amount</th>
-                                <th>Real Transaction Amount</th>                                                      
+                                <th>Transaction Montant</th>
+                                <th>Real Transaction Montant</th>                                                      
                                 <th>Sent Message  </th>
                                 <th>Recived Message  </th>
                             </tr>

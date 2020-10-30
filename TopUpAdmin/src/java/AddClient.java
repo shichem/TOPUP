@@ -41,9 +41,10 @@ public class AddClient extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
+                     String tcategory = request.getParameter("catgory");
+
             try {
                 String ttype = request.getParameter("type");
-                String tcategory = request.getParameter("catgory");
                 String providerTrader = request.getParameter("fourn");
 
                 String tcompany = request.getParameter("company");
@@ -54,9 +55,9 @@ public class AddClient extends HttpServlet {
                 String twilaya = request.getParameter("wilaya");
                 String tcommune = request.getParameter("commune");
                 String temail1 = request.getParameter("email1");
-                String temail2 = request.getParameter("email2");
+                String temail2 ="";
                 String ttel1 = request.getParameter("telephone1");
-                String ttel2 = request.getParameter("telephone2");
+                String ttel2 = "";
                 String tsn1 = request.getParameter("sn1");
                 String tsn2 = request.getParameter("sn2");
                 String ttypeStation = request.getParameter("typeStationId");
@@ -84,13 +85,15 @@ public class AddClient extends HttpServlet {
                if(respeonse == staticVars.onGoingProcessOK){
               response.sendRedirect("view/listClient.jsp?add");
          }else{
+                   if(tcategory.equals(staticVars.traderCategory_Detaillant))
             response.sendRedirect("view/addClient.jsp?erreur");
+                   else
+                        response.sendRedirect("view/addClientGro.jsp?erreur");
          }
             } catch (Exception e) {
                 e.printStackTrace();
 
             }
-            out.print("test");
         }
     }
 

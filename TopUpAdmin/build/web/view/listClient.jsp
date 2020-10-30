@@ -40,8 +40,30 @@
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
-                <div class="row">                    
-                    <div class="col-lg-3 col-md-3">
+                <div class="row">  
+                    <div class="col-lg-2 col-md-2">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-users fa-5x"></i>                                
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><%=new Trader_Util().countTraderByCatgory(staticVars.traderCategory_SuperGrossiste)%></div>
+                                        <div> <%=staticVars.traderCategory_Grossiste%> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="row">
@@ -63,7 +85,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-3">
+                    <div class="col-lg-2 col-md-2">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="row">
@@ -86,7 +108,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-3">
+                    <div class="col-lg-2 col-md-2">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="row">
@@ -109,7 +131,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-3">
+                    <div class="col-lg-2 col-md-2">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="row">
@@ -197,7 +219,7 @@
                                     <a onclick="desctiveClient(<%=get.getIdtrader()%>)" href="#" data-toggle="tooltip" data-placement="left" title="desactive Client"> <i class="fa fa-trash fa-fw"></i><span>Desactive </span></a>
                                     /<a onclick="addSold(<%=get.getIdtrader()%>)"  href="#" data-id="<%=get.getIdtrader()%>" id="modal_provider-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="ajout sold "> <i class="fa fa-credit-card fa-fw"></i><span>Ajout sold </span></a> /
                                     <a onclick="debitSold(<%=get.getIdtrader()%>)" href="#" data-id="<%=get.getIdtrader()%>" id="debit-sold-<%=get.getIdtrader()%>" data-toggle="tooltip" data-placement="left" title="debit sold "> <i class="fa fa-eraser fa-fw"></i><span>Debit sold </span></a> /
-                                            <% if (get.getTraderCategory().getTraderCategoryDesc().equals(staticVars.traderCategory_Grossiste)) {%>
+                                            <% if (!get.getTraderCategory().getTraderCategoryDesc().equals(staticVars.traderCategory_Detaillant)) {%>
                                     <a o href="./listClientGro.jsp?id=<%=get.getIdtrader()%>" > <i class="fa fa-list fa-fw"></i><span>List Client </span></a>
                                             <% }%>
                                 </td>
@@ -285,6 +307,7 @@
 
 
                                             $('#example').dataTable({
+                                                 responsive: true
                                             });
 
 

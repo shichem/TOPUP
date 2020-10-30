@@ -187,8 +187,8 @@
 
 
 
-                                            $('#example').dataTable({
-                                                "pageLength": 4
+                                              $('#example').dataTable({
+                                                 responsive: true
                                             });
 
 

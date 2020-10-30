@@ -174,7 +174,7 @@
                     <div class="col-lg-12" >
                         <div style="float:right">
                             <br/>
-                            <a href="../RefreshSim" type="btn" class="btn btn-success"  onclick="rechercher()" >Mettre à jour</a>
+                            <a href="../RefreshSim" type="btn" class="btn btn-success"   >Mettre à jour</a>
 
                         </div>
                     </div>
@@ -291,7 +291,9 @@
         <script src="./data/data_graph.js"></script>
         <script>
                                 $(document).ready(function () {
-                                var table = $('#example').DataTable();
+                                var table =   $('#example').dataTable({
+                                                 responsive: true
+                                            });
                                 $('#example tbody').on('click', 'tr', function () {
                                 var data = table.row(this).data();
                                 //   alert('You clicked on ' + data[0] + '\'s row');

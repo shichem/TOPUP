@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import general_helpers.dbhelper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -33,6 +34,9 @@ public class RefreshSim extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            System.out.println("RefreshSim.processRequest()" + "in this controller");
+            dbhelper db = new dbhelper();
+            db.loadSimsPortsData();
             response.sendRedirect("view/listSim.jsp");
 
         } catch (Exception e) {

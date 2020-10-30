@@ -46,10 +46,11 @@ public class DebitSoldClientProvider extends HttpServlet {
                 ProviderClient client = client_Util.getProviderClient_by_id( Clientprovider, "");               
                 String amount = request.getParameter("amount");                                
                 dbhelper db = new dbhelper(); 
+                System.out.println("DebitSoldClientProvider.processRequest()"+client.getTraderByIdprovider().getIdtrader()+"op:"+client.getOperator().getIdoperator()+" client :"+client.getTraderByIdclient().getIdtrader()+ " amount"+amount);
                 db.updateVirtualBalanceProvider(userID, client.getTraderByIdprovider().getIdtrader(), client.getTraderByIdclient().getIdtrader(), client.getOperator().getIdoperator(),-Double.parseDouble(amount));              
-                response.sendRedirect("view/listProviderClient.jsp?id=15&succesSold");
+                response.sendRedirect("view/listProviderClient.jsp?succesDebitSold");
             } catch (Exception e) {
-                response.sendRedirect("view/listProviderClient.jsp?id=15&erreur");
+                response.sendRedirect("view/listProviderClient.js?erreur");
             }
         }
     }
