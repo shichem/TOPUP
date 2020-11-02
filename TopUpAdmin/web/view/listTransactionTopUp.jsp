@@ -1,4 +1,6 @@
 
+<%@page import="model_db.SimType"%>
+<%@page import="model_helpers.SimType_Util"%>
 <%@page import="model_helpers.TransactionTopup_Util"%>
 <%@page import="model_helpers.TransactionTopup_Util"%>
 <%@page import="model_db.Operator"%>
@@ -183,12 +185,12 @@
                                 </div>
                                 <div class="col-lg-6" class="form-group">
 
-                                    <label>date fin</label>
+                                    <label>time debut</label>
                                     <input type="time" id="timeDebut" step="1" value="" class="form-control"/>
                                 </div>
                                 <div class="col-lg-6" class="form-group">
 
-                                    <label>date fin</label>
+                                    <label>time fin</label>
                                     <input type="time" id="timeFin" step="1" value="" class="form-control"/>
                                 </div>
                                 <div class="col-lg-12" class="form-group">
@@ -235,7 +237,25 @@
 
                                     </select>
                                 </div>
-                                <div class="col-lg-12" class="form-group">
+                                         <div class="col-lg-6" class="form-group">
+                                    <%
+                                        List Simtype = new SimType_Util().getAllSimType("");
+                                    %>
+                                    <label> Sim Type</label>
+                                    <select id="simType" name="simType" required="" class="form-control">
+                                        <option value="">Selection type du Sim  </option>
+
+                                        <%                                for (int i = 0; i < Simtype.size(); i++) {
+                                                SimType get = (SimType) Simtype.get(i);
+                                        %>
+                                        <option value="<%=get.getSimTypeDesc()%>"><%=get.getSimTypeDesc()%></option>
+                                        <%
+                                            }
+                                        %>
+
+                                    </select>
+                                </div>
+                                <div class="col-lg-6" class="form-group">
                                     <%
                                         List listOperator = new Operator_Util().getAllOperator("");
                                     %>
@@ -294,7 +314,7 @@
 
                                     </select>
                                 </div>
-                                
+
                                 <div class="col-lg-6">
                                     <label>Min sold intervalle</label>
                                     <input type="number" id="minSold" value="maxSold" class="form-control"/>
@@ -318,7 +338,7 @@
                                     </br>
                                     <label style="    color: red;">Slod  litig :</label><label id ="soldLitig" style="    color: red;"></label>
                                 </div>
-                               
+
                                 <div class="col-lg-12" >
                                     <div style="float:right">
                                         <br/>
@@ -410,6 +430,9 @@
                             name: $('#treader').val(),
                             dateDebut: $('#dateDebut').val(),
                             dateFin: $('#dateFin').val(),
+                            timeDebut: $('#timeDebut').val(),
+                            timeFin: $('#timeFin').val(),
+                             simType : $('#simType :selected').val(),
                             operator: $('#operator :selected').val(),
                             offer: $('#offer :selected').val(),
                             sim: $('#sim :selected').val(),
@@ -443,6 +466,9 @@
                             var name = $('#treader').val();
                             var dateDebut = $('#dateDebut').val();
                             var dateFin = $('#dateFin').val();
+                            var timeDebut = $('#timeDebut').val();
+                            var timeFin = $('#timeFin').val();
+                            var simType = $('#simType :selected').val();
                             var operator = $('#operator :selected').val();
                             var offer = $('#offer :selected').val();
                             var sim = $('#sim :selected').val();
@@ -456,8 +482,11 @@
                             data.name = name;
                             data.dateDebut = dateDebut;
                             data.dateFin = dateFin;
+                            data.timeDebut = timeDebut;
+                            data.timeFin = timeFin;
                             data.sim = sim;
                             data.offer = offer;
+                            data.simType=simType;
                             data.operator = operator;
                             data.minSold = minSold;
                             data.maxSold = maxSold;
@@ -631,6 +660,9 @@
                     name: $('#treader').val(),
                     dateDebut: $('#dateDebut').val(),
                     dateFin: $('#dateFin').val(),
+                    timeDebut: $('#timeDebut').val(),
+                    timeFin: $('#timeFin').val(),
+                    simType : $('#simType :selected').val(),
                     operator: $('#operator :selected').val(),
                     offer: $('#offer :selected').val(),
                     sim: $('#sim :selected').val(),
@@ -658,6 +690,9 @@
                         name: $('#treader').val(),
                         dateDebut: $('#dateDebut').val(),
                         dateFin: $('#dateFin').val(),
+                        timeDebut: $('#timeDebut').val(),
+                        timeFin: $('#timeFin').val(),
+                        simType : $('#simType :selected').val(),
                         operator: $('#operator :selected').val(),
                         offer: $('#offer :selected').val(),
                         sim: $('#sim :selected').val(),
@@ -680,15 +715,18 @@
                         // Read values
 
                         status: $('#statusStation :selected').val(),
-                    type: $('#type :selected').val(),
-                    name: $('#treader').val(),
-                    dateDebut: $('#dateDebut').val(),
-                    dateFin: $('#dateFin').val(),
-                    operator: $('#operator :selected').val(),
-                    offer: $('#offer :selected').val(),
-                    sim: $('#sim :selected').val(),
-                    minSold: $("#minSold").val(),
-                    maxSold: $("#maxSold").val()
+                        type: $('#type :selected').val(),
+                        name: $('#treader').val(),
+                        dateDebut: $('#dateDebut').val(),
+                        dateFin: $('#dateFin').val(),
+                        timeDebut: $('#timeDebut').val(),
+                        timeFin: $('#timeFin').val(),
+                        simType : $('#simType :selected').val(),
+                        operator: $('#operator :selected').val(),
+                        offer: $('#offer :selected').val(),
+                        sim: $('#sim :selected').val(),
+                        minSold: $("#minSold").val(),
+                        maxSold: $("#maxSold").val()
 
                     },
                     success: function (responseText) {
@@ -704,40 +742,43 @@
                     }
 
                 });
-                   $.ajax({
-                url: '../SoldByOperartor',
-                type: 'GET',
-                data: {
-                    // Read values
+                $.ajax({
+                    url: '../SoldByOperartor',
+                    type: 'GET',
+                    data: {
+                        // Read values
 
-                  status: $('#statusStation :selected').val(),
-                    type: $('#type :selected').val(),
-                    name: $('#treader').val(),
-                    dateDebut: $('#dateDebut').val(),
-                    dateFin: $('#dateFin').val(),
-                    operator: $('#operator :selected').val(),
-                    offer: $('#offer :selected').val(),
-                    sim: $('#sim :selected').val(),
-                    minSold: $("#minSold").val(),
-                    maxSold: $("#maxSold").val()
+                        status: $('#statusStation :selected').val(),
+                        type: $('#type :selected').val(),
+                        name: $('#treader').val(),
+                        dateDebut: $('#dateDebut').val(),
+                        dateFin: $('#dateFin').val(),
+                        timeDebut: $('#timeDebut').val(),
+                        timeFin: $('#timeFin').val(),
+                        simType : $('#simType :selected').val(),
+                        operator: $('#operator :selected').val(),
+                        offer: $('#offer :selected').val(),
+                        sim: $('#sim :selected').val(),
+                        minSold: $("#minSold").val(),
+                        maxSold: $("#maxSold").val()
 
-                },
-                success: function (result) {
-                    //Do nothing 
-                      $("#MOBILIS").text("0 DA");
+                    },
+                    success: function (result) {
+                        //Do nothing 
+                        $("#MOBILIS").text("0 DA");
                         $("#DJEZZY").text("0 DA");
                         $("#OOREDOO").text("0 DA");
-                        
-                    for (let i = 0; i < result.length; i++) {
-                       $("#"+result[i].label).text(result[i].data +" DA")
-                    }
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                }
 
-            });
+                        for (let i = 0; i < result.length; i++) {
+                            $("#" + result[i].label).text(result[i].data + " DA")
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                    }
+
+                });
 
             }
             // chart  bar 
@@ -785,11 +826,14 @@
                 data: {
                     // Read values
 
-                     status: $('#statusStation :selected').val(),
+                    status: $('#statusStation :selected').val(),
                     type: $('#type :selected').val(),
                     name: $('#treader').val(),
                     dateDebut: $('#dateDebut').val(),
                     dateFin: $('#dateFin').val(),
+                    timeDebut: $('#timeDebut').val(),
+                    timeFin: $('#timeFin').val(),
+                    simType : $('#simType :selected').val(),
                     operator: $('#operator :selected').val(),
                     offer: $('#offer :selected').val(),
                     sim: $('#sim :selected').val(),
@@ -798,11 +842,11 @@
                 },
                 success: function (result) {
                     //Do nothing 
-                     $("#MOBILIS").text("0 DA");
-                        $("#DJEZZY").text("0 DA");
-                        $("#OOREDOO").text("0 DA");
+                    $("#MOBILIS").text("0 DA");
+                    $("#DJEZZY").text("0 DA");
+                    $("#OOREDOO").text("0 DA");
                     for (let i = 0; i < result.length; i++) {
-                       $("#"+result[i].label).text(result[i].data +" DA")
+                        $("#" + result[i].label).text(result[i].data + " DA")
                     }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {

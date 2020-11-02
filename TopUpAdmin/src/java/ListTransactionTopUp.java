@@ -43,6 +43,10 @@ public class ListTransactionTopUp extends HttpServlet {
             String name = request.getParameter("name");
             String dateDebut = request.getParameter("dateDebut");
             String dateFin = request.getParameter("dateFin");
+             String timeDebut = request.getParameter("timeDebut");
+            String timeFin = request.getParameter("timeFin");
+            String simType = request.getParameter("simType");
+            System.out.println("ListTransactionTopUp.processRequest() simType ="+simType);
             String operator = request.getParameter("operator");
             String offer = request.getParameter("offer");
             String sim = request.getParameter("sim");
@@ -55,9 +59,9 @@ public class ListTransactionTopUp extends HttpServlet {
             }
             TransactionTopup_Util topup_Util = new TransactionTopup_Util();
             int count = topup_Util.getAllTransactionTopup();
-            int filtreCount = topup_Util.getAllTransactionTopup(0, count, status, type, name1, dateDebut, dateFin,operator,offer,sim,minSold,maxSold).size();
+            int filtreCount = topup_Util.getAllTransactionTopup(0, count, status, type, name1, dateDebut, dateFin,timeDebut,timeFin,simType,operator,offer,sim,minSold,maxSold).size();
 
-            List l = topup_Util.getAllTransactionTopup(start, length, status, type, name1, dateDebut, dateFin,operator,offer,sim,minSold,maxSold);
+            List l = topup_Util.getAllTransactionTopup(start, length, status, type, name1, dateDebut, dateFin,timeDebut,timeFin,simType,operator,offer,sim,minSold,maxSold);
 
             out.print("{\n \n"
                     + "  \"recordsTotal\": " + count + ",\n"

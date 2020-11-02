@@ -42,6 +42,9 @@ public class SoldByOperartor extends HttpServlet {
             String name = request.getParameter("name");
             String dateDebut = request.getParameter("dateDebut");
             String dateFin = request.getParameter("dateFin");
+             String timeDebut = request.getParameter("timeDebut");
+            String timeFin = request.getParameter("timeFin");
+            String simType = request.getParameter("simType");
             String operator = request.getParameter("operator");
             String offer = request.getParameter("offer");
             String sim = request.getParameter("sim");
@@ -56,8 +59,8 @@ public class SoldByOperartor extends HttpServlet {
 
             TransactionTopup_Util topup_Util = new TransactionTopup_Util();
 
-            List listLable = new TransactionTopup_Util().getAllTransactionTopupGroupTransactionByOpratoreLABEL( status, type, name1, dateDebut, dateFin,operator,offer,sim,minSold,maxSold);
-            List list1Count = new TransactionTopup_Util().getAllTransactionTopupGroupTransactionByOpratoreCount( status, type, name1, dateDebut, dateFin,operator,offer,sim,minSold,maxSold);
+            List listLable = new TransactionTopup_Util().getAllTransactionTopupGroupTransactionByOpratoreLABEL( status, type, name1, dateDebut, dateFin,timeDebut,timeFin,simType,operator,offer,sim,minSold,maxSold);
+            List list1Count = new TransactionTopup_Util().getAllTransactionTopupGroupTransactionByOpratoreCount( status, type, name1, dateDebut, dateFin,timeDebut,timeFin,simType,operator,offer,sim,minSold,maxSold);
             System.out.println("SoldByOperartor.processRequest() sum "+list1Count.size());
             System.out.println("SoldByOperartor.processRequest() Label : "+listLable.size());
             out.print("[");

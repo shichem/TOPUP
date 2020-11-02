@@ -45,18 +45,12 @@
                                         <img src="./template/mobilis.svg" width="130" height="70">                                
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge"><%=staticVars.globalSoldeMobilis%></div>
+                                        <div class="huge"><%=new SimInfo_Util().getLasSoldByOperator("MOBILIS")%></div>
                                         <div>Sold Mobilis </div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
+                           
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4">
@@ -68,18 +62,12 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge"></div>
-                                        <div class="huge"><%=staticVars.globalSoldeDjezzy%></div>
+                                        <div class="huge"><%=new SimInfo_Util().getLasSoldByOperator("DJEZZY") %></div>
                                         <div>Sold Djezzy</div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
+                          
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4">
@@ -89,18 +77,12 @@
                                     <div class="col-xs-3">
                                         <img src="./template/ooredoo.svg" width="130" height="70">                                      </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge"><%=staticVars.globalSoldeOoredoo%></div>
+                                        <div class="huge"><%=new  SimInfo_Util().getLasSoldByOperator("OOREDOO")%></div>
                                         <div>Sold Ooredoo  </div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
+                         
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4">
@@ -116,13 +98,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
+                           
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4">
@@ -139,13 +115,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
+                           
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4">
@@ -161,13 +131,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
+                            
                         </div>
                     </div>
 

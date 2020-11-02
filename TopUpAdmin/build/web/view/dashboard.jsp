@@ -107,6 +107,12 @@
                             $(row).find('td').css('color', 'black');
 
                         }
+                          if (data[6] == `Actif`) {
+                            $(row).css({"background-color": "green"});
+                            $(row).find('td').css('color', 'black');
+
+                        }
+                        
                     }
 
                 });

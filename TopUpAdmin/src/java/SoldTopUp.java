@@ -41,6 +41,9 @@ public class SoldTopUp extends HttpServlet {
             String name = request.getParameter("name");
             String dateDebut = request.getParameter("dateDebut");
             String dateFin = request.getParameter("dateFin");
+             String timeDebut = request.getParameter("timeDebut");
+            String timeFin = request.getParameter("timeFin");
+            String simType = request.getParameter("simType");
             String operator = request.getParameter("operator");
             String offer = request.getParameter("offer");
             String sim = request.getParameter("sim");
@@ -55,13 +58,13 @@ public class SoldTopUp extends HttpServlet {
             double sumValid = 0;
             double sumLitig = 0;
             if (status == "") {
-                sumValid = topup_Util.SumSold(staticVars.status_TCT_Reussie, type, name1, dateDebut, dateFin,operator,offer,sim,minSold,maxSold);
-                sumLitig = topup_Util.SumSold(staticVars.status_TCT_AVerifier, type, name1, dateDebut, dateFin,operator,offer,sim,minSold,maxSold);
+                sumValid = topup_Util.SumSold(staticVars.status_TCT_Reussie, type, name1, dateDebut, dateFin,timeDebut,timeFin,simType,operator,offer,sim,minSold,maxSold);
+                sumLitig = topup_Util.SumSold(staticVars.status_TCT_AVerifier, type, name1, dateDebut, dateFin,timeDebut,timeFin,simType,operator,offer,sim,minSold,maxSold);
             } else if (status.equals(staticVars.status_TCT_Reussie)) {
-                sumValid = topup_Util.SumSold(staticVars.status_TCT_Reussie, type, name1, dateDebut, dateFin,operator,offer,sim,minSold,maxSold);
+                sumValid = topup_Util.SumSold(staticVars.status_TCT_Reussie, type, name1, dateDebut, dateFin,timeDebut,timeFin,simType,operator,offer,sim,minSold,maxSold);
 
             } else if (status.equals(staticVars.status_TCT_AVerifier)) {
-                sumLitig = topup_Util.SumSold(staticVars.status_TCT_AVerifier, type, name1, dateDebut, dateFin,operator,offer,sim,minSold,maxSold);
+                sumLitig = topup_Util.SumSold(staticVars.status_TCT_AVerifier, type, name1, dateDebut, dateFin,timeDebut,timeFin,simType,operator,offer,sim,minSold,maxSold);
 
             }
             out.println("{\"sumValid\" :" + sumValid + ",\"sumLitig\": " + sumLitig + "}");

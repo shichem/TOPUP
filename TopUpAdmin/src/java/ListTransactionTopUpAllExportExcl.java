@@ -42,11 +42,14 @@ public class ListTransactionTopUpAllExportExcl extends HttpServlet {
             String name = request.getParameter("name");
             String dateDebut = request.getParameter("dateDebut");
             String dateFin = request.getParameter("dateFin");
+            String timeDebut = request.getParameter("timeDebut");
+            String timeFin = request.getParameter("timeFin");
+            String simType = request.getParameter("simType");
             String operator = request.getParameter("operator");
             String offer = request.getParameter("offer");
             String sim = request.getParameter("sim");
-            String minSold =request.getParameter("minSold");
-            String maxSold =request.getParameter("maxSold");
+            String minSold = request.getParameter("minSold");
+            String maxSold = request.getParameter("maxSold");
             System.out.println("ListTransactionTopUpAllExportExcl.processRequest()+++" + name);
             String name1 = "";
             if (name != "") {
@@ -55,7 +58,7 @@ public class ListTransactionTopUpAllExportExcl extends HttpServlet {
             }
             TransactionTopup_Util topup_Util = new TransactionTopup_Util();
             int count = topup_Util.getAllTransactionTopup();
-            List l = topup_Util.getAllTransactionTopup(0, count, status, type, name1, dateDebut, dateFin,operator,offer,sim,minSold,maxSold);
+            List l = topup_Util.getAllTransactionTopup(0, count, status, type, name1, dateDebut, dateFin,timeDebut,timeFin,simType ,operator, offer, sim, minSold, maxSold);
 
             out.print("{\n \n"
                     + "" + "\"data\": [");

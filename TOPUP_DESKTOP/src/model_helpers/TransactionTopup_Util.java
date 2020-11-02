@@ -23,15 +23,23 @@ public class TransactionTopup_Util {
 
     }
 
-    public List getAllTransactionTopup(Integer start, Integer length, String Status, String type, String name, String dateDebut, String dateFin, String operator, String offer, String sim, String minSold, String maxSold) {
+    public List getAllTransactionTopup(Integer start, Integer length, String Status, String type, String name, String dateDebut, String dateFin, String timeDebut, String timeFin, String simType, String operator, String offer, String sim, String minSold, String maxSold) {
         String dateWhere = "";
         String interavaleSold = "";
 
+        String timed = " 00:00:00'";
+        if (timeDebut != "") {
+            timed = timeDebut;
+        }
+        String timef = " 23:59:00'";
+        if (timeFin != "") {
+            timef = timeFin;
+        }
         if (dateDebut != "") {
-            dateWhere = "and transact_date >=  '" + dateDebut + " 00:00:00'";
+            dateWhere = "and transact_date >=  '" + dateDebut + timed;
         }
         if (dateFin != "") {
-            dateWhere += " and transact_date <= '" + dateFin + " 23:59:00'";
+            dateWhere += " and transact_date <= '" + dateFin + timef;
         }
         if (minSold != "") {
             interavaleSold += " and transactAmount >=" + minSold;
@@ -45,7 +53,7 @@ public class TransactionTopup_Util {
         try {
             Query q = session.createQuery("FROM TransactionTopup where  providerClient.traderByIdclient.traderFname like '%" + name + "%' and statusInfo.statusInfoDesc like '%" + Status + "%' and transactionType.transactionTypeDesc like '%" + type + "%' "
                     + dateWhere + " " + interavaleSold
-                    + " and flag=0  and simOffer.simInfo.simnumber like'%" + sim + "%' and simOffer.simInfo.operator.operatorDesc like'%" + operator + "%'  and simOffer.offerInfo.offerDesc like'%" + offer + "%'  order by idtransacttopup").setFirstResult(start).setMaxResults(length);
+                    + " and flag=0  and simOffer.simInfo.simnumber like'%" + sim + "%' and simOffer.simInfo.simType.simTypeDesc like'%" + simType + "%'  and simOffer.simInfo.operator.operatorDesc like'%" + operator + "%'  and simOffer.offerInfo.offerDesc like'%" + offer + "%'  order by idtransacttopup").setFirstResult(start).setMaxResults(length);
             resultList = q.list();
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -53,14 +61,22 @@ public class TransactionTopup_Util {
         return resultList;
     }
 
-    public double SumSold(String Status, String type, String name, String dateDebut, String dateFin, String operator, String offer, String sim, String minSold, String maxSold) {
+    public double SumSold(String Status, String type, String name, String dateDebut, String dateFin, String timeDebut, String timeFin, String simType, String operator, String offer, String sim, String minSold, String maxSold) {
         String dateWhere = "";
         String interavaleSold = "";
+        String timed = " 00:00:00'";
+        if (timeDebut != "") {
+            timed = timeDebut;
+        }
+        String timef = " 23:59:00'";
+        if (timeFin != "") {
+            timef = timeFin;
+        }
         if (dateDebut != "") {
-            dateWhere += "and transact_date >=  '" + dateDebut + " 00:00:00'";
+            dateWhere = "and transact_date >=  '" + dateDebut + timed;
         }
         if (dateFin != "") {
-            dateWhere += " and transact_date <= '" + dateFin + " 23:59:00'";
+            dateWhere += " and transact_date <= '" + dateFin + timef;
         }
         if (minSold != "") {
             interavaleSold += " and transactAmount >=" + minSold;
@@ -73,7 +89,7 @@ public class TransactionTopup_Util {
         try {
             Query q = session.createQuery("SELECT  SUM(transactAmount) FROM TransactionTopup where  providerClient.traderByIdclient.traderFname like '%" + name + "%' and statusInfo.statusInfoDesc like '%" + Status + "%' and transactionType.transactionTypeDesc like '%" + type + "%' "
                     + dateWhere + " " + interavaleSold
-                    + " and flag=0 and simOffer.simInfo.simnumber like'%" + sim + "%' and simOffer.simInfo.operator.operatorDesc like'%" + operator + "%'  and simOffer.offerInfo.offerDesc like'%" + offer + "%' ");
+                    + " and flag=0 and simOffer.simInfo.simnumber like'%" + sim + "%' and simOffer.simInfo.simType.simTypeDesc like'%" + simType + "%' and simOffer.simInfo.operator.operatorDesc like'%" + operator + "%'  and simOffer.offerInfo.offerDesc like'%" + offer + "%' ");
             resultList = q.list();
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -260,15 +276,23 @@ public class TransactionTopup_Util {
         hqlQueriesHelper.executeUpdateHQLQuery_WithPreparedSession(adt, session);
     }
 
-    public List getAllTransactionTopupGroupTransactionBySatusLabel(String Status, String type, String name, String dateDebut, String dateFin, String operator, String offer, String sim, String minSold, String maxSold) {
+    public List getAllTransactionTopupGroupTransactionBySatusLabel(String Status, String type, String name, String dateDebut, String dateFin, String timeDebut, String timeFin, String simType, String operator, String offer, String sim, String minSold, String maxSold) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         String dateWhere = "";
         String interavaleSold = "";
+          String timed = " 00:00:00'";
+        if (timeDebut != "") {
+            timed = timeDebut;
+        }
+        String timef = " 23:59:00'";
+        if (timeFin != "") {
+            timef = timeFin;
+        }
         if (dateDebut != "") {
-            dateWhere += "and transact_date >=  '" + dateDebut + " 00:00:00'";
+            dateWhere = "and transact_date >=  '" + dateDebut + timed;
         }
         if (dateFin != "") {
-            dateWhere += " and transact_date <= '" + dateFin + " 23:59:00'";
+            dateWhere += " and transact_date <= '" + dateFin + timef;
         }
         if (minSold != "") {
             interavaleSold += " and transactAmount >=" + minSold;
@@ -280,22 +304,30 @@ public class TransactionTopup_Util {
 
         list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "SELECT statusInfo.statusInfoDesc  FROM TransactionTopup where  providerClient.traderByIdclient.traderFname like '%" + name + "%' and statusInfo.statusInfoDesc like '%" + Status + "%' and transactionType.transactionTypeDesc like '%" + type + "%' "
                 + dateWhere + " " + interavaleSold
-                + " and flag=0  and simOffer.simInfo.simnumber like'%" + sim + "%' and simOffer.simInfo.operator.operatorDesc like'%" + operator + "%'  and simOffer.offerInfo.offerDesc like'%" + offer + "%'  group by statusInfo.statusInfoDesc", "");
+                + " and flag=0  and simOffer.simInfo.simnumber like'%" + sim + "%' and simOffer.simInfo.simType.simTypeDesc like'%" + simType + "%'  and simOffer.simInfo.operator.operatorDesc like'%" + operator + "%'  and simOffer.offerInfo.offerDesc like'%" + offer + "%'  group by statusInfo.statusInfoDesc", "");
 
         System.out.println("model_helpers.TransactionTopup_Util.getAllTransactionTopupGroupTransactionSim()" + list.size());
         return list;
 
     }
 
-    public List getAllTransactionTopupGroupTransactionBySatusCount(String Status, String type, String name, String dateDebut, String dateFin, String operator, String offer, String sim, String minSold, String maxSold) {
+    public List getAllTransactionTopupGroupTransactionBySatusCount(String Status, String type, String name, String dateDebut, String dateFin, String timeDebut, String timeFin, String simType, String operator, String offer, String sim, String minSold, String maxSold) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         String dateWhere = "";
         String interavaleSold = "";
+            String timed = " 00:00:00'";
+        if (timeDebut != "") {
+            timed = timeDebut;
+        }
+        String timef = " 23:59:00'";
+        if (timeFin != "") {
+            timef = timeFin;
+        }
         if (dateDebut != "") {
-            dateWhere += "and transact_date >=  '" + dateDebut + " 00:00:00'";
+            dateWhere = "and transact_date >=  '" + dateDebut + timed;
         }
         if (dateFin != "") {
-            dateWhere += " and transact_date <= '" + dateFin + " 23:59:00'";
+            dateWhere += " and transact_date <= '" + dateFin + timef;
         }
         if (minSold != "") {
             interavaleSold += " and transactAmount >=" + minSold;
@@ -306,22 +338,30 @@ public class TransactionTopup_Util {
         List list = new ArrayList();
         list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "SELECT Count(*)   FROM TransactionTopup where  providerClient.traderByIdclient.traderFname like '%" + name + "%' and statusInfo.statusInfoDesc like '%" + Status + "%' and transactionType.transactionTypeDesc like '%" + type + "%' "
                 + dateWhere + " " + interavaleSold
-                + " and flag=0  and simOffer.simInfo.simnumber like'%" + sim + "%' and simOffer.simInfo.operator.operatorDesc like'%" + operator + "%'  and simOffer.offerInfo.offerDesc like'%" + offer + "%'"
+                + " and flag=0  and simOffer.simInfo.simnumber like'%" + sim + "%' and simOffer.simInfo.simType.simTypeDesc like'%" + simType + "%' and simOffer.simInfo.operator.operatorDesc like'%" + operator + "%'  and simOffer.offerInfo.offerDesc like'%" + offer + "%'"
                 + " group by statusInfo.statusInfoDesc", "");
 
         return list;
 
     }
 
-    public List getAllTransactionTopupGroupTransactionByOpratoreLABEL(String Status, String type, String name, String dateDebut, String dateFin, String operator, String offer, String sim, String minSold, String maxSold) {
+    public List getAllTransactionTopupGroupTransactionByOpratoreLABEL(String Status, String type, String name, String dateDebut, String dateFin, String timeDebut, String timeFin, String simType, String operator, String offer, String sim, String minSold, String maxSold) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         String dateWhere = "";
         String interavaleSold = "";
+         String timed = " 00:00:00'";
+        if (timeDebut != "") {
+            timed = timeDebut;
+        }
+        String timef = " 23:59:00'";
+        if (timeFin != "") {
+            timef = timeFin;
+        }
         if (dateDebut != "") {
-            dateWhere += "and transact_date >=  '" + dateDebut + " 00:00:00'";
+            dateWhere = "and transact_date >=  '" + dateDebut + timed;
         }
         if (dateFin != "") {
-            dateWhere += " and transact_date <= '" + dateFin + " 23:59:00'";
+            dateWhere += " and transact_date <= '" + dateFin + timef;
         }
         if (minSold != "") {
             interavaleSold += " and transactAmount >=" + minSold;
@@ -332,21 +372,29 @@ public class TransactionTopup_Util {
         List list = new ArrayList();
         list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "SELECT simOffer.simInfo.operator.operatorDesc  FROM TransactionTopup where  providerClient.traderByIdclient.traderFname like '%" + name + "%' and statusInfo.statusInfoDesc like '%" + Status + "%' and transactionType.transactionTypeDesc like '%" + type + "%' "
                 + dateWhere + " " + interavaleSold
-                + " and flag=0  and simOffer.simInfo.simnumber like'%" + sim + "%' and simOffer.simInfo.operator.operatorDesc like'%" + operator + "%'  and simOffer.offerInfo.offerDesc like'%" + offer + "%'"
+                + " and flag=0  and simOffer.simInfo.simnumber like'%" + sim + "%' and simOffer.simInfo.simType.simTypeDesc like'%" + simType + "%' and simOffer.simInfo.operator.operatorDesc like'%" + operator + "%'  and simOffer.offerInfo.offerDesc like'%" + offer + "%'"
                 + " group by simOffer.simInfo.operator.operatorDesc", "");
         return list;
 
     }
 
-    public List getAllTransactionTopupGroupTransactionByOpratoreCount(String Status, String type, String name, String dateDebut, String dateFin, String operator, String offer, String sim, String minSold, String maxSold) {
+    public List getAllTransactionTopupGroupTransactionByOpratoreCount(String Status, String type, String name, String dateDebut, String dateFin, String timeDebut, String timeFin, String simType, String operator, String offer, String sim, String minSold, String maxSold) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         String dateWhere = "";
         String interavaleSold = "";
+           String timed = " 00:00:00'";
+        if (timeDebut != "") {
+            timed = timeDebut;
+        }
+        String timef = " 23:59:00'";
+        if (timeFin != "") {
+            timef = timeFin;
+        }
         if (dateDebut != "") {
-            dateWhere += "and transact_date >=  '" + dateDebut + " 00:00:00'";
+            dateWhere = "and transact_date >=  '" + dateDebut + timed;
         }
         if (dateFin != "") {
-            dateWhere += " and transact_date <= '" + dateFin + " 23:59:00'";
+            dateWhere += " and transact_date <= '" + dateFin + timef;
         }
         if (minSold != "") {
             interavaleSold += " and transactAmount >=" + minSold;
@@ -358,7 +406,7 @@ public class TransactionTopup_Util {
 
         list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "SELECT  SUM(transactAmount)  FROM TransactionTopup where  providerClient.traderByIdclient.traderFname like '%" + name + "%' and statusInfo.statusInfoDesc like '%" + Status + "%' and transactionType.transactionTypeDesc like '%" + type + "%' "
                 + dateWhere + " " + interavaleSold
-                + " and flag=0  and simOffer.simInfo.simnumber like'%" + sim + "%' and simOffer.simInfo.operator.operatorDesc like'%" + operator + "%'  and simOffer.offerInfo.offerDesc like'%" + offer + "%'"
+                + " and flag=0  and simOffer.simInfo.simnumber like'%" + sim + "%' and simOffer.simInfo.simType.simTypeDesc like'%" + simType + "%'  and simOffer.simInfo.operator.operatorDesc like'%" + operator + "%'  and simOffer.offerInfo.offerDesc like'%" + offer + "%'"
                 + " group by simOffer.simInfo.operator.operatorDesc", "");
 
         System.out.println("model_helpers.TransactionTopup_Util.getAllTransactionTopupGroupTransactionSim()" + list.size());
@@ -413,16 +461,14 @@ public class TransactionTopup_Util {
         if (dateFin != "") {
             dateWhere += " and transact_date <= '" + dateFin + " 23:59:00'";
         }
-            List list = new ArrayList();
+        List list = new ArrayList();
 
-            list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "SELECT simOffer.simInfo.operator.operatorDesc   FROM TransactionTopup where flag=0 " + dateWhere + " group by simOffer.simInfo.operator.operatorDesc", "");
+        list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "SELECT simOffer.simInfo.operator.operatorDesc   FROM TransactionTopup where flag=0 " + dateWhere + " group by simOffer.simInfo.operator.operatorDesc", "");
 
-            System.out.println("model_helpers.TransactionTopup_Util.getAllTransactionTopupGroupTransactionSim()" + list.size());
-            return list;
+        System.out.println("model_helpers.TransactionTopup_Util.getAllTransactionTopupGroupTransactionSim()" + list.size());
+        return list;
 
-        }
-
-    
+    }
 
     public List getAllTransactionTopupGroupTransactionByOpratoreCount(String dateDebut, String dateFin) {
         Session session = HibernateUtil.getSessionFactory().openSession();
