@@ -76,7 +76,7 @@
                             %>
                             <tr>
                                 <td><%=station.getTrader().getTraderCompany() %></td>
-                                <td><%=station.getStatusInfo().getStatusInfoDesc() %></td>
+                                <td><%=station.getStatusInfo().getStatusInfoDesc().replace("ENT_", "") %></td>
                                 <td><%=station.getStationType().getStationTypeDesc() %></td>
                                 <td><%=station.getServerProfile().getServerAdress1() +"/"+station.getServerProfile().getServerAdress2() %></td> 
                                          <td><%=station.getStationSn1() %></td>

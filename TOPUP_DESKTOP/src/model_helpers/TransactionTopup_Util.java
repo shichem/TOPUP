@@ -29,11 +29,11 @@ public class TransactionTopup_Util {
 
         String timed = " 00:00:00'";
         if (timeDebut != "") {
-            timed = timeDebut;
+            timed = " "+timeDebut+"'";
         }
         String timef = " 23:59:00'";
         if (timeFin != "") {
-            timef = timeFin;
+            timef = " "+timeFin+"'";
         }
         if (dateDebut != "") {
             dateWhere = "and transact_date >=  '" + dateDebut + timed;
@@ -66,11 +66,11 @@ public class TransactionTopup_Util {
         String interavaleSold = "";
         String timed = " 00:00:00'";
         if (timeDebut != "") {
-            timed = timeDebut;
+            timed = " "+timeDebut+"'";;
         }
         String timef = " 23:59:00'";
         if (timeFin != "") {
-            timef = timeFin;
+            timef = " "+timeFin+"'";;
         }
         if (dateDebut != "") {
             dateWhere = "and transact_date >=  '" + dateDebut + timed;
@@ -282,11 +282,11 @@ public class TransactionTopup_Util {
         String interavaleSold = "";
           String timed = " 00:00:00'";
         if (timeDebut != "") {
-            timed = timeDebut;
+            timed = " "+timeDebut+"'";;
         }
         String timef = " 23:59:00'";
         if (timeFin != "") {
-            timef = timeFin;
+            timef = " "+timeFin+"'";;
         }
         if (dateDebut != "") {
             dateWhere = "and transact_date >=  '" + dateDebut + timed;
@@ -317,11 +317,11 @@ public class TransactionTopup_Util {
         String interavaleSold = "";
             String timed = " 00:00:00'";
         if (timeDebut != "") {
-            timed = timeDebut;
+            timed = " "+timeDebut+"'";;
         }
         String timef = " 23:59:00'";
         if (timeFin != "") {
-            timef = timeFin;
+            timef = " "+timeFin+"'";;
         }
         if (dateDebut != "") {
             dateWhere = "and transact_date >=  '" + dateDebut + timed;
@@ -329,6 +329,7 @@ public class TransactionTopup_Util {
         if (dateFin != "") {
             dateWhere += " and transact_date <= '" + dateFin + timef;
         }
+        System.out.println("dateTime => "+dateWhere );
         if (minSold != "") {
             interavaleSold += " and transactAmount >=" + minSold;
         }
@@ -351,11 +352,11 @@ public class TransactionTopup_Util {
         String interavaleSold = "";
          String timed = " 00:00:00'";
         if (timeDebut != "") {
-            timed = timeDebut;
+            timed = " "+timeDebut+"'";;
         }
         String timef = " 23:59:00'";
         if (timeFin != "") {
-            timef = timeFin;
+            timef = " "+timeFin+"'";;
         }
         if (dateDebut != "") {
             dateWhere = "and transact_date >=  '" + dateDebut + timed;
@@ -384,11 +385,11 @@ public class TransactionTopup_Util {
         String interavaleSold = "";
            String timed = " 00:00:00'";
         if (timeDebut != "") {
-            timed = timeDebut;
+            timed = " "+timeDebut+"'";;
         }
         String timef = " 23:59:00'";
         if (timeFin != "") {
-            timef = timeFin;
+            timef = " "+timeFin+"'";;
         }
         if (dateDebut != "") {
             dateWhere = "and transact_date >=  '" + dateDebut + timed;

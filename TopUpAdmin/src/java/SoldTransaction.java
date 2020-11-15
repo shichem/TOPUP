@@ -43,6 +43,8 @@ public class SoldTransaction extends HttpServlet {
             String dateDebut = request.getParameter("dateDebut");
             String provider = request.getParameter("provider");
             String dateFin = request.getParameter("dateFin");
+              String timeDebut = request.getParameter("timeDebut");
+            String timeFin = request.getParameter("timeFin");
             String minSold =request.getParameter("minSold");
             String maxSold =request.getParameter("maxSold");
             String name1 = "";
@@ -60,13 +62,13 @@ public class SoldTransaction extends HttpServlet {
             double sumValid = 0;
             double sumLitig = 0;
             if (status == "") {
-                sumValid = solde_Util.transactionSold(staticVars.status_TCT_Reussie,type,provider1,name1,dateDebut,dateFin,minSold,maxSold);
-                sumLitig = solde_Util.transactionSold( staticVars.status_TCT_AVerifier,type,provider1,name1,dateDebut,dateFin,minSold,maxSold);
+                sumValid = solde_Util.transactionSold(staticVars.status_TCT_Reussie,type,provider1,name1,dateDebut,dateFin,timeDebut,timeFin,minSold,maxSold);
+                sumLitig = solde_Util.transactionSold( staticVars.status_TCT_AVerifier,type,provider1,name1,dateDebut,dateFin,timeDebut,timeFin,minSold,maxSold);
             } else if (status.equals(staticVars.status_TCT_Reussie)) {
-                sumValid = solde_Util.transactionSold(staticVars.status_TCT_Reussie,type,provider1,name1,dateDebut,dateFin,minSold,maxSold);
+                sumValid = solde_Util.transactionSold(staticVars.status_TCT_Reussie,type,provider1,name1,dateDebut,dateFin,timeDebut,timeFin,minSold,maxSold);
 
             } else if (status.equals(staticVars.status_TCT_AVerifier)) {
-                sumLitig = solde_Util.transactionSold( staticVars.status_TCT_AVerifier,type,provider1,name1,dateDebut,dateFin,minSold,maxSold);
+                sumLitig = solde_Util.transactionSold( staticVars.status_TCT_AVerifier,type,provider1,name1,dateDebut,dateFin,timeDebut,timeFin,minSold,maxSold);
 
             }
             

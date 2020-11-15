@@ -112,6 +112,26 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-8">
+                                    <div class="col-lg-6" class="form-group">
+
+                                        <label>date debut</label>
+                                        <input type="date" id="dateDebut" value="dateDebut" class="form-control"/>
+                                    </div>
+                                    <div class="col-lg-6" class="form-group">
+
+                                        <label>date fin</label>
+                                        <input type="date" id="dateFin" value="dateFin" class="form-control"/>
+                                    </div>
+                                    <div class="col-lg-6" class="form-group">
+
+                                        <label>time debut</label>
+                                        <input type="time" id="timeDebut" step="1" value="" class="form-control"/>
+                                    </div>
+                                    <div class="col-lg-6" class="form-group">
+
+                                        <label>time fin</label>
+                                        <input type="time" id="timeFin" step="1" value="" class="form-control"/>
+                                    </div>
                                     <div class="col-lg-12" class="form-group">
                                         <label>Grossiste</label>
                                         <div class="autocomplete" >
@@ -137,7 +157,7 @@
                                             <%                                for (int i = 0; i < listStatus.size(); i++) {
                                                     StatusInfo get = (StatusInfo) listStatus.get(i);
                                             %>
-                                            <option value="<%=get.getStatusInfoDesc()%>"><%=get.getStatusInfoDesc()%></option>
+                                            <option value="<%=get.getStatusInfoDesc()%>"><%=get.getStatusInfoDesc().replace("TCT_", "") %></option>
                                             <%
                                                 }
                                             %>
@@ -154,16 +174,7 @@
                                             <option value="debit">Debit de solde  </option>
                                         </select>
                                     </div>
-                                    <div class="col-lg-6" class="form-group">
 
-                                        <label>date fin</label>
-                                        <input type="date" id="dateDebut" value="dateDebut" class="form-control"/>
-                                    </div>
-                                    <div class="col-lg-6" class="form-group">
-
-                                        <label>date fin</label>
-                                        <input type="date" id="dateFin" value="dateFin" class="form-control"/>
-                                    </div>
                                     <div class="col-lg-6">
                                         <label>Min sold intervalle</label>
                                         <input type="number" id="minSold" value="maxSold" class="form-control"/>
@@ -260,6 +271,8 @@
                             name: $('#treader').val(),
                             dateDebut: $('#dateDebut').val(),
                             dateFin: $('#dateFin').val(),
+                               timeDebut: $('#timeDebut').val(),
+                        timeFin: $('#timeFin').val(),
                             minSold: $("#minSold").val(),
                             maxSold: $("#maxSold").val()
 
@@ -295,6 +308,8 @@
                             var name = $('#treader').val();
                             var dateDebut = $('#dateDebut').val();
                             var dateFin = $('#dateFin').val();
+                            var timeDebut = $('#timeDebut').val();
+                            var timeFin = $('#timeFin').val();
                             var minSold = $("#minSold").val();
 
                             var maxSold = $("#maxSold").val();
@@ -306,6 +321,8 @@
                             data.name = name;
                             data.dateDebut = dateDebut;
                             data.dateFin = dateFin;
+                            data.timeDebut =timeDebut;
+                            data.timeFin = timeFin;
                             data.minSold = minSold;
                             data.maxSold = maxSold;
 
@@ -500,6 +517,8 @@
                     name: $('#treader').val(),
                     dateDebut: $('#dateDebut').val(),
                     dateFin: $('#dateFin').val(),
+                       timeDebut: $('#timeDebut').val(),
+                        timeFin: $('#timeFin').val(),
                     minSold: $("#minSold").val(),
                     maxSold: $("#maxSold").val()
 
@@ -525,6 +544,8 @@
                         name: $('#treader').val(),
                         dateDebut: $('#dateDebut').val(),
                         dateFin: $('#dateFin').val(),
+                           timeDebut: $('#timeDebut').val(),
+                        timeFin: $('#timeFin').val(),
                         minSold: $("#minSold").val(),
                         maxSold: $("#maxSold").val()
 
@@ -551,6 +572,8 @@
                         name: $('#treader').val(),
                         dateDebut: $('#dateDebut').val(),
                         dateFin: $('#dateFin').val(),
+                           timeDebut: $('#timeDebut').val(),
+                        timeFin: $('#timeFin').val(),
                         minSold: $("#minSold").val(),
                         maxSold: $("#maxSold").val()
 

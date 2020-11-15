@@ -206,7 +206,7 @@
                             <tr>
                                 <td><%=info.getSimnumber()%></td>
                                 <td><%=info.getOperator().getOperatorDesc()%></td>
-                                <td><%=info.getStatusInfo().getStatusInfoDesc()%></td>
+                                <td><%=info.getStatusInfo().getStatusInfoDesc().replace("ENT_", "")%></td>
                                 <td><%=info.getLastSolde()%></td>
                                 <td><%=info.getLastEstimatedSolde()%></td>
                                 <td><%=info.getPortInfo().getPortDesc()%></td>

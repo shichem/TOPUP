@@ -46,6 +46,9 @@ public class ListTransactionSold extends HttpServlet {
             String dateDebut = request.getParameter("dateDebut");
             String provider = request.getParameter("provider");
             String dateFin = request.getParameter("dateFin");
+              String timeDebut = request.getParameter("timeDebut");
+            String timeFin = request.getParameter("timeFin");
+            
              String minSold =request.getParameter("minSold");
             String maxSold =request.getParameter("maxSold");
             String name1 = "";
@@ -60,8 +63,8 @@ public class ListTransactionSold extends HttpServlet {
             }
             TransactionSolde_Util solde_Util = new TransactionSolde_Util();
             int count = solde_Util.getAllTransactionSolde();
-            int filtreCount = solde_Util.getAllTransactionSold(0, count,status,type,provider1,name1,dateDebut,dateFin,minSold,maxSold).size();
-            List l = solde_Util.getAllTransactionSold(start, length, status,type, provider1, name1, dateDebut, dateFin,minSold,maxSold);
+            int filtreCount = solde_Util.getAllTransactionSold(0, count,status,type,provider1,name1,dateDebut,dateFin,timeDebut,timeFin,minSold,maxSold).size();
+            List l = solde_Util.getAllTransactionSold(start, length, status,type, provider1, name1, dateDebut, dateFin,timeDebut,timeFin,minSold,maxSold);
 
             out.print("{\n \n"
                     + "  \"recordsTotal\": " + count + ",\n"
@@ -78,7 +81,7 @@ public class ListTransactionSold extends HttpServlet {
                 out.print("\"" + sold.getOldSolde()+ "\",");
              
                 out.print("\"" + sold.getTransactDate().toString() + "\",");
-                out.print("\"" + sold.getStatusInfo().getStatusInfoDesc() + "\",");
+                out.print("\"" + sold.getStatusInfo().getStatusInfoDesc().replace("TCT_", "") + "\",");
                 out.print("\"" + sold.getUserInfo().getUsername()+ "\"");
                 out.print("]");
                 if (i < l.size() - 1) {

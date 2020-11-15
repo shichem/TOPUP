@@ -122,14 +122,22 @@ public class TransactionSolde_Util {
         hqlQueriesHelper.executeUpdateHQLQuery_WithPreparedSession(adt, session);
     }
 
-    public List getAllTransactionSold(Integer start, Integer length, String Status, String type, String provider, String name, String dateDebut, String dateFin, String minSold, String maxSold) {
+    public List getAllTransactionSold(Integer start, Integer length, String Status, String type, String provider, String name, String dateDebut, String dateFin,String timeDebut,String timeFin, String minSold, String maxSold) {
         String dateWhere = "";
         String interavaleSold = "";
+       String timed = " 00:00:00'";
+        if (timeDebut != "") {
+            timed = " "+timeDebut+"'";;
+        }
+        String timef = " 23:59:00'";
+        if (timeFin != "") {
+            timef = " "+timeFin+"'";;
+        }
         if (dateDebut != "") {
-            dateWhere = "and transact_date >=  '" + dateDebut + " 00:00:00' ";
+            dateWhere = "and transact_date >=  '" + dateDebut + timed;
         }
         if (dateFin != "") {
-            dateWhere += " and transact_date <= '" + dateFin + " 23:59:00'";
+            dateWhere += " and transact_date <= '" + dateFin + timef;
         }
         if (minSold != "") {
             interavaleSold += " and transactAmount >=" + minSold;
@@ -147,7 +155,7 @@ public class TransactionSolde_Util {
             wheretype = " and userInfo.trader.idtrader != providerClient.traderByIdclient.idtrader and  transactAmount<0";
 
         }
-        System.out.println("model_helpers.TransactionTopup_Util.getAllTransactionTopup()===>>" + dateWhere);
+        System.out.println("dateTime => "+dateWhere );
         Session session = HibernateUtil.getSessionFactory().openSession();
         List resultList = new ArrayList();
         try {
@@ -161,14 +169,25 @@ public class TransactionSolde_Util {
         return resultList;
     }
 
-    public double transactionSold(String Status, String type, String provider, String name, String dateDebut, String dateFin, String minSold, String maxSold) {
+    public double transactionSold(String Status, String type, String provider, String name, String dateDebut, String dateFin,String timeDebut,String timeFin, String minSold, String maxSold) {
         String dateWhere = "";
         String interavaleSold = "";
+         String timed = " 00:00:00'";
+        if (timeDebut != "") {
+            timed = " "+timeDebut+"'";;
+        }
+        String timef = " 23:59:00'";
+        if (timeFin != "") {
+            timef = " "+timeFin+"'";;
+        }
         if (dateDebut != "") {
-            dateWhere = "and transact_date >=  '" + dateDebut + " 00:00:00'";
+            dateWhere = "and transact_date >=  '" + dateDebut + timed;
         }
         if (dateFin != "") {
-            dateWhere += " and transact_date <= '" + dateFin + " 23:59:00'";
+            dateWhere += " and transact_date <= '" + dateFin + timef;
+        }
+        if (minSold != "") {
+            interavaleSold += " and transactAmount >=" + minSold;
         }
         if (minSold != "") {
             interavaleSold += " and transactAmount >=" + minSold;
@@ -204,15 +223,23 @@ public class TransactionSolde_Util {
         }
     }
 
-    public List getAllTransactionTopupGroupTransactionBySatusLabel(String Status, String type, String provider, String name, String dateDebut, String dateFin, String minSold, String maxSold) {
+    public List getAllTransactionTopupGroupTransactionBySatusLabel(String Status, String type, String provider, String name, String dateDebut, String dateFin,String timeDebut,String timeFin, String minSold, String maxSold) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         String dateWhere = "";
         String interavaleSold = "";
+         String timed = " 00:00:00'";
+        if (timeDebut != "") {
+            timed = " "+timeDebut+"'";;
+        }
+        String timef = " 23:59:00'";
+        if (timeFin != "") {
+            timef = " "+timeFin+"'";;
+        }
         if (dateDebut != "") {
-            dateWhere = "and transact_date >=  '" + dateDebut + " 00:00:00'";
+            dateWhere = "and transact_date >=  '" + dateDebut + timed;
         }
         if (dateFin != "") {
-            dateWhere += " and transact_date <= '" + dateFin + " 23:59:00'";
+            dateWhere += " and transact_date <= '" + dateFin + timef;
         }
         if (minSold != "") {
             interavaleSold += " and transactAmount >=" + minSold;
@@ -239,15 +266,23 @@ public class TransactionSolde_Util {
 
     }
 
-    public List getAllTransactionTopupGroupTransactionBySatusCount(String Status, String type, String provider, String name, String dateDebut, String dateFin, String minSold, String maxSold) {
+    public List getAllTransactionTopupGroupTransactionBySatusCount(String Status, String type, String provider, String name, String dateDebut, String dateFin,String timeDebut,String timeFin, String minSold, String maxSold) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         String dateWhere = "";
         String interavaleSold = "";
+        String timed = " 00:00:00'";
+        if (timeDebut != "") {
+            timed = " "+timeDebut+"'";;
+        }
+        String timef = " 23:59:00'";
+        if (timeFin != "") {
+            timef = " "+timeFin+"'";;
+        }
         if (dateDebut != "") {
-            dateWhere = "and transact_date >=  '" + dateDebut + " 00:00:00'";
+            dateWhere = "and transact_date >=  '" + dateDebut + timed;
         }
         if (dateFin != "") {
-            dateWhere += " and transact_date <= '" + dateFin + " 23:59:00'";
+            dateWhere += " and transact_date <= '" + dateFin + timef;
         }
         if (minSold != "") {
             interavaleSold += " and transactAmount >=" + minSold;

@@ -211,7 +211,7 @@
                                         <%                                for (int i = 0; i < listStatus.size(); i++) {
                                                 StatusInfo get = (StatusInfo) listStatus.get(i);
                                         %>
-                                        <option value="<%=get.getStatusInfoDesc()%>"><%=get.getStatusInfoDesc()%></option>
+                                        <option value="<%=get.getStatusInfoDesc()%>"><%=get.getStatusInfoDesc().replace("TCT_", "") %></option>
                                         <%
                                             }
                                         %>

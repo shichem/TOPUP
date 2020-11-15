@@ -45,6 +45,8 @@ public class ListTransactionSoldAllExportExcl extends HttpServlet {
             String dateDebut = request.getParameter("dateDebut");
             String provider = request.getParameter("provider");
             String dateFin = request.getParameter("dateFin");
+              String timeDebut = request.getParameter("timeDebut");
+            String timeFin = request.getParameter("timeFin");
              String minSold =request.getParameter("minSold");
             String maxSold =request.getParameter("maxSold");
             String name1 = "";
@@ -59,7 +61,7 @@ public class ListTransactionSoldAllExportExcl extends HttpServlet {
             }
             TransactionSolde_Util solde_Util = new TransactionSolde_Util();
             int count = solde_Util.getAllTransactionSolde();
-              List l = solde_Util.getAllTransactionSold(0, count,status,type,provider1,name1,dateDebut,dateFin,minSold,maxSold);
+              List l = solde_Util.getAllTransactionSold(0, count,status,type,provider1,name1,dateDebut,dateFin,timeDebut,timeFin,minSold,maxSold);
          
 
              out.print("{\n \n"

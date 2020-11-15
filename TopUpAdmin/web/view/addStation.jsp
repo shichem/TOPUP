@@ -145,7 +145,7 @@
                                                                 select = "selected='selected'";
                                                             }
                                                     %>
-                                                    <option value="<%=get.getIdstatusInfo()%>" <%=select%> ><%=get.getStatusInfoDesc()%></option>
+                                                    <option value="<%=get.getIdstatusInfo()%>" <%=select%> ><%=get.getStatusInfoDesc().replace("ENT_", "") %></option>
                                                     <%
                                                         }
                                                     %>

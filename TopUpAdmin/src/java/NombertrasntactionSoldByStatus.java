@@ -43,6 +43,8 @@ public class NombertrasntactionSoldByStatus extends HttpServlet {
             String dateDebut = request.getParameter("dateDebut");
             String provider = request.getParameter("provider");
             String dateFin = request.getParameter("dateFin");
+              String timeDebut = request.getParameter("timeDebut");
+            String timeFin = request.getParameter("timeFin");
             String minSold =request.getParameter("minSold");
             String maxSold =request.getParameter("maxSold");
             String name1 = "";
@@ -59,8 +61,8 @@ public class NombertrasntactionSoldByStatus extends HttpServlet {
 
             TransactionSolde_Util sold_util = new TransactionSolde_Util();
 
-            List listLable =  sold_util.getAllTransactionTopupGroupTransactionBySatusLabel(status,type,provider1,name1,dateDebut,dateFin,minSold,maxSold);
-            List list1Count =  sold_util.getAllTransactionTopupGroupTransactionBySatusCount(status,type,provider1,name1,dateDebut,dateFin,minSold,maxSold);
+            List listLable =  sold_util.getAllTransactionTopupGroupTransactionBySatusLabel(status,type,provider1,name1,dateDebut,dateFin,timeDebut,timeFin,minSold,maxSold);
+            List list1Count =  sold_util.getAllTransactionTopupGroupTransactionBySatusCount(status,type,provider1,name1,dateDebut,dateFin,timeDebut,timeFin,minSold,maxSold);
             out.print("[");
             for (int i = 0; i < listLable.size(); i++) {
                 out.print("{\"label\":\"" + (String) listLable.get(i) + ": " + list1Count.get(i).toString() + "\",\"data\": " + list1Count.get(i).toString() + "}");
