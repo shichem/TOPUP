@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 27, 2020 1:59:01 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model_db.OfferInfoDetails" table="offer_info_details" catalog="topup_distributor" optimistic-lock="version">
+        <id name="idofferInfoDetails" type="java.lang.Integer">
+            <column name="idoffer_info_details" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="offerInfo" class="model_db.OfferInfo" fetch="select">
+            <column name="idoffer_info" not-null="true" />
+        </many-to-one>
+        <property name="precolumn" type="string">
+            <column name="precolumn" length="5" not-null="true" />
+        </property>
+        <property name="columnDesc" type="string">
+            <column name="column_desc" length="45" />
+        </property>
+        <property name="postcolumn" type="string">
+            <column name="postcolumn" length="5" />
+        </property>
+        <property name="position" type="int">
+            <column name="position" not-null="true" />
+        </property>
+        <property name="flag" type="java.lang.Integer">
+            <column name="flag" />
+        </property>
+    </class>
+</hibernate-mapping>
