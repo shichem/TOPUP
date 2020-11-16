@@ -22,21 +22,21 @@ public class staticVars {
     /*
     SESSION PARAMETERS     
      */
-    public static Session globalSession = HibernateUtil.getSessionFactory().openSession();;
+    public static Session globalSession = HibernateUtil.getSessionFactory().openSession();
+    ;
     public static userUI actualUser = null;
-    
+
     /*
     CALCUL PARAMETERS
      */
-    public static double globalSolde=0;
-    public static double globalSoldeDjezzy=0;
-    public static double globalSoldeMobilis=0;
-    public static double globalSoldeOoredoo=0;
-    
+    public static double globalSolde = 0;
+    public static double globalSoldeDjezzy = 0;
+    public static double globalSoldeMobilis = 0;
+    public static double globalSoldeOoredoo = 0;
+
     /*
     DATABASE PARAMETERS
      */
-
     public static String userCategory_Administrateur = "Administrateur";
     public static String userCategory_Utilisateur = "Utilisateur";
 
@@ -55,6 +55,8 @@ public class staticVars {
     public static String transactType_TrasfertCredit = "Transfert de credit";
     public static String transactType_AlimentSolde = "Possible Alimentation de solde";
     public static String transactType_DebitSolde = "Possible debit de solde";
+    public static String transactType_AlimentBonus = "Possible Alimentation de bonus";
+    public static String transactType_DebitBonus = "Possible debit de bonus";
     public static String transactType_PaiementFacture = "Paiement de facture";
     public static String transactType_ActivationPuce = "Activation de puce";
 
@@ -72,13 +74,11 @@ public class staticVars {
 
     public static String traderType_Application = "Application";
     public static String traderType_PuceTOPUP = "Puce TOPUP";
-    
+
     public static String station_type_PC = "PC";
     public static String station_type_Mobile = "Mobile";
 
     public static String traderCategory_Grossiste = "Grossiste";
-        public static String traderCategory_SuperGrossiste = "Super Grossiste";
-
     public static String traderCategory_Detaillant = "Detaillant";
 
     /*
@@ -108,8 +108,8 @@ public class staticVars {
     public static int TopUpError = 15;
     public static int insufficientBalance = 16;
     public static int noValidSim = 17;
-    
+
     public static int providerClientLinkAlreadyExists = 18;
     public static int OfferAlreadyExists = 19;
-    
+
 }

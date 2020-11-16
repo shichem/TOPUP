@@ -13,6 +13,34 @@ package simBox.helper;
  */
 public class Sim {
 
+    /**
+     * @return the Bonus
+     */
+    public float getBonus() {
+        return Bonus;
+    }
+
+    /**
+     * @param Bonus the Bonus to set
+     */
+    public void setBonus(float Bonus) {
+        this.Bonus = Bonus;
+    }
+
+    /**
+     * @return the Pin
+     */
+    public String getPin() {
+        return Pin;
+    }
+
+    /**
+     * @param Pin the Pin to set
+     */
+    public void setPin(String Pin) {
+        this.Pin = Pin;
+    }
+
     private String NameOperator="";
 
     public String getPhone() {
@@ -28,6 +56,7 @@ public class Sim {
     private String Etat="";//ON OFF READY
     private String Imei="";
     private String Pin="";
+    private float Bonus=-1; // The current sold balance
 
     public Sim() {
 

@@ -5,13 +5,18 @@
  */
 package topup_desktop;
 
+import com.fazecast.jSerialComm.SerialPort;
 import custom_package.operatorUI;
 import custom_vars.staticVars;
 import custom_vars.uiVars;
 import general_helpers.intermediate_process;
+import helper.DbResult;
+import helper.Utils;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Vector;
@@ -38,8 +43,9 @@ import model_db.Operator;
 import model_db.Trader;
 import model_db.TraderCategory;
 import model_db.TraderType;
-import model_helpers.TraderType_Util;
 import model_helpers.Trader_Util;
+import simBox.helper.Gsm;
+import simBox.helper.Sim;
 
 /**
  *
@@ -55,17 +61,17 @@ public class main_interface extends javax.swing.JFrame {
     Border errorBorder = new LineBorder(Color.RED, 2, true);
     Border okBorder = new LineBorder(Color.GREEN, 2, true);
     MaskFormatter modelMobileNumber;
-    
-    Object[] alltradersColumns={"N* Client","Raison social","Nom","Prénom","Numéro de Puce", "Catégorie", "Type"};
+
+    Object[] alltradersColumns = {"N* Client", "Raison social", "Nom", "Prénom", "Numéro de Puce", "Catégorie", "Type"};
 
     public main_interface() throws ParseException {
         initComponents();
 
-        globaleSolde_Label.setText(String.valueOf(staticVars.globalSolde)+" DA.");
-        globaleSoldeDjezzy_Label.setText(String.valueOf(staticVars.globalSoldeDjezzy)+" DA.");
-        globaleSoldeMobilis_Label.setText(String.valueOf(staticVars.globalSoldeMobilis)+" DA.");
-        globaleSoldeOoredoo_Label.setText(String.valueOf(staticVars.globalSoldeOoredoo)+" DA.");
-        
+        globaleSolde_Label.setText(String.valueOf(staticVars.globalSolde) + " DA.");
+        globaleSoldeDjezzy_Label.setText(String.valueOf(staticVars.globalSoldeDjezzy) + " DA.");
+        globaleSoldeMobilis_Label.setText(String.valueOf(staticVars.globalSoldeMobilis) + " DA.");
+        globaleSoldeOoredoo_Label.setText(String.valueOf(staticVars.globalSoldeOoredoo) + " DA.");
+
         interProcess = new intermediate_process();
         modelMobileNumber = new MaskFormatter("## - ## - ## - ## - ##");
         offreST_operator.addItem("-----------------");
@@ -109,11 +115,12 @@ public class main_interface extends javax.swing.JFrame {
             tradermodel.setValueAt(get.getTraderCategory().getTraderCategoryDesc(), i, 5);
             tradermodel.setValueAt(get.getTraderType().getTraderTypeDesc(), i, 6);
         }
-        
+
         allTradersTable.setModel(tradermodel);
-        
-        
-        if(staticVars.actualUser.getActualUser().getTrader()!=null) jCheckBox1.setVisible(false);
+
+        if (staticVars.actualUser.getActualUser().getTrader() != null) {
+            jCheckBox1.setVisible(false);
+        }
         try {
             try {
                 //UIManager.setLookAndFeel("com.jtattoo.plaf.mint.MintLookAndFeel");
@@ -150,7 +157,20 @@ public class main_interface extends javax.swing.JFrame {
 
         djezzy_send_button.setEnabled(false);
         mobilis_send_button.setEnabled(false);
+        mobilis_send_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mobilis_send_buttonActionPerformed(e);
+            }
+        });
+
         ooredoo_send_button.setEnabled(false);
+        ooredoo_send_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ooredoo_send_buttonActionPerformed(e);
+            }
+        });
 
         djezzy_panel_broker.setIcon(new ImageIcon(uiVars.djezzy80_img));
         djezzy_offers_IconLabel.setIcon(new ImageIcon(uiVars.djezzy64_img));
@@ -1136,7 +1156,7 @@ public class main_interface extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(djezzy_ciompany_text, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
+                .addComponent(djezzy_ciompany_text, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
             .addComponent(jScrollPane6)
         );
         djezzy_show_panelLayout.setVerticalGroup(
@@ -1493,7 +1513,7 @@ public class main_interface extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel50, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mobilis_ciompany_text, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
+                .addComponent(mobilis_ciompany_text, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
             .addComponent(jScrollPane9)
         );
         djezzy_show_panel3Layout.setVerticalGroup(
@@ -1595,6 +1615,11 @@ public class main_interface extends javax.swing.JFrame {
 
         mobilis_send_button.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         mobilis_send_button.setText("Envoyer");
+        mobilis_send_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mobilis_send_buttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -1845,7 +1870,7 @@ public class main_interface extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel55, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ooredoo_ciompany_text, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
+                .addComponent(ooredoo_ciompany_text, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
             .addComponent(jScrollPane10)
         );
         djezzy_show_panel4Layout.setVerticalGroup(
@@ -1947,6 +1972,11 @@ public class main_interface extends javax.swing.JFrame {
 
         ooredoo_send_button.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         ooredoo_send_button.setText("Envoyer");
+        ooredoo_send_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ooredoo_send_buttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -1985,17 +2015,18 @@ public class main_interface extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(RC_TabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(6, 6, 6))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(300, Short.MAX_VALUE)
                 .addComponent(djezzy_panel_broker, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70)
                 .addComponent(Mobilis_panel_broker, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70)
                 .addComponent(ooredoo_panel_broker, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(301, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(RC_TabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2514,6 +2545,11 @@ public class main_interface extends javax.swing.JFrame {
         offresST_AfterPIN.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jButton10.setText("Ajouter ");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jButton11.setText("Réinitialiser");
 
@@ -3239,10 +3275,25 @@ public class main_interface extends javax.swing.JFrame {
     }//GEN-LAST:event_ooredoo_panel_brokerActionPerformed
 
     private void djezzy_send_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_djezzy_send_buttonActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:                
+        for (Sim currentSim : intermediate_process.avaiableSims) {
+            if (currentSim.getNameOperator().toUpperCase().equals(DbResult.OPERATOR_DJEZZY)) {
+                System.out.println("PORT NAME: " + currentSim.getPortCom());
+                SerialPort port = SerialPort.getCommPort(currentSim.getPortCom());
+                Utils.println("port initialisé avec succes ");
+                Gsm gsm = new Gsm(port, currentSim);
+                gsm.executeTopupOperation(
+                        DbResult.getTopupUSSDCodeFromDb(DbResult.OPERATOR_DJEZZY),
+                        djezzy_mobile_ftext.getText().replace(" - ", ""),
+                        djezzy_amount_text.getText(),
+                        DbResult.getPinUSSDCodeFromDb(DbResult.OPERATOR_DJEZZY));
+                //gsm.executeGetOperatorNameOperation();
+            }
+        }
         System.err.println("'" + djezzy_mobile_ftext.getText() + "'  : " + djezzy_mobile_ftext.getText().length());
         System.err.println("'" + interProcess.standardizeMobileNumer(djezzy_mobile_ftext.getText()) + "'  : " + interProcess.standardizeMobileNumer(djezzy_mobile_ftext.getText()).length());
     }//GEN-LAST:event_djezzy_send_buttonActionPerformed
+
 
     private void djezzy_mobile_ftextCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_djezzy_mobile_ftextCaretUpdate
         // TODO add your handling code here:
@@ -3305,6 +3356,7 @@ public class main_interface extends javax.swing.JFrame {
             mobilis_send_button.setEnabled(false);
         }
     }//GEN-LAST:event_mobilis_mobile_ftextKeyReleased
+
 
     private void ooredoo_mobile_ftextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ooredoo_mobile_ftextKeyReleased
         // TODO add your handling code here:
@@ -3414,7 +3466,7 @@ public class main_interface extends javax.swing.JFrame {
                         limitSoldes.add(-1.0);
                         limitSoldes.add(-1.0);
                         limitSoldes.add(-1.0);
-                        
+
                         respeonse = staticVars.requestBroker.addTrader_forActualUser(staticVars.actualUser, tcategory, ttype, tfname, tlname, tcompany, tnumber,
                                 tadress, tcommune, twilaya, temail1, temail2, ttel1, ttel2, operarorVect, limitSoldes);
                     }
@@ -3518,6 +3570,54 @@ public class main_interface extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton36ActionPerformed
 
+    private void ooredoo_send_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ooredoo_send_buttonActionPerformed
+        // TODO add your handling code here:                
+        for (Sim currentSim : intermediate_process.avaiableSims) {
+            if (currentSim.getNameOperator().toUpperCase().equals(DbResult.OPERATOR_OOREDOO)) {
+                System.err.print("1 " + currentSim.getPortCom());
+                System.out.println("PORT NAME: " + currentSim.getPortCom());
+                SerialPort port = SerialPort.getCommPort(currentSim.getPortCom());
+                port.setComPortParameters(115200, 8, 1, SerialPort.NO_PARITY);
+                port.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
+                if (port != null) {
+                    if (port.isOpen() || port.openPort(1000)) {
+                        Gsm gsm = new Gsm(port, currentSim);
+                        gsm.executeTopupOperation(
+                                DbResult.getTopupUSSDCodeFromDb(DbResult.OPERATOR_OOREDOO),
+                                ooredoo_mobile_ftext.getText().replace(" - ", ""),
+                                ooredoo_amount_text.getText().toString(),
+                                DbResult.getPinUSSDCodeFromDb(DbResult.OPERATOR_OOREDOO));
+                    }
+                }
+
+            }
+        }
+        System.err.println("'" + djezzy_mobile_ftext.getText() + "'  : " + djezzy_mobile_ftext.getText().length());
+        System.err.println("'" + interProcess.standardizeMobileNumer(djezzy_mobile_ftext.getText()) + "'  : " + interProcess.standardizeMobileNumer(djezzy_mobile_ftext.getText()).length());
+    }//GEN-LAST:event_ooredoo_send_buttonActionPerformed
+
+    private void mobilis_send_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mobilis_send_buttonActionPerformed
+        // TODO add your handling code here:                
+        for (Sim currentSim : intermediate_process.avaiableSims) {
+            if (currentSim.getNameOperator().toUpperCase().equals(DbResult.OPERATOR_MOBILIS)) {
+                SerialPort port = SerialPort.getCommPort(currentSim.getPortCom());
+                Utils.println("port initialisé avec succes ");
+                Gsm gsm = new Gsm(port, currentSim);
+                gsm.executeTopupOperation(
+                        DbResult.getTopupUSSDCodeFromDb(DbResult.OPERATOR_MOBILIS),
+                        mobilis_mobile_ftext.getText().replace(" - ", ""),
+                        mobilis_amount_text.getText(),
+                        DbResult.getPinUSSDCodeFromDb(DbResult.OPERATOR_MOBILIS));
+            }
+        }
+        System.err.println("'" + mobilis_mobile_ftext.getText() + "'  : " + mobilis_mobile_ftext.getText().length());
+        System.err.println("'" + interProcess.standardizeMobileNumer(mobilis_mobile_ftext.getText()) + "'  : " + interProcess.standardizeMobileNumer(mobilis_mobile_ftext.getText()).length());
+    }//GEN-LAST:event_mobilis_send_buttonActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton10ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3544,6 +3644,7 @@ public class main_interface extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(main_interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -3556,6 +3657,7 @@ public class main_interface extends javax.swing.JFrame {
             }
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Adress_Text;

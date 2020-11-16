@@ -104,8 +104,14 @@ public class SimInfo_Util {
                 + "and simType.simTypeDesc lIKE '%"+simType+"%' ");
 
     }
+
+    public List getSimInfo_by_solde(Session session, double soldemin, double soldemax, String suffix) {
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0 "
+                + "and (lastSolde >= " + soldemin + " and lastSolde <= " + soldemax + ")",
+                suffix);
+    }
     
-    public List getSimInfo_by_simnumberLike(Session session, String simnumber, String suffix) {
+     public List getSimInfo_by_simnumberLike(Session session, String simnumber, String suffix) {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0 and simnumber LIKE '%" + simnumber + "%'", suffix);
     }
 
@@ -118,13 +124,28 @@ public class SimInfo_Util {
                 + "and operator = " + operator.getIdoperator() + " "
                 + "and simnumber = '" + simnumber + "'", suffix);
     }
-
-    public List getSimInfo_by_solde(Session session, double soldemin, double soldemax, String suffix) {
+    
+    public List getSimInfo_by_operator_simnumberLike(Session session, Operator operator, String simnumber, String suffix) {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0 "
-                + "and (lastSolde >= " + soldemin + " and lastSolde <= " + soldemax + ")",
-                suffix);
+                + "and operator = " + operator.getIdoperator() + " "
+                + "and simnumber LIKE '%" + simnumber + "%'", suffix);
+    }
+    public List getSimInfo_by_operatorname_simnumberLike(Session session, String operator, String simnumber, String suffix) {
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0 "
+                + "and operator.operatorDesc = '" + operator + "' "
+                + "and simnumber LIKE '%" + simnumber + "%'", suffix);
+    }
+    public List getSimInfo_by_operatorname_portname(Session session, String operator, String portname, String suffix) {
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0 "
+                + "and operator.operatorDesc = '" + operator + "' "
+                + "and portInfo.portDesc ='" + portname + "'", suffix);
+    }
+    public List getSimInfo_by_operatorname(Session session, String operator, String suffix) {
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM SimInfo where flag=0 "
+                + "and operator.operatorDesc = '" + operator+"'", suffix);
     }
 
+  
     public void addSimInfo(SimInfo adt, Session session) {
         hqlQueriesHelper.executeAddHQLQuery_WithPreparedSession(adt, session);
     }

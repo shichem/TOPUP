@@ -32,7 +32,6 @@ public class TransactionSolde  implements java.io.Serializable {
         this.newSolde = newSolde;
         this.transactAmount = transactAmount;
         this.transactDate = transactDate;
-        this.flag=0;
     }
     public TransactionSolde(ProviderClient providerClient, StatusInfo statusInfo, UserInfo userInfo, double oldSolde, double newSolde, double transactAmount, Date transactDate, Integer flag) {
        this.providerClient = providerClient;

@@ -779,18 +779,19 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="RC_TabbedPane" pref="0" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="300" max="32767" attributes="0"/>
                       <Component id="djezzy_panel_broker" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                       <Component id="Mobilis_panel_broker" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                       <Component id="ooredoo_panel_broker" min="-2" pref="150" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="301" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="RC_TabbedPane" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1093,7 +1094,7 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jLabel35" min="-2" pref="93" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="djezzy_ciompany_text" pref="320" max="32767" attributes="0"/>
+                                  <Component id="djezzy_ciompany_text" pref="280" max="32767" attributes="0"/>
                               </Group>
                               <Component id="jScrollPane6" alignment="0" max="32767" attributes="0"/>
                           </Group>
@@ -1676,7 +1677,7 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jLabel50" min="-2" pref="93" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="mobilis_ciompany_text" pref="320" max="32767" attributes="0"/>
+                                  <Component id="mobilis_ciompany_text" pref="280" max="32767" attributes="0"/>
                               </Group>
                               <Component id="jScrollPane9" alignment="0" max="32767" attributes="0"/>
                           </Group>
@@ -1996,6 +1997,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="Envoyer"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mobilis_send_buttonActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -2256,7 +2260,7 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jLabel55" min="-2" pref="93" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="ooredoo_ciompany_text" pref="320" max="32767" attributes="0"/>
+                                  <Component id="ooredoo_ciompany_text" pref="280" max="32767" attributes="0"/>
                               </Group>
                               <Component id="jScrollPane10" alignment="0" max="32767" attributes="0"/>
                           </Group>
@@ -2576,6 +2580,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="Envoyer"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ooredoo_send_buttonActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -3785,6 +3792,9 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Ajouter "/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton10ActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="jButton11">
                           <Properties>

@@ -10,14 +10,12 @@ import custom_vars.uiVars;
 import general_helpers.intermediate_process;
 import java.awt.Dimension;
 import java.util.List;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import model_db.SimInfo;
 import model_helpers.SimInfo_Util;
-import sun.swing.SwingAccessor;
 import topup_desktop.main_interface;
 
 /**
@@ -25,6 +23,48 @@ import topup_desktop.main_interface;
  * @author kaa aziz
  */
 public class simUI {
+
+    /**
+     * @return the bonusLabel
+     */
+    public JLabel getBonusLabel() {
+        return bonusLabel;
+    }
+
+    /**
+     * @param bonusLabel the bonusLabel to set
+     */
+    public void setBonusLabel(JLabel bonusLabel) {
+        this.bonusLabel = bonusLabel;
+    }
+
+    /**
+     * @return the actualBonus
+     */
+    public double getActualBonus() {
+        return actualBonus;
+    }
+
+    /**
+     * @param actualBonus the actualBonus to set
+     */
+    public void setActualBonus(double actualBonus) {
+        this.actualBonus = actualBonus;
+    }
+
+    /**
+     * @return the simInfo
+     */
+    public SimInfo getSimInfo() {
+        return simInfo;
+    }
+
+    /**
+     * @param simInfo the simInfo to set
+     */
+    public void setSimInfo(SimInfo simInfo) {
+        this.simInfo = simInfo;
+    }
 
     /**
      * @return the soldeLabel
@@ -166,23 +206,27 @@ public class simUI {
         this.isNew = isNew;
     }
 
+    private SimInfo simInfo;
     private String simNumber;
     private String operatorName;
     private String portName;
     private String pinCode;
     private double actualSolde;
+    private double actualBonus;
     private int isNew;
 
     private JButton simNumButton;
     private JButton pinCodeButton;
     private JButton saveButton;
     private JLabel soldeLabel;
+    private JLabel bonusLabel;
 
-    public simUI(String simNumber, String operatorName, String portName, double actualSolde) {
+    public simUI(String simNumber, String operatorName, String portName, double actualSolde, double actualBonus) {
         this.simNumber = simNumber;
         this.operatorName = operatorName;
         this.portName = portName;
         this.actualSolde = actualSolde;
+        this.actualBonus = actualBonus;
         this.isNew = 1;
         this.simNumButton = new JButton("Num " + portName + "?");
         this.simNumButton.setEnabled(false);
@@ -197,6 +241,7 @@ public class simUI {
         this.saveButton.setPreferredSize(new Dimension(80, 30));
         this.saveButton.setHorizontalTextPosition(SwingConstants.CENTER);
         this.soldeLabel = new JLabel(String.valueOf(actualSolde) + " DA.");
+        this.bonusLabel = new JLabel(String.valueOf(actualBonus) + " DA.");
 
         this.simNumButton.addActionListener((java.awt.event.ActionEvent evt) -> {
             String number;

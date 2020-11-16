@@ -16,8 +16,11 @@ import java.util.Locale;
 import java.util.Vector;
 import java.util.regex.Pattern;
 import custom_vars.staticVars;
-import simBox.Connexion.ConnexionPort;
-import simBox.helper.ModemClient;
+import helper.DbResult;
+import helper.Utils;
+import helper.topupResponseModel;
+import org.hibernate.Session;
+import simBox.helper.Gsm;
 import simBox.helper.Sim;
 
 /**
@@ -27,26 +30,27 @@ import simBox.helper.Sim;
 public class intermediate_process {
 
     private int[] numberPos = {0, 1, 5, 6, 10, 11, 15, 16, 20, 21};
+    public static Vector<Sim> avaiableSims;
 
     /*
     SIMBOX INTERACTION BEGIN
      */
-    public Vector<simUI> getAvailableSimUI_FromSimBox() {
+    public Vector<simUI> getAvailableSimUI_FromSimBox(Session session) {
         Vector<simUI> simUIVect = new Vector<simUI>();
+        avaiableSims = new Vector<>();
         /* ADD HERE*/
         SerialPort[] ports = SerialPort.getCommPorts();
+        Utils.println("\n\nNombre total des ports du modem Gsm : " + ports.length + "\n*****");
         for (int i = 0; i < ports.length; ++i) {
-            Sim sim = new Sim(ports[i].getSystemPortName());
-            ConnexionPort connexionPort = new ConnexionPort(ports[i].getSystemPortName());
-            if (connexionPort.openPort(ports[i].getSystemPortName()) && connexionPort.getSerail().getCTS()) {
-                ModemClient modem = new ModemClient(connexionPort.getSerail(), sim);
-                sim = modem.initModem();
-                System.out.println(sim.getNameOperator());
-                System.out.println(sim.getPhone());
-                System.out.println(sim.getPortCom());
-                if(!sim.getNameOperator().equals("")){
-                simUI simui = new simUI(sim.getPhone(), sim.getNameOperator(), sim.getPortCom(), sim.getSold());
-                simUIVect.add(simui);
+            if (ports[i].openPort()) {
+                ports[i].closePort();
+                Sim sim = new Sim(ports[i].getSystemPortName());
+                Gsm modem = new Gsm(ports[i], sim);
+                simUI simui = modem.initModem(session);
+
+                if (simui != null && !simui.getOperatorName().equals("")) {
+                    avaiableSims.add(sim);
+                    simUIVect.add(simui);
                 }
             }
         }
@@ -78,10 +82,35 @@ public class intermediate_process {
 
     public simBoxTransaction sendTopUp_FromSimBox(simBoxTransaction request) {
         /* ADD HERE*/
+        SerialPort port = SerialPort.getCommPort(request.getPortName());
+        port.setComPortParameters(115200, 8, 1, SerialPort.NO_PARITY);
+        port.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
+        if (port != null) {
+            if (port.isOpen() || port.openPort(1000)) {
+                Gsm gsm = new Gsm(port);
+                topupResponseModel trm = gsm.executeTopupOperation(request.getSentMessage());
+                String receivedMessage = trm.getResponseMessage();
+                //request.setLogMessage(request.getLogMessage()+receivedMessage+'\n');
+                int CUSD = receivedMessage.indexOf("CUSD");
+                if (CUSD == -1) {
+                    CUSD = 0;
+                }
+                try {
+                    receivedMessage = receivedMessage.substring(receivedMessage.indexOf(",", CUSD) + 1, receivedMessage.lastIndexOf(","));
+                } catch (Exception ere) {
+                    try {
+                        receivedMessage = receivedMessage.substring(receivedMessage.indexOf(",", CUSD) + 1);
+                    } catch (Exception ere1) {
 
-        /**
-         * ********
-         */
+                    }
+
+                }
+                request.setReceivedMessage(receivedMessage);
+                request.setStatus(trm.getResponseStatus());
+            }
+        }
+        /* request.setReceivedMessage("opéeation....");
+        request.setStatus(1);*/
         return request;
     }
 
@@ -251,6 +280,18 @@ public class intermediate_process {
         //sDate = this.standardizeDateFormat(sDate);
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            d = formatter.format(sDate);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+        return d;
+    }
+    
+    public String DateTimeToSTringName(Date sDate) {
+        String d = null;
+        //sDate = this.standardizeDateFormat(sDate);
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
             d = formatter.format(sDate);
         } catch (RuntimeException e) {
             e.printStackTrace();

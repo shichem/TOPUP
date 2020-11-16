@@ -9,6 +9,8 @@ import custom_package.simUI;
 import custom_vars.staticVars;
 import custom_vars.uiVars;
 import general_helpers.dbhelper;
+import helper.DbResult;
+import helper.Utils;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -99,7 +101,15 @@ public class login_frame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Connexion");
         setResizable(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -256,22 +266,25 @@ public class login_frame extends javax.swing.JFrame {
                                     }
                                     elementAt.getPinCodeButton().setEnabled(true);
                                 }
-                                if (elementAt.getOperatorName().equals("Djezzy")) {
+                                if (elementAt.getOperatorName().toUpperCase().equals(DbResult.OPERATOR_DJEZZY)) {
                                     main_interface.djezzyChipsPanel.add(elementAt.getSimNumButton());
                                     main_interface.djezzyChipsPanel.add(elementAt.getPinCodeButton());
                                     main_interface.djezzyChipsPanel.add(elementAt.getSoldeLabel());
+                                    main_interface.djezzyChipsPanel.add(elementAt.getBonusLabel());
                                     main_interface.djezzyChipsPanel.add(elementAt.getSaveButton());
                                 }
-                                if (elementAt.getOperatorName().equals("Mobilis")) {
+                                if (elementAt.getOperatorName().toUpperCase().equals(DbResult.OPERATOR_MOBILIS)) {
                                     main_interface.mobilisChipsPanel.add(elementAt.getSimNumButton());
                                     main_interface.mobilisChipsPanel.add(elementAt.getPinCodeButton());
                                     main_interface.mobilisChipsPanel.add(elementAt.getSoldeLabel());
+                                    main_interface.mobilisChipsPanel.add(elementAt.getBonusLabel());
                                     main_interface.mobilisChipsPanel.add(elementAt.getSaveButton());
                                 }
-                                if (elementAt.getOperatorName().equals("Ooredoo")) {
+                                if (elementAt.getOperatorName().toUpperCase().equals(DbResult.OPERATOR_OOREDOO)) {
                                     main_interface.OoredooChipsPanel.add(elementAt.getSimNumButton());
                                     main_interface.OoredooChipsPanel.add(elementAt.getPinCodeButton());
                                     main_interface.OoredooChipsPanel.add(elementAt.getSoldeLabel());
+                                    main_interface.OoredooChipsPanel.add(elementAt.getBonusLabel());
                                     main_interface.OoredooChipsPanel.add(elementAt.getSaveButton());
                                 }
                             }
@@ -313,6 +326,15 @@ public class login_frame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowActivated
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        DbResult.getTopupRespnses();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formComponentShown
+
     /**
      * @param args the command line arguments
      */
@@ -338,6 +360,8 @@ public class login_frame extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(login_frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
