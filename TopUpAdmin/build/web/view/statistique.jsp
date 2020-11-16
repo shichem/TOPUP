@@ -447,7 +447,7 @@
                         List list1 = new TransactionTopup_Util().getAllTransactionTopupGroupTransactionSim1();
                         for (int i = 0; i < list.size(); i++) {
                             int j = 1;
-                            out.println("{label: '" + (String) list1.get(i) + ": " + list.get(i).toString() + "',data: " + list.get(i).toString() + "}");
+                            out.println("{label: '" + (String) list1.get(i).toString().replace("TCT_", "").replace("ENT_", "")  + ": " + list.get(i).toString() + "',data: " + list.get(i).toString() + "}");
 
                             if ((j) < list.size()) {
                                 out.print(",");
@@ -483,7 +483,7 @@
                     List list1Count = new TransactionTopup_Util().getAllTransactionTopupGroupTransactionBySatusCount("", "");
                     for (int i = 0; i < listLable.size(); i++) {
                         int j = 1;
-                        out.println("{label: '" + (String) listLable.get(i) + ": " + list1Count.get(i).toString() + "',data: " + list1Count.get(i).toString() + "}");
+                        out.println("{label: '" + (String) listLable.get(i).toString().replace("TCT_", "").replace("ENT_", "")  + ": " + list1Count.get(i).toString() + "',data: " + list1Count.get(i).toString() + "}");
 
                         if ((j) < listLable.size()) {
                             out.print(",");

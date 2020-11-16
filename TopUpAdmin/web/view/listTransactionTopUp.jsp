@@ -172,6 +172,7 @@
                             Recherche   
                         </div>
                         <div class="panel-body">
+                            <form>
                             <div class="col-lg-8">
                                 <div class="col-lg-6" class="form-group">
 
@@ -342,6 +343,7 @@
                                 <div class="col-lg-12" >
                                     <div style="float:right">
                                         <br/>
+                                        <button type="reset" class="btn btn-info">Annuler</button>
                                         <button type="btn" class="btn btn-success"  onclick="rechercher()" >Rechercher</button>
 
                                     </div>
@@ -351,8 +353,10 @@
                                 <div class="flot-chart">
                                     <div class="flot-chart-content" id="flot-pie-chart-status"></div>
                                 </div>
-                            </div>
+                            </div
                         </div>
+                                                                    </form>
+
                     </div>
                     <table id="example" class="display nowrap table dtr-inline collapsed" style="width:100%">
                         <thead>
@@ -787,7 +791,7 @@
                 List list1Count = new TransactionTopup_Util().getAllTransactionTopupGroupTransactionBySatusCount("", "");
                 for (int i = 0; i < listLable.size(); i++) {
                     int j = 1;
-                    out.println("{label: '" + (String) listLable.get(i) + ": " + list1Count.get(i).toString() + "',data: " + list1Count.get(i).toString() + "}");
+                    out.println("{label: '" + (String) listLable.get(i).toString().replace("TCT_", "").replace("ENT_", "")  + ": " + list1Count.get(i).toString() + "',data: " + list1Count.get(i).toString() + "}");
 
                     if (i < listLable.size() - 1) {
                         out.print(",");

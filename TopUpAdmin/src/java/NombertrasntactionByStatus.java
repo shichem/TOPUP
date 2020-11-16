@@ -63,7 +63,7 @@ public class NombertrasntactionByStatus extends HttpServlet {
             List list1Count = new TransactionTopup_Util().getAllTransactionTopupGroupTransactionBySatusCount( status, type, name1, dateDebut, dateFin,timeDebut,timeFin,simType,operator,offer,sim,minSold,maxSold);
             out.print("[");
             for (int i = 0; i < listLable.size(); i++) {
-                out.print("{\"label\":\"" + (String) listLable.get(i) + ": " + list1Count.get(i).toString() + "\",\"data\": " + list1Count.get(i).toString() + "}");
+                out.print("{\"label\":\"" + (String) listLable.get(i).toString().replace("TCT_", "").replace("ENT_", "") + ": " + list1Count.get(i).toString() + "\",\"data\": " + list1Count.get(i).toString() + "}");
                 if (i < listLable.size() - 1) {
                     out.print(",");
                 }
