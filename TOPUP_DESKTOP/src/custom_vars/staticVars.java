@@ -80,6 +80,8 @@ public class staticVars {
 
     public static String traderCategory_Grossiste = "Grossiste";
     public static String traderCategory_Detaillant = "Detaillant";
+            public static String traderCategory_SuperGrossiste = "Super Grossiste";
+
 
     /*
     DATE FORMAT
