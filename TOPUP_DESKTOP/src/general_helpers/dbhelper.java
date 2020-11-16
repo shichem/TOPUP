@@ -164,7 +164,65 @@ public class dbhelper {
         }
         return simUIVector;
     }
-
+  
+   public Vector<simUI> loadSimsPortsData() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+       Vector<simUI> simUIVector = proc_fct.getAvailableSimUI_FromSimBox(session);
+        /*Operator_Util operatorUtil = new Operator_Util();
+        Operator actualOperator;*/
+        String deactivateAllSimsSQL = "UPDATE sim_info SET sim_info.idstatus_info = "
+                + "(SELECT status_info.idstatus_info FROM status_info WHERE status_info.status_info_desc = '" + staticVars.status_ENT_Inactif + "')"
+                + "WHERE sim_info.idstatus_info = "
+                + "(SELECT status_info.idstatus_info FROM status_info WHERE status_info.status_info_desc = '" + staticVars.status_ENT_Actif + "')";
+        String deactivateAllPort = "UPDATE port_info SET port_info.idstatus_info = "
+                + "(SELECT status_info.idstatus_info FROM status_info WHERE status_info.status_info_desc = '" + staticVars.status_ENT_Inactif + "')"
+                + "WHERE port_info.idstatus_info = "
+                + "(SELECT status_info.idstatus_info FROM status_info WHERE status_info.status_info_desc = '" + staticVars.status_ENT_Actif + "')";
+        session.createSQLQuery(deactivateAllSimsSQL).executeUpdate();
+        session.createSQLQuery(deactivateAllPort).executeUpdate();
+        staticVars.globalSolde = 0.0;
+        staticVars.globalSoldeDjezzy = 0.0;
+        staticVars.globalSoldeMobilis = 0.0;
+        staticVars.globalSoldeOoredoo = 0.0;
+        for (int i = 0; i < simUIVector.size(); i++) {
+            simUI elementAt = simUIVector.elementAt(i);
+            String operatorName = elementAt.getOperatorName();
+            //System.out.println();
+            //actualOperator = (Operator) operatorUtil.getOperator_by_operatorDesc(session, elementAt.getOperatorName(), "").get(0);
+            switch (operatorName.toUpperCase()) {
+                case "DJEZZY":
+                    staticVars.globalSoldeDjezzy += elementAt.getActualSolde();
+                    break;
+                case "MOBILIS":
+                    staticVars.globalSoldeMobilis += elementAt.getActualSolde();
+                    break;
+                case "OOREDOO":
+                    staticVars.globalSoldeOoredoo += elementAt.getActualSolde();
+                    break;
+            }
+            System.out.println("operator: " + elementAt.getOperatorName());
+            System.out.println("sim number: " + elementAt.getSimNumber());
+            System.out.println("sim number: " + elementAt.getSimInfo().getSimnumber());
+            System.out.println("pin code: " + elementAt.getPinCode());
+            System.out.println("pin code: " + elementAt.getSimInfo().getSimPinCode());
+            System.out.println("port name: " + elementAt.getPortName());
+            staticVars.globalSolde += elementAt.getActualSolde();
+            List simList;
+            /*simList = new SimInfo_Util().getSimInfo_by_operator_simnumberLike(session, actualOperator,
+                    elementAt.getSimNumber().substring(elementAt.getSimNumber().length()-9, elementAt.getSimNumber().length()), "");*/
+ /* if (!elementAt.getSimNumber().equals("")) {
+                simList = new SimInfo_Util().getSimInfo_by_operatorname_simnumberLike(session, elementAt.getOperatorName(),
+                        elementAt.getSimNumber().substring(elementAt.getSimNumber().length() - 9, elementAt.getSimNumber().length()), "");
+            } else {
+                 simList = new SimInfo_Util().getSimInfo_by_operatorname(session, elementAt.getOperatorName(), "");
+            }
+            if (!simList.isEmpty()) {
+                this.updateSimParametres(session, (SimInfo) simList.get(0), elementAt);
+            }*/
+            this.updateSimParametres(session, elementAt.getSimInfo(), elementAt);
+        }
+        return simUIVector;
+    }
     public void updateSimParametres(Session session, SimInfo actualSim, simUI actualSimUI) {
 
         StatusInfo status_Actif = new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_ENT_Actif, "");
