@@ -3,6 +3,7 @@ package model_helpers;
 import java.util.List;
 import model_db.PortInfo;
 import model_db.StatusInfo;
+import model_util.HibernateUtil;
 import model_util.hqlQueriesHelper;
 import org.hibernate.Session;
 
@@ -15,7 +16,11 @@ public class PortInfo_Util {
         return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM PortInfo where flag=0", suffix);
 
     }
+   public List getAllPortInfo(String suffix) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        return hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM PortInfo where flag=0", suffix);
 
+    }
     public PortInfo getPortInfo_by_id(Session session, int id, String suffix) {
         List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "FROM PortInfo where flag=0 and idportInfo = " + id, suffix);
         if (list.isEmpty()) {

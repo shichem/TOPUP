@@ -76,9 +76,9 @@ public class ListTransactionSold extends HttpServlet {
                 out.print("[");
                 out.print("\"" + sold.getProviderClient().getTraderByIdprovider().getTraderFname() + "\",");
                 out.print("\"" + sold.getProviderClient().getTraderByIdclient().getTraderFname() + "\",");
-                out.print("\"" + sold.getTransactAmount() + "\",");   
-                out.print("\"" + sold.getNewSolde() + "\",");
-                out.print("\"" + sold.getOldSolde()+ "\",");
+                out.print("\"" + String.format("%,.2f",sold.getTransactAmount() )+ "\",");   
+                out.print("\"" + String.format("%,.2f", sold.getNewSolde()) + "\",");
+                out.print("\"" + String.format("%,.2f", sold.getOldSolde())+ "\",");
              
                 out.print("\"" + sold.getTransactDate().toString() + "\",");
                 out.print("\"" + sold.getStatusInfo().getStatusInfoDesc().replace("TCT_", "") + "\",");

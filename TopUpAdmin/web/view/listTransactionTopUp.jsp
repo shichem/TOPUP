@@ -197,7 +197,7 @@
                                 <div class="col-lg-12" class="form-group">
                                     <label>Client</label>
                                     <div class="autocomplete" >
-                                        <input id="treader" type="text" required="" name="trader" class=" form-control"  placeholder="nom du client " autocomplete="off">
+                                        <input id="treader" type="text"  name="trader" class=" form-control"  placeholder="nom du client " autocomplete="off">
                                     </div>
 
                                 </div>
@@ -206,7 +206,7 @@
                                         List listStatus = new StatusInfo_Util().getStatusInfo_by_statusInfoDesc_Like("TCT", "");
                                     %>
                                     <label>status</label>
-                                    <select id="statusStation" name="statusStationId" required="" class="form-control">
+                                    <select id="statusStation" name="statusStationId" class="form-control">
                                         <option value="">Selection status du transction  </option>
 
                                         <%                                for (int i = 0; i < listStatus.size(); i++) {
@@ -225,7 +225,7 @@
                                         List listtype = new TransactionType_Util().getAllTransactionType("");
                                     %>
                                     <label>Type</label>
-                                    <select id="type" name="typeTransaction" required="" class="form-control">
+                                    <select id="type" name="typeTransaction"  class="form-control">
                                         <option value="">Selection type du station  </option>
 
                                         <%                                for (int i = 0; i < listtype.size(); i++) {
@@ -243,7 +243,7 @@
                                         List Simtype = new SimType_Util().getAllSimType("");
                                     %>
                                     <label> Sim Type</label>
-                                    <select id="simType" name="simType" required="" class="form-control">
+                                    <select id="simType" name="simType"  class="form-control">
                                         <option value="">Selection type du Sim  </option>
 
                                         <%                                for (int i = 0; i < Simtype.size(); i++) {
@@ -261,7 +261,7 @@
                                         List listOperator = new Operator_Util().getAllOperator("");
                                     %>
                                     <label>Operator </label>
-                                    <select id="operator" name="operator" required="" class="form-control">
+                                    <select id="operator" name="operator"  class="form-control">
                                         <option value="">Selection un operator  </option>
 
                                         <%
@@ -280,7 +280,7 @@
                                         List listoffre = new OfferInfo_Util().getAllOfferInfo("");
                                     %>
                                     <label>Offer</label>
-                                    <select id="offer" name="offer" required="" class="form-control">
+                                    <select id="offer" name="offer" class="form-control">
                                         <option value="">Selection type du offer  </option>
 
                                         <%
@@ -301,7 +301,7 @@
                                         List listsim = new SimInfo_Util().getAllSimInfo("");
                                     %>
                                     <label>Sim</label>
-                                    <select id="sim" name="sim" required="" class="form-control">
+                                    <select id="sim" name="sim"  class="form-control">
                                         <option value="">Selection un sim  </option>
 
                                         <%

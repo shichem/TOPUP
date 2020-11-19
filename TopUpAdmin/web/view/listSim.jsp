@@ -45,12 +45,12 @@
                                         <img src="./template/mobilis.svg" width="130" height="70">                                
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge"><%=new SimInfo_Util().getLasSoldByOperator("MOBILIS")%></div>
+                                        <div class="huge"><%=String.format("%,.2f", new SimInfo_Util().getLasSoldByOperator("MOBILIS"))%></div>
                                         <div>Sold Mobilis </div>
                                     </div>
                                 </div>
                             </div>
-                           
+
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4">
@@ -62,12 +62,12 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge"></div>
-                                        <div class="huge"><%=new SimInfo_Util().getLasSoldByOperator("DJEZZY") %></div>
+                                        <div class="huge"><%=String.format("%,.2f", new SimInfo_Util().getLasSoldByOperator("DJEZZY"))%></div>
                                         <div>Sold Djezzy</div>
                                     </div>
                                 </div>
                             </div>
-                          
+
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4">
@@ -77,12 +77,12 @@
                                     <div class="col-xs-3">
                                         <img src="./template/ooredoo.svg" width="130" height="70">                                      </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge"><%=new  SimInfo_Util().getLasSoldByOperator("OOREDOO")%></div>
+                                        <div class="huge"><%=String.format("%,.2f", new SimInfo_Util().getLasSoldByOperator("OOREDOO"))%></div>
                                         <div>Sold Ooredoo  </div>
                                     </div>
                                 </div>
                             </div>
-                         
+
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4">
@@ -90,15 +90,15 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                         <i class="fa fa-sim-card fa-5x"></i>                             
+                                        <i class="fa fa-sim-card fa-5x"></i>                             
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge"><%=new  SimInfo_Util().countSimInfoByStatus(staticVars.status_ENT_Actif) %></div>
+                                        <div class="huge"><%=new SimInfo_Util().countSimInfoByStatus(staticVars.status_ENT_Actif)%></div>
                                         <div>Number du sim Actif</div>
                                     </div>
                                 </div>
                             </div>
-                           
+
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4">
@@ -106,16 +106,16 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">                                
-                                          <i class="fa fa-ban fa-5x"></i>                              
+                                        <i class="fa fa-ban fa-5x"></i>                              
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge"></div>
-                                        <div class="huge"><%=new  SimInfo_Util().countSimInfoByStatus(staticVars.status_ENT_Bloque) %></div>
+                                        <div class="huge"><%=new SimInfo_Util().countSimInfoByStatus(staticVars.status_ENT_Bloque)%></div>
                                         <div>Number du sim bloque</div>
                                     </div>
                                 </div>
                             </div>
-                           
+
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4">
@@ -123,15 +123,15 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                          <i class="fa fa-times-circle fa-5x"></i>                        
+                                        <i class="fa fa-times-circle fa-5x"></i>                        
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge"><%=new  SimInfo_Util().countSimInfoByStatus(staticVars.status_ENT_Inactif) %></div>
+                                        <div class="huge"><%=new SimInfo_Util().countSimInfoByStatus(staticVars.status_ENT_Inactif)%></div>
                                         <div>Number du sim Inactif</div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
 
@@ -166,12 +166,12 @@
                     Sim supprime  avec success
                 </div>
                 <% } %>
-                 <% if (request.getParameter("bloque") != null) { %>
+                <% if (request.getParameter("bloque") != null) { %>
                 <div class="alert alert-success" role="alert">
                     Sim bloque  avec success
                 </div>
                 <% } %>
-                   <% if (request.getParameter("active") != null) { %>
+                <% if (request.getParameter("active") != null) { %>
                 <div class="alert alert-success" role="alert">
                     Sim active  avec success
                 </div>
@@ -190,6 +190,7 @@
                                 <th>Status</th>
                                 <th>last sold</th>
                                 <th>Sold estimed</th>
+                                <th>Sold bonus</th>
                                 <th>Port</th>
                                 <th>Type</th>
                                 <th>Action</th>
@@ -207,8 +208,9 @@
                                 <td><%=info.getSimnumber()%></td>
                                 <td><%=info.getOperator().getOperatorDesc()%></td>
                                 <td><%=info.getStatusInfo().getStatusInfoDesc().replace("ENT_", "")%></td>
-                                <td><%=info.getLastSolde()%></td>
-                                <td><%=info.getLastEstimatedSolde()%></td>
+                                <td><%= String.format("%,.2f", info.getLastSolde())%></td>
+                                <td><%= String.format("%,.2f", info.getLastEstimatedSolde())%></td>
+                                <td><%= String.format("%,.2f", info.getLastBonus())%></td>
                                 <td><%=info.getPortInfo().getPortDesc()%></td>
                                 <td><%=info.getSimType().getSimTypeDesc()%></td>
                                 <td>
@@ -237,6 +239,7 @@
                                 <th>Status</th>
                                 <th>last sold</th>
                                 <th>Sold estimed</th>
+                                <th>Sold bonus</th>
                                 <th>Port</th>
                                 <th>Type</th>
                                 <th>Action</th>
@@ -254,40 +257,40 @@
         <!-- data -->
         <script src="./data/data_graph.js"></script>
         <script>
-                                $(document).ready(function () {
-                                var table =   $('#example').dataTable({
-                                                 responsive: true
+                                        $(document).ready(function () {
+                                            var table = $('#example').dataTable({
+                                                responsive: true
                                             });
-                                $('#example tbody').on('click', 'tr', function () {
-                                var data = table.row(this).data();
-                                //   alert('You clicked on ' + data[0] + '\'s row');
-                                });
-                                });
-                                function BloqueSimInfo(id){
-                                var r = confirm("vous voulez bloque sim");
-                                if (r == true) {
-                                window.location.href = "../BloqueSim?id=" + id;
-                                } else {
+                                            $('#example tbody').on('click', 'tr', function () {
+                                                var data = table.row(this).data();
+                                                //   alert('You clicked on ' + data[0] + '\'s row');
+                                            });
+                                        });
+                                        function BloqueSimInfo(id) {
+                                            var r = confirm("vous voulez bloque sim");
+                                            if (r == true) {
+                                                window.location.href = "../BloqueSim?id=" + id;
+                                            } else {
 
-                                }
-                                }
+                                            }
+                                        }
 
-                                function ActivateSimInfo(id) {
-                                var r = confirm("vous voulez active sim ");
-                                if (r == true) {
-                                window.location.href = "../ActiveSim?id=" + id;
-                                } else {
+                                        function ActivateSimInfo(id) {
+                                            var r = confirm("vous voulez active sim ");
+                                            if (r == true) {
+                                                window.location.href = "../ActiveSim?id=" + id;
+                                            } else {
 
-                                }
-                                }
-                                function desctiveSimInfo(id) {
-                                var r = confirm("vous voulez désactiver sim");
-                                if (r == true) {
-                                window.location.href = "../DesactiveSim?id=" + id;
-                                } else {
+                                            }
+                                        }
+                                        function desctiveSimInfo(id) {
+                                            var r = confirm("vous voulez désactiver sim");
+                                            if (r == true) {
+                                                window.location.href = "../DesactiveSim?id=" + id;
+                                            } else {
 
-                                }
-                                }
+                                            }
+                                        }
         </script>
     </script>
 </body>

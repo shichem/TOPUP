@@ -78,9 +78,9 @@ public class ListTransactionTopUp extends HttpServlet {
                 out.print("\"" + topup.getTransactionType().getTransactionTypeDesc() + "\",");
                 out.print("\"" + topup.getTransactDate().toString() + "\",");
 
-                out.print("\"" + topup.getNewSolde() + "\",");
-                out.print("\"" + topup.getTransactAmount() + "\",");
-                out.print("\"" + topup.getRealTransactAmount() + "\",");
+                out.print("\"" +String.format("%,.2f", topup.getNewSolde()) + "\",");
+                out.print("\"" +String.format("%,.2f", topup.getTransactAmount()) + "\",");
+                out.print("\"" + String.format("%,.2f",topup.getRealTransactAmount()) + "\",");
                 out.print("\"" + topup.getSentMessage() + "\",");
                 out.print("\"<i>" + topup.getRecievedMessage().replaceAll("\"", "'").replaceAll("[\r\n]+", "") + "</i>\"");
                 out.print("]");

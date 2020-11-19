@@ -136,14 +136,14 @@
                                     <div class="col-lg-12" class="form-group">
                                         <label>Grossiste</label>
                                         <div class="autocomplete" >
-                                            <input id="provider" type="text" required="" name="provider" class=" form-control"  placeholder="nom du grossiste " autocomplete="off">
+                                            <input id="provider" type="text"  name="provider" class=" form-control"  placeholder="nom du grossiste " autocomplete="off">
                                         </div>
 
                                     </div>
                                     <div class="col-lg-12" class="form-group">
                                         <label>Client</label>
                                         <div class="autocomplete" >
-                                            <input id="treader" type="text" required="" name="trader" class=" form-control"  placeholder="nom du client " autocomplete="off">
+                                            <input id="treader" type="text"  name="trader" class=" form-control"  placeholder="nom du client " autocomplete="off">
                                         </div>
 
                                     </div>
@@ -152,7 +152,7 @@
                                             List listStatus = new StatusInfo_Util().getStatusInfo_by_statusInfoDesc_Like("TCT", "");
                                         %>
                                         <label>status</label>
-                                        <select id="statusStation" name="statusStationId" required="" class="form-control">
+                                        <select id="statusStation" name="statusStationId"  class="form-control">
                                             <option value="">Selection status du transction  </option>
 
                                             <%                                for (int i = 0; i < listStatus.size(); i++) {
@@ -168,7 +168,7 @@
                                     <div class="col-lg-6" class="form-group">
 
                                         <label>Type</label>
-                                        <select id="type" name="type" required="" class="form-control">
+                                        <select id="type" name="type"  class="form-control">
                                             <option value="">Selection Type du transction  </option>
                                             <option value="TopUp">TopUp  </option>
                                             <option value="alimantion">Alimentation de solde  </option>
