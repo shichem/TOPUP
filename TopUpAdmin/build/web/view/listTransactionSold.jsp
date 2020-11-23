@@ -112,112 +112,133 @@
                         <div class="panel-body">
                             <div class="row">
                                 <form>
-                                <div class="col-lg-8">
-                                    <div class="col-lg-6" class="form-group">
+                                    <div class="col-lg-8">
+                                        <div class="col-lg-6" class="form-group">
 
-                                        <label>date debut</label>
-                                        <input type="date" id="dateDebut" value="dateDebut" class="form-control"/>
-                                    </div>
-                                    <div class="col-lg-6" class="form-group">
+                                            <label>date debut</label>
+                                            <div class='input-group date' id='datetimepicker1'>
+                                                <input id="dateDebut" type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6" class="form-group">
 
-                                        <label>date fin</label>
-                                        <input type="date" id="dateFin" value="dateFin" class="form-control"/>
-                                    </div>
-                                    <div class="col-lg-6" class="form-group">
-
-                                        <label>time debut</label>
-                                        <input type="time" id="timeDebut" step="1" value="" class="form-control"/>
-                                    </div>
-                                    <div class="col-lg-6" class="form-group">
-
-                                        <label>time fin</label>
-                                        <input type="time" id="timeFin" step="1" value="" class="form-control"/>
-                                    </div>
-                                    <div class="col-lg-12" class="form-group">
-                                        <label>Grossiste</label>
-                                        <div class="autocomplete" >
-                                            <input id="provider" type="text"  name="provider" class=" form-control"  placeholder="nom du grossiste " autocomplete="off">
+                                            <label>date fin</label>
+                                            <div class='input-group date' id='datetimepicker2'>
+                                                <input  id="dateFin" type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
                                         </div>
 
-                                    </div>
-                                    <div class="col-lg-12" class="form-group">
-                                        <label>Client</label>
-                                        <div class="autocomplete" >
-                                            <input id="treader" type="text"  name="trader" class=" form-control"  placeholder="nom du client " autocomplete="off">
+                                        <div class="col-lg-6" class="form-group">
+
+                                            <label>time debut</label>
+                                            <div class='input-group date' id='time1'>
+                                                <input type='text' id="timeDebut" class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-time"></span>
+                                                </span>
+                                            </div>
                                         </div>
+                                        <div class="col-lg-6" class="form-group">
 
-                                    </div>
-                                    <div class="col-lg-6" class="form-group">
-                                        <%
-                                            List listStatus = new StatusInfo_Util().getStatusInfo_by_statusInfoDesc_Like("TCT", "");
-                                        %>
-                                        <label>status</label>
-                                        <select id="statusStation" name="statusStationId"  class="form-control">
-                                            <option value="">Selection status du transction  </option>
+                                            <label>time fin</label>
+                                             <div class='input-group date' id='time2'>
+                                                <input type='text' id="timeFin" class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-time"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12" class="form-group">
+                                            <label>Grossiste</label>
+                                            <div class="autocomplete" >
+                                                <input id="provider" type="text"  name="provider" class=" form-control"  placeholder="nom du grossiste " autocomplete="off">
+                                            </div>
 
-                                            <%                                for (int i = 0; i < listStatus.size(); i++) {
-                                                    StatusInfo get = (StatusInfo) listStatus.get(i);
-                                            %>
-                                            <option value="<%=get.getStatusInfoDesc()%>"><%=get.getStatusInfoDesc().replace("TCT_", "") %></option>
+                                        </div>
+                                        <div class="col-lg-12" class="form-group">
+                                            <label>Client</label>
+                                            <div class="autocomplete" >
+                                                <input id="treader" type="text"  name="trader" class=" form-control"  placeholder="nom du client " autocomplete="off">
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-6" class="form-group">
                                             <%
-                                                }
+                                                List listStatus = new StatusInfo_Util().getStatusInfo_by_statusInfoDesc_Like("TCT", "");
                                             %>
+                                            <label>status</label>
+                                            <select id="statusStation" name="statusStationId"  class="form-control">
+                                                <option value="">Selection status du transction  </option>
 
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-6" class="form-group">
+                                                <%                                for (int i = 0; i < listStatus.size(); i++) {
+                                                        StatusInfo get = (StatusInfo) listStatus.get(i);
+                                                %>
+                                                <option value="<%=get.getStatusInfoDesc()%>"><%=get.getStatusInfoDesc().replace("TCT_", "")%></option>
+                                                <%
+                                                    }
+                                                %>
 
-                                        <label>Type</label>
-                                        <select id="type" name="type"  class="form-control">
-                                            <option value="">Selection Type du transction  </option>
-                                            <option value="TopUp">TopUp  </option>
-                                            <option value="alimantion">Alimentation de solde  </option>
-                                            <option value="debit">Debit de solde  </option>
-                                        </select>
-                                    </div>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6" class="form-group">
 
-                                    <div class="col-lg-6">
-                                        <label>Min sold intervalle</label>
-                                        <input type="number" id="minSold" value="maxSold" class="form-control"/>
-                                        <div hidden="">
-                                            <p>
-                                                <label for="amount">Sold intervalle  </label>
-                                                <input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold;" />
-                                            </p>
-                                            <div id="slider-range" ></div>  
-                                            <input type="text" id="minSold1"  value="" />
-                                            <input type="text" id="maxSold1"  value="" />
+                                            <label>Type</label>
+                                            <select id="type" name="type"  class="form-control">
+                                                <option value="">Selection Type du transction  </option>
+                                                <option value="TopUp">TopUp  </option>
+                                                <option value="alimantion">Alimentation de solde  </option>
+                                                <option value="debit">Debit de solde  </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <label>Min sold intervalle</label>
+                                            <input type="number" id="minSold" value="maxSold" class="form-control"/>
+                                            <div hidden="">
+                                                <p>
+                                                    <label for="amount">Sold intervalle  </label>
+                                                    <input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold;" />
+                                                </p>
+                                                <div id="slider-range" ></div>  
+                                                <input type="text" id="minSold1"  value="" />
+                                                <input type="text" id="maxSold1"  value="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label>Max sold intervalle</label>
+                                            <input type="number" id="maxSold" value="maxSold" class="form-control"/>
+                                        </div>
+                                        <div class="col-lg-6" class="form-group">
+
+                                        </div>
+                                        <div class="col-lg-12" class="form-group">
+
+                                            <label style="    color: green;">Slod  reussie :</label><label id ="sold"style="    color: green;"></label>
+
+                                        </div>
+                                        <div class="col-lg-12" >
+                                            <div style="float:right">
+                                                <br/>
+                                                <button type="reset" class="btn btn-info">Annuler</button>
+                                                <button type="button" class="btn btn-success"  onclick="rechercher()" >Rechercher</button>
+
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <label>Max sold intervalle</label>
-                                        <input type="number" id="maxSold" value="maxSold" class="form-control"/>
-                                    </div>
-                                    <div class="col-lg-6" class="form-group">
-
-                                    </div>
-                                    <div class="col-lg-12" class="form-group">
-
-                                        <label style="    color: green;">Slod  reussie :</label><label id ="sold"style="    color: green;"></label>
-
-                                    </div>
-                                    <div class="col-lg-12" >
-                                        <div style="float:right">
-                                            <br/>
-                                            <button type="reset" class="btn btn-info">Annuler</button>
-                                            <button type="btn" class="btn btn-success"  onclick="rechercher()" >Rechercher</button>
-
+                                    <div class="col-lg-4">
+                                        <div class="flot-chart">
+                                            <div class="flot-chart-content" id="flot-pie-chart-status"></div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="flot-chart">
-                                        <div class="flot-chart-content" id="flot-pie-chart-status"></div>
-                                    </div>
-                                </div>
-                                          
+
                             </div>
-                                              </form>
+                            </form>
                         </div>
                     </div>
                     <table id="example" class="display nowrap table dtr-inline collapsed" style="width:100%">
@@ -259,6 +280,32 @@
         <%@include file="template/script.jsp" %>
         <!-- data -->
         <script>
+            $(function () {
+                $('#datetimepicker1').datetimepicker({
+                    format: 'DD/MM/YYYY'
+                });
+                $('#datetimepicker2').datetimepicker({
+                    format: 'DD/MM/YYYY'
+                });
+                 $('#time1').datetimepicker({
+                 format: 'HH:mm:ss'
+                });
+                $('#time2').datetimepicker({
+                 format: 'HH:mm:ss'
+                });
+                $("#datetimepicker1").on("dp.change", function (e) {
+                    $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+                });
+                $("#datetimepicker2").on("dp.change", function (e) {
+                    $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+                });
+              /*    $("#time1").on("dp.change", function (e) {
+                    $('#time2').data("DateTimePicker").minTime(e.date);
+                });
+                $("#time2").on("dp.change", function (e) {
+                    $('#time1').data("DateTimePicker").MaxTime(e.date);
+                });*/
+            });
             $(document).ready(function () {
 
                 jQuery.fn.DataTable.Api.register('buttons.exportData()', function (options) {
@@ -275,8 +322,8 @@
                             name: $('#treader').val(),
                             dateDebut: $('#dateDebut').val(),
                             dateFin: $('#dateFin').val(),
-                               timeDebut: $('#timeDebut').val(),
-                        timeFin: $('#timeFin').val(),
+                            timeDebut: $('#timeDebut').val(),
+                            timeFin: $('#timeFin').val(),
                             minSold: $("#minSold").val(),
                             maxSold: $("#maxSold").val()
 
@@ -325,7 +372,7 @@
                             data.name = name;
                             data.dateDebut = dateDebut;
                             data.dateFin = dateFin;
-                            data.timeDebut =timeDebut;
+                            data.timeDebut = timeDebut;
                             data.timeFin = timeFin;
                             data.minSold = minSold;
                             data.maxSold = maxSold;
@@ -521,8 +568,8 @@
                     name: $('#treader').val(),
                     dateDebut: $('#dateDebut').val(),
                     dateFin: $('#dateFin').val(),
-                       timeDebut: $('#timeDebut').val(),
-                        timeFin: $('#timeFin').val(),
+                    timeDebut: $('#timeDebut').val(),
+                    timeFin: $('#timeFin').val(),
                     minSold: $("#minSold").val(),
                     maxSold: $("#maxSold").val()
 
@@ -548,7 +595,7 @@
                         name: $('#treader').val(),
                         dateDebut: $('#dateDebut').val(),
                         dateFin: $('#dateFin').val(),
-                           timeDebut: $('#timeDebut').val(),
+                        timeDebut: $('#timeDebut').val(),
                         timeFin: $('#timeFin').val(),
                         minSold: $("#minSold").val(),
                         maxSold: $("#maxSold").val()
@@ -576,7 +623,7 @@
                         name: $('#treader').val(),
                         dateDebut: $('#dateDebut').val(),
                         dateFin: $('#dateFin').val(),
-                           timeDebut: $('#timeDebut').val(),
+                        timeDebut: $('#timeDebut').val(),
                         timeFin: $('#timeFin').val(),
                         minSold: $("#minSold").val(),
                         maxSold: $("#maxSold").val()

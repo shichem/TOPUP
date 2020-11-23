@@ -42,11 +42,11 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <img src="./template/mobilis.svg" width="130" height="70">                                
+                                        <img src="./template/mobilis.svg" width="60" height="30">                                
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge"><%=String.format("%,.2f", new SimInfo_Util().getLasSoldByOperator("MOBILIS"))%></div>
-                                        <div>Sold Mobilis </div>
+                                        <div class="huge"><%=String.format("%,.2f", new SimInfo_Util().getLasSoldByOperator("MOBILIS",staticVars.simType_Details))%></div>
+                                        <div>Sold Mobilis Details </div>
                                     </div>
                                 </div>
                             </div>
@@ -58,12 +58,12 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">                                
-                                        <img src="./template/logo.svg" width="60" height="70">                                
+                                        <img src="./template/logo.svg" width="30" height="40">                                
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge"></div>
-                                        <div class="huge"><%=String.format("%,.2f", new SimInfo_Util().getLasSoldByOperator("DJEZZY"))%></div>
-                                        <div>Sold Djezzy</div>
+                                        <div class="huge"><%=String.format("%,.2f", new SimInfo_Util().getLasSoldByOperator("DJEZZY",staticVars.simType_Details))%></div>
+                                        <div>Sold Djezzy Details</div>
                                     </div>
                                 </div>
                             </div>
@@ -75,10 +75,58 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <img src="./template/ooredoo.svg" width="130" height="70">                                      </div>
+                                        <img src="./template/ooredoo.svg" width="60" height="30">                                      </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge"><%=String.format("%,.2f", new SimInfo_Util().getLasSoldByOperator("OOREDOO"))%></div>
-                                        <div>Sold Ooredoo  </div>
+                                        <div class="huge"><%=String.format("%,.2f", new SimInfo_Util().getLasSoldByOperator("OOREDOO",staticVars.simType_Details))%></div>
+                                        <div>Sold Ooredoo Details </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                                         <div class="col-lg-4 col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <img src="./template/mobilis.svg" width="60" height="30">                                
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><%=String.format("%,.2f", new SimInfo_Util().getLasSoldByOperator("MOBILIS",staticVars.simType_Gros))%></div>
+                                        <div>Sold Mobilis Gros</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">                                
+                                        <img src="./template/logo.svg" width="30" height="40">                                
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"></div>
+                                        <div class="huge"><%=String.format("%,.2f", new SimInfo_Util().getLasSoldByOperator("DJEZZY",staticVars.simType_Gros))%></div>
+                                        <div>Sold Djezzy Gros</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="panel panel-default ">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <img src="./template/ooredoo.svg" width="60" height="30">                                      </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><%=String.format("%,.2f", new SimInfo_Util().getLasSoldByOperator("OOREDOO",staticVars.simType_Gros))%></div>
+                                        <div>Sold Ooredoo Gros </div>
                                     </div>
                                 </div>
                             </div>

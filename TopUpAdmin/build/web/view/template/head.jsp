@@ -20,6 +20,10 @@
     <!-- Morris Charts CSS -->
     <link href="../lib/vendor/morrisjs/morris.css" rel="stylesheet">
 
+    <!-- datetimepicker -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
+
+    
     <!-- Custom Fonts -->
     <link href="../lib/vendor/font-awesome/css/all.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="../lib/datatable/dataTables.bootstrap.min.css"/>

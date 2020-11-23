@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge"><%=new Trader_Util().countTraderByCatgory(staticVars.traderCategory_SuperGrossiste)%></div>
-                                        <div> <%=staticVars.traderCategory_Grossiste%> </div>
+                                        <div> <%=staticVars.traderCategory_SuperGrossiste%> </div>
                                     </div>
                                 </div>
                             </div>

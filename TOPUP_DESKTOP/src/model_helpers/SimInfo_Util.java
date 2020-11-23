@@ -56,7 +56,7 @@ public class SimInfo_Util {
     
      public Double getLasSoldByOperator(String op,String SimType) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "SELECT SUM(lastSolde)  FROM SimInfo where flag=0 simType.simTypeDesc='"+SimType+"' and operator.operatorDesc ='"+op+"'", "");
+        List list = hqlQueriesHelper.ExecuteSelectHqlQuery_WithPreparedSession(session, "SELECT SUM(lastSolde)  FROM SimInfo where flag=0 and simType.simTypeDesc='"+SimType+"' and operator.operatorDesc ='"+op+"'", "");
 
         if (list.isEmpty()) {
             return 0.0;

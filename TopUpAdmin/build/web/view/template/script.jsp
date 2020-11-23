@@ -7,6 +7,8 @@
 <!-- jQuery -->
 <script src="../lib/vendor/jquery/jquery.min.js"></script>
 <script src="../lib/vendor/jquery/jquery-ui.min.js"></script>
+<!-- moment -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="../lib/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -43,5 +45,9 @@
 <script type="text/javascript" src="../lib/datatable/buttons.html5.min.js"></script>
 <script type="text/javascript" src="../lib/notiflix/notiflix-2.4.0.min.js"></script>
 <script type="text/javascript" src="../lib/notiflix/notiflix-aio-2.4.0.min.js"></script>
+
+<!-- datetimepicker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
 
 

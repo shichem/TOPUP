@@ -176,24 +176,45 @@
                             <div class="col-lg-8">
                                 <div class="col-lg-6" class="form-group">
 
-                                    <label>date fin</label>
-                                    <input type="date" id="dateDebut" value="" class="form-control"/>
-                                </div>
-                                <div class="col-lg-6" class="form-group">
+                                            <label>date debut</label>
+                                            <div class='input-group date' id='datetimepicker1'>
+                                                <input id="dateDebut" type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6" class="form-group">
 
-                                    <label>date fin</label>
-                                    <input type="date" id="dateFin" value="" class="form-control"/>
-                                </div>
-                                <div class="col-lg-6" class="form-group">
+                                            <label>date fin</label>
+                                            <div class='input-group date' id='datetimepicker2'>
+                                                <input  id="dateFin" type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
 
-                                    <label>time debut</label>
-                                    <input type="time" id="timeDebut" step="1" value="" class="form-control"/>
-                                </div>
-                                <div class="col-lg-6" class="form-group">
+                                        <div class="col-lg-6" class="form-group">
 
-                                    <label>time fin</label>
-                                    <input type="time" id="timeFin" step="1" value="" class="form-control"/>
-                                </div>
+                                            <label>time debut</label>
+                                            <div class='input-group date' id='time1'>
+                                                <input type='text' id="timeDebut" class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-time"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6" class="form-group">
+
+                                            <label>time fin</label>
+                                             <div class='input-group date' id='time2'>
+                                                <input type='text' id="timeFin" class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-time"></span>
+                                                </span>
+                                            </div>
+                                        </div>
                                 <div class="col-lg-12" class="form-group">
                                     <label>Client</label>
                                     <div class="autocomplete" >
@@ -344,7 +365,7 @@
                                     <div style="float:right">
                                         <br/>
                                         <button type="reset" class="btn btn-info">Annuler</button>
-                                        <button type="btn" class="btn btn-success"  onclick="rechercher()" >Rechercher</button>
+                                        <button type="button" class="btn btn-success"  onclick="rechercher()" >Rechercher</button>
 
                                     </div>
                                 </div>
@@ -402,7 +423,31 @@
         <%@include file="template/script.jsp" %>
         <!-- data -->
         <script>
-            $(function () {
+              $(function () {
+                $('#datetimepicker1').datetimepicker({
+                    format: 'DD/MM/YYYY'
+                });
+                $('#datetimepicker2').datetimepicker({
+                    format: 'DD/MM/YYYY'
+                });
+                 $('#time1').datetimepicker({
+                 format: 'HH:mm:ss'
+                });
+                $('#time2').datetimepicker({
+                 format: 'HH:mm:ss'
+                });
+                $("#datetimepicker1").on("dp.change", function (e) {
+                    $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+                });
+                $("#datetimepicker2").on("dp.change", function (e) {
+                    $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+                });
+              /*    $("#time1").on("dp.change", function (e) {
+                    $('#time2').data("DateTimePicker").minTime(e.date);
+                });
+                $("#time2").on("dp.change", function (e) {
+                    $('#time1').data("DateTimePicker").MaxTime(e.date);
+                });*/
 
                 $("#slider-range").slider({
                     range: true,
