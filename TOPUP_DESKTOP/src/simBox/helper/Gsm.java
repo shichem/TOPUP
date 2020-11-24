@@ -9,6 +9,7 @@ import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 import custom_package.simUI;
+import custom_vars.staticVars;
 import helper.DbResult;
 import helper.Utils;
 import helper.topupOfferModel;
@@ -25,8 +26,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import model_db.PortInfo;
 import model_db.SimInfo;
+import model_helpers.Operator_Util;
+import model_helpers.PortInfo_Util;
 import model_helpers.SimInfo_Util;
+import model_helpers.StatusInfo_Util;
 import org.hibernate.Session;
 
 /**
@@ -91,6 +96,48 @@ public class Gsm {
         }
         return sim;
     }*/
+   
+     public SimInfo getSimObject(Session session, String operator, String phoneSearch) {
+        if (phoneSearch.startsWith("213")) {
+            phoneSearch = phoneSearch.substring(phoneSearch.length() - 9, phoneSearch.length());
+        }
+        /*simList = new SimInfo_Util().getSimInfo_by_operatorname_simnumberLike(session, sim.getNameOperator(),
+                            phoneSearch, "");*/
+        SimInfo simInfo = null;
+        List simList = new SimInfo_Util().getSimInfo_by_operatorname_simnumberLike(session, operator,
+                phoneSearch, "");
+        if (simList.isEmpty()) {
+            System.out.println("****************************** ADD NEW DETECTED SIM ********************************");
+            List portList = new PortInfo_Util().getPortInfo_by_portDesc(session, "COMXX", "");
+            PortInfo comXX;
+            if (portList.isEmpty()) {
+                comXX = new PortInfo(new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_ENT_Actif, ""), "COMXX");
+                comXX.setScore(0.0);
+                comXX.setFlag(0);
+                new PortInfo_Util().addPortInfo(comXX, session);
+            } else {
+                comXX = (PortInfo) portList.get(0);
+            }
+            SimInfo newSim = new SimInfo((model_db.Operator) new Operator_Util().getOperator_by_operatorDesc(session, operator, "").get(0),
+                    comXX,
+                    new StatusInfo_Util().getStatusInfo_by_statusInfoDesc(session, staticVars.status_ENT_EnInstance, ""),
+                    phoneSearch, "XXXX");
+            newSim.setAverageResponseTime(0.0);
+            newSim.setWeightedIndex(1.0);
+            newSim.setLastSignalStrength(1.0);
+            newSim.setSuccededTransactions(0);
+            newSim.setTotalTransactions(0);
+            newSim.setFlag(0);
+            new SimInfo_Util().addSimInfo(newSim, session);
+            return null;
+        }
+        simInfo = (SimInfo) simList.get(0);
+        if (simInfo.getStatusInfo().getStatusInfoDesc().equals(staticVars.status_ENT_EnInstance)) {
+            return null;
+        }
+        return simInfo;
+    }
+
     public simUI initModem(Session session) {
         DbResult.initListTopupConfirmationSubStringFromDB();
         DbResult.test();
@@ -99,12 +146,6 @@ public class Gsm {
         try {
             Thread.sleep(100);
             executeGetOperatorNameOperation();
-            /*executeTopupOperation(
-                     DbResult.getTopupUSSDCodeFromDb(sim.getNameOperator()),
-                     "0795956547",
-                     "80",
-                     DbResult.getPinUSSDCodeFromDb(sim.getNameOperator()));*/
-
             if (sim.getNameOperator().toUpperCase().equals(DbResult.OPERATOR_OOREDOO)) {
                 executeSmsDeleteOperation(0); // deleate all sms befor sending
                 if (executeSmsSendOperation("333", "NUM").contains("OK")) {  // send sms
@@ -118,45 +159,39 @@ public class Gsm {
             } else { //if phone number must be picked from ussd
                 executeGetPhoneNumberOperation(DbResult.getPhoneUSSDCodeFromDb(sim.getNameOperator()));
             }
-
-            System.out.println("GSM: " + sim.getNameOperator());
-            System.out.println("GSM: " + sim.getPhone());
-            System.out.println("GSM: " + sim.getPortCom());
-            List simList;
+            System.out.println("------------------------------------");
+            System.out.println("PORT_DESC: " + sim.getPortCom());
+            //List simList = null;
             if (!sim.getNameOperator().equals("")) {
+                System.out.println("OPERATOR: " + sim.getNameOperator());
+                System.out.println("PHONE: " + sim.getPhone());
+                System.out.println("------------------------------------");
                 if (!sim.getPhone().equals("")) {
-
-                    String phoneSearch = sim.getPhone();
-                    if (phoneSearch.startsWith("213")) {
-                        phoneSearch = phoneSearch.substring(phoneSearch.length() - 9, phoneSearch.length());
+                    SimInfo simInfo = getSimObject(session, sim.getNameOperator(), sim.getPhone());
+                    if (simInfo != null) {
+                        //SimInfo simInfo = (SimInfo) simList.get(0);
+                        sim.setPin(simInfo.getSimPinCode());
+                        //executeGetSoldOperation(DbResult.getSoldUSSDCodeFromDb(sim.getNameOperator(), sim.getPin()));
+                        executeGetSoldOperation(DbResult.getSoldUSSDCodeFromDb(sim.getNameOperator(), sim.getPin()), SOLD_KEY_WORD, BONUS_KEY_WORD);
+                        String Phone = sim.getPhone();
+                        if (Phone.equals("")) {
+                            Phone = simInfo.getSimnumber();
+                        }
+                        simui = new simUI(Phone, sim.getNameOperator(), sim.getPortCom(), sim.getSold(), sim.getBonus());
+                        simui.setPinCode(sim.getPin());
+                        simui.setSimInfo(simInfo);
+                        simui.setActualSolde(sim.getSold());
+                        simui.setActualBonus(sim.getBonus());
+                    } else {
+                        return null;
                     }
-                    simList = new SimInfo_Util().getSimInfo_by_operatorname_simnumberLike(session, sim.getNameOperator(),
-                            phoneSearch, "");
                 } else {
-
-                    simList = new SimInfo_Util().getSimInfo_by_operatorname_portname(session, sim.getNameOperator(), sim.getPortCom(), "");
-                    /*if (simList.isEmpty()) {
-                        System.out.println("****************************** WARNING: LOOK BY OPERATOR ONLY ********************************");
-                        simList = new SimInfo_Util().getSimInfo_by_operatorname(session, sim.getNameOperator(), "");
-                    }*/
-                }
-                if (simList.isEmpty()) {
                     return null;
+                    //simList = new SimInfo_Util().getSimInfo_by_operatorname_portname(session, sim.getNameOperator(), sim.getPortCom(), "");
                 }
-                SimInfo simInfo = (SimInfo) simList.get(0);
-                sim.setPin(simInfo.getSimPinCode());
-
-                //executeGetSoldOperation(DbResult.getSoldUSSDCodeFromDb(sim.getNameOperator(), sim.getPin()));
-                executeGetSoldOperation(DbResult.getSoldUSSDCodeFromDb(sim.getNameOperator(), sim.getPin()), SOLD_KEY_WORD, BONUS_KEY_WORD);
-                String Phone = sim.getPhone();
-                if (Phone.equals("")) {
-                    Phone = simInfo.getSimnumber();
-                }
-                simui = new simUI(Phone, sim.getNameOperator(), sim.getPortCom(), sim.getSold(), sim.getBonus());
-                simui.setPinCode(sim.getPin());
-                simui.setSimInfo(simInfo);
-                simui.setActualSolde(sim.getSold());
-                simui.setActualBonus(sim.getBonus());
+            } else {
+                System.out.println("----- NO OPERATOR DETECTED -----");
+                System.out.println("------------------------------------");
             }
         } catch (InterruptedException ex) {
             Logger.getLogger(Gsm.class.getName()).log(Level.SEVERE, null, ex);
