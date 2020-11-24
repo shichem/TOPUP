@@ -65,6 +65,7 @@ public class staticVars {
     public static String status_ENT_Actif = "ENT_Actif";
     public static String status_ENT_Bloque = "ENT_bloque";
     public static String status_ENT_Inactif = "ENT_Inactif";
+    public static String status_ENT_EnInstance = "ENT_En instance";
     public static String status_TCT_EnInstance = "TCT_En instance";
     public static String status_TCT_Envoye = "TCT_Envoyee";
     public static String status_TCT_Annule = "TCT_Annulee";
