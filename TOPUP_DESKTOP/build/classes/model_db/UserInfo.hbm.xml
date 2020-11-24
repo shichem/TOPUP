@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 27, 2020 1:59:01 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model_db.UserInfo" table="user_info" catalog="topup_distributor" optimistic-lock="version">
+        <id name="iduserInfo" type="java.lang.Integer">
+            <column name="iduser_info" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="trader" class="model_db.Trader" fetch="select">
+            <column name="id_trader" />
+        </many-to-one>
+        <many-to-one name="userCategory" class="model_db.UserCategory" fetch="select">
+            <column name="id_user_category" not-null="true" />
+        </many-to-one>
+        <many-to-one name="userInfo" class="model_db.UserInfo" fetch="select">
+            <column name="iduser_info_fk" />
+        </many-to-one>
+        <property name="username" type="string">
+            <column name="username" length="45" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="45" not-null="true" />
+        </property>
+        <property name="flag" type="java.lang.Integer">
+            <column name="flag" />
+        </property>
+        <set name="simOffers" table="sim_offer" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iduser_info" not-null="true" />
+            </key>
+            <one-to-many class="model_db.SimOffer" />
+        </set>
+        <set name="tradersForIduserInfoUpdate" table="trader" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iduser_info_update" not-null="true" />
+            </key>
+            <one-to-many class="model_db.Trader" />
+        </set>
+        <set name="tradersForIduserInfo" table="trader" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iduser_info" not-null="true" />
+            </key>
+            <one-to-many class="model_db.Trader" />
+        </set>
+        <set name="serverProfiles" table="server_profile" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iduser_info" not-null="true" />
+            </key>
+            <one-to-many class="model_db.ServerProfile" />
+        </set>
+        <set name="stations" table="station" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iduser_info" not-null="true" />
+            </key>
+            <one-to-many class="model_db.Station" />
+        </set>
+        <set name="offerInfosForIduserInfo" table="offer_info" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iduser_info" not-null="true" />
+            </key>
+            <one-to-many class="model_db.OfferInfo" />
+        </set>
+        <set name="transactionSoldes" table="transaction_solde" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iduser_info" not-null="true" />
+            </key>
+            <one-to-many class="model_db.TransactionSolde" />
+        </set>
+        <set name="userInfos" table="user_info" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iduser_info_fk" />
+            </key>
+            <one-to-many class="model_db.UserInfo" />
+        </set>
+        <set name="providerClients" table="provider_client" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iduser_info" not-null="true" />
+            </key>
+            <one-to-many class="model_db.ProviderClient" />
+        </set>
+        <set name="offerInfosForIduserInfoUpdate" table="offer_info" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iduser_info_update" />
+            </key>
+            <one-to-many class="model_db.OfferInfo" />
+        </set>
+        <set name="transactionTopups" table="transaction_topup" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iduser_info" />
+            </key>
+            <one-to-many class="model_db.TransactionTopup" />
+        </set>
+    </class>
+</hibernate-mapping>
