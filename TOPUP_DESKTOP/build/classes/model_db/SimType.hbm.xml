@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 27, 2020 1:59:01 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model_db.SimType" table="sim_type" catalog="topup_distributor" optimistic-lock="version">
+        <id name="idsimType" type="java.lang.Integer">
+            <column name="idsim_type" />
+            <generator class="identity" />
+        </id>
+        <property name="simTypeDesc" type="string">
+            <column name="sim_type_desc" length="45" not-null="true" />
+        </property>
+        <property name="flag" type="java.lang.Integer">
+            <column name="flag" />
+        </property>
+        <set name="simInfos" table="sim_info" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idsim_type" />
+            </key>
+            <one-to-many class="model_db.SimInfo" />
+        </set>
+    </class>
+</hibernate-mapping>
